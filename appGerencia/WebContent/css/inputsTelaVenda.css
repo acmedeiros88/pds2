@@ -1,0 +1,25 @@
+/*Formatação input Tela de Vendas*/
+div.cInputDadosPreVenda input, select{
+	width: 30%;
+	height: 30px;
+}
+form div .cInputDir{
+	margin-left: 3%;
+}
+#inputQuantidadeProdutoVenda{
+	width: 19%;
+	height: 30px;
+	margin-left: 1%
+}
+#inputValorDescontoTotalDaVenda, #inputValorTotalDaVenda{
+	width: 10%;
+	height: 35px;
+}
+#inputSubmitReset input{
+	width: 28%;
+	height: 30px;
+}
+#inputFinalizarVenda{
+	margin-left: -15%;
+	margin-right: 2%;
+}

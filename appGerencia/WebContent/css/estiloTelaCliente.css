@@ -1,0 +1,15 @@
+/*Formatação do submenu Gerenciar*/
+#inputTelefoneCliente, #inputNomeClienteConsultarCompras{
+	margin-top: 3%;
+	width: 60%;
+}
+#textareaObservacaoCliente{
+	margin-left: 5%;
+	margin-bottom: 1%;
+	width: 60.6%;
+	height: 100px;
+}
+#inputNomeCliente, #inputEstabelecimentoCliente{
+	width: 60%;
+}
+

@@ -1,0 +1,27 @@
+/*Formatação tela Login*/
+#mainLogin{
+	width: 500px;
+	height: 250px;
+	margin: 1% 0% 0% 10%;
+	padding: 5% 0% 10% 0%;
+}
+fieldset{
+	margin: 2% 0% 2% 0%;
+	padding: 0% 0% 0% 25%;
+	border: none;
+}
+input.cLoginInput{
+	font-size: 18px;
+	border-radius: 5px;
+	border: 1px solid black;
+	width: 190px;
+    padding: 10px 5px;
+    margin: 0px 0px 20px 0px;
+}
+input.cBotaoInput{
+	width: 200px;
+	padding: 10px 5px;
+    border: 1px solid black;
+    border-radius: 15px;
+    font-size: 18px;
+}

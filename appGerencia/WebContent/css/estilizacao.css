@@ -1,0 +1,166 @@
+*{
+	padding : 0;
+	margin : 0;
+}
+main{
+	width : 95%;
+	height: 100%;
+	max-height: 95%;
+	margin : 0.5% 1% 0.5% 1%;
+	box-shadow: 1px 1px 10px black;
+	position: absolute;
+	padding: 0.4%;
+}
+body{
+	background-color: white;
+	font-family: Arial, sans-serif;
+}
+h1{
+	margin: 0px 0px 20px 33px;
+	font-size: 30pt;
+}
+
+/*Formatação do menu principal*/
+nav.cNavLateralEsq{
+	float: left;
+	margin: -7.8px 0px -7.8px -8.5px;
+	border: 0px solid white;
+	box-shadow: 1px 1px 10px black;
+	width: 14%;
+}
+nav.cNavLateralEsq ul{
+	position: relative;
+	list-style: none;
+	text-transform: uppercase;
+	width: 178%;
+}
+nav li{
+	background-color: rgba(0,0,0,.2);
+	padding: 27.9px;
+	width: 38%;
+	border: 1px solid rgba(0,0,0,.3);
+	border-left: 2px solid rgba(0,0,0,.3);
+	border-right: 2px solid rgba(0,0,0,.3);
+}
+nav a{
+	text-decoration: none;
+	color: black;
+}
+nav li:hover{
+	background-color: grey;
+}
+nav a:hover{
+	color: white;
+}
+
+/*Formatação section*/
+section{
+	float: right;
+	max-height: 100%;
+	position: absolute;
+	margin-left: 13.3%;
+	width: 86.2%;
+	height: 100%;
+}
+section h1{
+	margin-left: 40%;
+	margin-top: 1%;
+}
+
+/*Formatação do SubMenu e inputs das telas de Estoque, Cliente, Pedido*/
+nav.subMenu{
+	display: block;
+	float: left;
+	margin-left: 3%;
+	width: 40%;
+}
+nav.subMenu input.cInputSubMenu{
+	display: none;
+}
+nav.subMenu ul{
+	position: relative;
+	list-style: none;
+	width: 195%;
+}
+nav.subMenu li{
+	display: inline-block;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	margin-right: -7px;
+	width: 10%;
+	padding: 1% 1.6% 1% 1%;
+}
+nav.subMenu ul input{
+	width: 30%;
+	height: 30px;
+}
+.contentArticle{
+	display: none;
+}
+.cInputSubMenu:checked ~ .contentArticle{
+	display: block;
+}
+article.conteudoTab{
+	position: absolute;
+	margin: 1.1% 0% 0% -3.4%;
+	border: 2px solid black;
+	width: 80%;
+	min-width: 80%;
+	padding-bottom: 2%;
+	min-height: 400px;
+}
+div.contentArticle input{
+	margin-bottom: 5%;
+}
+div.contentArticle label{
+	margin-left: 5%;
+}
+.contentArticle input{
+	margin-left: 5%;
+	margin-right: -5%;	
+}
+#inputListaProdutosEntrada, #inputListaProdutosSaida{
+	width: 50%;
+	text-align: center;
+ 	margin-top: 3%;
+ 	margin-bottom: 5%;
+}
+form div{
+	margin-left: 20%;
+}
+section input{
+	border-radius: 3px;
+}
+nav.subMenu ul input.cInputCadastroProduto{
+	width: 25%;
+	margin-top: 6px;
+}
+.conteudoTab table{
+	margin-left: 5%;
+	font-size: 15px;
+	width: 70%;
+}
+#gerenciar input[type=submit], #inputCancelarCadastroCliente {
+	width: 20%;
+}
+/*Formatação da tabela de Pre-venda, Consultar Estoque*/
+table{
+	border:1px solid black;
+	border-spacing: 1px;
+	width: 64%;
+	margin-bottom: 10px;
+}
+td, th{
+	border:1px solid black;
+	text-align: center;
+	padding: 5px;
+}
+th{
+	background-color: rgb(171, 169, 168);
+}
+tr:nth-child(odd) {
+	background-color: rgb(212, 206, 200);
+}
+tr:nth-child(even){
+	background-color: rgb(255, 255, 255);
+}

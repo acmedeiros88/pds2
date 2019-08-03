@@ -1,0 +1,35 @@
+/*Formatação Histórico*/
+#inputTotalUndHistorico, #inputTotalVendidoHistorico{
+	width: 10%;
+}
+label.cInputLabelData{
+	font-size: 30px;
+}
+label.cInputLabelTotalHistorico{
+	font-size: 20px;
+}
+
+/*Formatação campos tela Histórico Balanço*/
+.camposInput input{
+	height: 30px;
+}
+.camposInput input[type=text]{
+	width: 55%;
+	margin-bottom: 3%;
+}
+.camposInput input[type=date]{
+	width: 24.5%;
+	margin-bottom: 3%;
+}
+.camposInput input[type=button]{
+	width: 55%;
+	margin-bottom: 2%;
+}
+
+/*Formatação Balanço*/
+.camposInput legend{
+	font-size: 30px;
+}
+.camposInput table{
+	width: 55%;
+}
