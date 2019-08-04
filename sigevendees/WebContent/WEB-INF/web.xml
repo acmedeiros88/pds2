@@ -24,8 +24,8 @@
   
   <security-constraint>
 		<web-resource-collection>
-			<web-resource-name>resource</web-resource-name>
-			<url-pattern>/resource/*</url-pattern>
+			<web-resource-name>resources</web-resource-name>
+			<url-pattern>/resources/*</url-pattern>
 		</web-resource-collection>
   </security-constraint>
 </web-app>
