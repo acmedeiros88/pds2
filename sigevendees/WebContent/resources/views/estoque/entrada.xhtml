@@ -4,23 +4,15 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
       
-<p:selectOneMenu id="produto">
-	<f:selectItem itemLabel="Produto" itemValue="" />
-	<f:selectItem itemLabel="Farinha" itemValue="Farinha" />
-	<f:selectItem itemLabel="Açucar" itemValue="Açucar" />
-</p:selectOneMenu>
+<p:autoComplete id="produto" dropdown="true" placeholder="Produto"/>
 
-<p:outputLabel for="qtdGramas" value="Quantidade: " />
-<p:inputNumber id="qtdGramas">  
-	<f:passThroughAttribute name="placeholder" value="Gramas" />  
-</p:inputNumber>
+<p:outputLabel for="qtd" value="Quantidade: " />
+<p:inputNumber id="qtd" minValue="1" />  
 
 <p:outputLabel for="vlrCusto" value="Valor do Custo: " />
-<p:inputNumber id="vlrCusto">  
-	<f:passThroughAttribute name="placeholder" value="R$" />  
-</p:inputNumber>
+<p:inputNumber id="vlrCusto" placeholder="R$" minValue="1" />  
 
-<p:commandButton value="Salvar" id="salvar" style="margin-right:20px;" styleClass="ui-priority-primary" />
-<p:commandButton value="Cancelar" id="cancelar"style="margin-right:20px;" styleClass="ui-priority-primary"/>
+<p:commandButton value="Salvar" id="salvarEntrada" style="margin-right:20px;" styleClass="ui-priority-primary" />
+<p:commandButton value="Cancelar" id="cancelarAcaoEntrada" style="margin-right:20px;" styleClass="ui-priority-primary" />
 	
 </html>

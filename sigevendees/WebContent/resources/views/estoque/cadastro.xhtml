@@ -1,1 +1,47 @@
-<p>CADASTRO....</p>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<p:fieldset legend="Tipo:">
+	<p:selectOneRadio id="tipoCadastro" value="1" layout="grid" columns="2" unselectable="true">
+         <f:selectItem itemLabel="Ingrediente" itemValue="ingrediente" />
+         <f:selectItem itemLabel="Bolo" itemValue="bolo" />
+         <f:selectItem itemLabel="Embalagem" itemValue="embalagem" />
+         <f:selectItem itemLabel="Salgado" itemValue="salgado" />
+    </p:selectOneRadio>
+</p:fieldset>
+
+<p:inputText id="descricao" placeholder="Descrição" />
+
+<p:inputNumber id="estoqueMinimo" placeholder="Estoque mínimo" minValue="1" />  
+
+<p:inputNumber id="valorVenda" placeholder="Valor de Venda R$" minValue="1" />
+
+<p:selectOneMenu id="tipoUnitario">
+	<f:selectItem itemDisabled="true" itemLabel="Tipo Unítario" />
+	<f:selectItem itemLabel="Gramas" itemValue="gramas" />
+	<f:selectItem itemLabel="Mililitros" itemValue="mililitros" />
+	<f:selectItem itemLabel="Unidade" itemValue="unidade" />
+</p:selectOneMenu>
+
+<p:autoComplete id="listaComponentes" dropdown="true" placeholder="Ingrediente/Embalagem"/>
+
+<p:inputNumber id="qtdComponente" placeholder="Quantidade" minValue="1" />
+
+<p:commandButton id="addListaComponente" value="Adicionar" />
+
+<p:dataTable var="componente" value="">
+	<p:column headerText="Descrição">
+		<h:outputText value="#{componente}" />
+	</p:column>
+	<p:column headerText="Quantidade">
+		<h:outputText value="#{componente}" />
+	</p:column>
+</p:dataTable>
+
+<p:commandButton value="Salvar" id="salvarCadastro" style="margin-right:20px;" styleClass="ui-priority-primary" />
+<p:commandButton value="Cancelar" id="cancelarAcaoCadastro" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	
+</html>

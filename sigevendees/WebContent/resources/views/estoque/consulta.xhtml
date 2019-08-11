@@ -1,1 +1,39 @@
-<p>CONSULTA...</p>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      
+<p:dataTable var="estoqueComponentes" value="#{estoqueComponentes}" emptyMessage="Componente sem cadastro" >
+	<f:facet name="header">
+		<p:outputPanel>
+			<h:outputText value="Procurar:" />
+			<p:inputText id="filtroProcurar"/>
+		</p:outputPanel>
+	</f:facet>
+ 
+        <p:column filterBy="#{estoqueComponentes}" headerText="Código" >
+            <h:outputText value="#{estoqueComponentes}" />
+        </p:column>
+
+        <p:column filterBy="#{estoqueComponentes}" headerText="Produto" >
+            <h:outputText value="#{estoqueComponentes}" />
+        </p:column>
+ 
+        <p:column headerText="Estoque mínimo" />
+ 
+        <p:column headerText="Estoque Atual" />
+        
+        <p:column headerText="Valor total" />
+ 
+        <p:column filterBy="#{estoqueComponentes}" headerText="Tipo" >
+            <f:facet name="filter">
+                <p:selectOneButton>
+                    <f:selectItem itemLabel="Ingrediente" itemValue="ingrediente" />
+                    <f:selectItem itemLabel="Embalagem" itemValue="embalagem" />
+                </p:selectOneButton>
+            </f:facet>
+        </p:column>
+ 
+</p:dataTable>	
+</html>
