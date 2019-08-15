@@ -1,0 +1,47 @@
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<p:fieldset legend="Tipo:">
+	<p:selectOneRadio id="tipoCadastro" value="1" layout="grid" columns="2" unselectable="true">
+         <f:selectItem itemLabel="Ingrediente" itemValue="ingrediente" />
+         <f:selectItem itemLabel="Bolo" itemValue="bolo" />
+         <f:selectItem itemLabel="Embalagem" itemValue="embalagem" />
+         <f:selectItem itemLabel="Salgado" itemValue="salgado" />
+    </p:selectOneRadio>
+</p:fieldset>
+<h:form>
+	<p:inputText id="descricao" value="#{componenteBean.componente.descricao}" placeholder="Descrição" />
+	
+	<p:inputNumber id="estoqueMinimo" value="#{componenteBean.componente.estoqueMinimo}" placeholder="Estoque mínimo" minValue="1" />  
+	
+	<p:inputNumber id="valorVenda" value="#{componenteBean.componente.valor}" placeholder="Valor de Venda R$" minValue="1" />
+	
+	<p:selectOneMenu id="tipoUnitario" value="#{componenteBean.componente.tipoUnitario}">
+		<f:selectItem itemDisabled="true" itemLabel="Tipo Unítario" />
+		<f:selectItem itemLabel="Gramas" itemValue="gramas" />
+		<f:selectItem itemLabel="Mililitros" itemValue="mililitros" />
+		<f:selectItem itemLabel="Unidade" itemValue="unidade" />
+	</p:selectOneMenu>
+	
+	<p:autoComplete id="listaComponentes" dropdown="true" placeholder="Ingrediente/Embalagem"/>
+	
+	<p:inputNumber id="qtdComponente" placeholder="Quantidade" minValue="1" />
+	
+	<p:commandButton id="addListaComponente" value="Adicionar" />
+	
+	<p:dataTable var="componente" value="#{}">
+		<p:column headerText="Descrição">
+			<h:outputText value="#{}" />
+		</p:column>
+		<p:column headerText="Quantidade">
+			<h:outputText value="#{}" />
+		</p:column>
+	</p:dataTable>
+	
+	<p:commandButton value="Salvar" id="salvarCadastroProduto" action="#{}" update="@form" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton value="Cancelar" id="cancelarAcaoCadasProduto" style="margin-right:20px;" styleClass="ui-priority-primary" />
+</h:form>	
+</html>
