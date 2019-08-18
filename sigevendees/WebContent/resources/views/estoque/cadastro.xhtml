@@ -3,25 +3,48 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-
-<p:fieldset legend="Tipo:">
-	<p:selectOneRadio id="tipoCadastro" value="1" layout="grid" columns="2" unselectable="true">
-         <f:selectItem itemLabel="Ingrediente" itemValue="ingrediente" />
-         <f:selectItem id="tipoBolo" itemLabel="Bolo" itemValue="bolo" />
-         <f:selectItem itemLabel="Embalagem" itemValue="embalagem" />
-         <f:selectItem id="tipoSalgado" itemLabel="Salgado" itemValue="salgado" />
-    </p:selectOneRadio>
-</p:fieldset>
-<SCRIPT>
-	$(document).ready(function() {
-		$("#tipoBolo").prop("checked",true);
-	});
-	$("#tipoBolo").add("#tipoSalgado").click(function() {
-		if ($("#tipoBolo").prop("checked")||$("#tipoSalgado").prop("checked")) {
-			<ui:include src="cadastroProduto.xhtml"></ui:include>
-		}else{
-			<ui:include src="cadastroComponente.xhtml"></ui:include>
-		}
-	});
-</SCRIPT>	
+      
+<h:form id="formCadastroComponente">
+	<p:growl id="growl" showDetail="true" sticky="true" />
+	
+	<p:fieldset legend="Tipo:">
+		<p:selectOneRadio id="tipoCadastro" value="#{componenteBean.componente.tipoElemento}" layout="grid" columns="2" unselectable="true">
+	         <f:selectItem itemLabel="Ingrediente" itemValue="ingrediente" />
+	         <f:selectItem itemLabel="Bolo" itemValue="bolo" />
+	         <f:selectItem itemLabel="Embalagem" itemValue="embalagem" />
+	         <f:selectItem itemLabel="Salgado" itemValue="salgado" />
+	    </p:selectOneRadio>
+	</p:fieldset>
+	
+	<p:inputText id="descricao" placeholder="Descrição" value="#{componenteBean.componente.descricao}"/>
+	
+	<p:inputNumber id="estoqueMinimo" placeholder="Estoque mínimo" minValue="1" value="#{componenteBean.componente.estoqueMinimo}"/>  
+	
+	<p:inputNumber id="valorVenda" placeholder="Valor de Venda R$"/>
+	
+	<p:selectOneMenu id="tipoUnitario" value="#{componenteBean.componente.tipoUnitario}">
+		<f:selectItem itemDisabled="true" itemLabel="Tipo Unítario" />
+		<f:selectItem itemLabel="Gramas" itemValue="g" />
+		<f:selectItem itemLabel="Mililitros" itemValue="ml" />
+		<f:selectItem itemLabel="Unidade" itemValue="und" />
+	</p:selectOneMenu>
+	
+	<p:autoComplete id="listaComponentes" dropdown="true" placeholder="Ingrediente/Embalagem"/>
+	
+	<p:inputNumber id="qtdComponente" placeholder="Quantidade" minValue="1" />
+	
+	<p:commandButton id="addListaComponente" value="Adicionar" />
+	
+	<p:dataTable var="componente" value="">
+		<p:column headerText="Descrição">
+			<h:outputText value="#{componente}" />
+		</p:column>
+		<p:column headerText="Quantidade">
+			<h:outputText value="#{componente}" />
+		</p:column>
+	</p:dataTable>
+	
+	<p:commandButton value="Salvar" id="salvarCadastro" action="#{componenteBean.salvarComponente}" update="@form" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton value="Cancelar" id="cancelarAcaoCadastro" style="margin-right:20px;" styleClass="ui-priority-primary" />
+</h:form>	
 </html>

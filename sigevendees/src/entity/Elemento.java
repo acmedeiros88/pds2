@@ -1,22 +1,18 @@
 package entity;
 
-import utils.Categoria;
-import utils.Unitario;
-
-public class Elemento {
+public abstract class Elemento {
 
 	private int codigo;
 	private String descricao;
-	private Categoria tipoElemento;
-	private Unitario tipoUnitario;
+	private String tipoElemento;
+	private String tipoUnitario;
 	private float valor;
 
 	public Elemento() {
 
 	}
 
-	public Elemento(int codigo, String descricao, Categoria tipoElemento, Unitario tipoUnitario, float valor) {
-		this.codigo = codigo;
+	public Elemento(String descricao, String tipoElemento, String tipoUnitario, float valor) {
 		this.descricao = descricao;
 		this.tipoElemento = tipoElemento;
 		this.tipoUnitario = tipoUnitario;
@@ -39,19 +35,19 @@ public class Elemento {
 		this.descricao = descricao;
 	}
 
-	public Categoria getTipoElemento() {
+	public String getTipoElemento() {
 		return tipoElemento;
 	}
 
-	public void setTipoElemento(Categoria tipoElemento) {
+	public void setTipoElemento(String tipoElemento) {
 		this.tipoElemento = tipoElemento;
 	}
 
-	public Unitario getTipoUnitario() {
+	public String getTipoUnitario() {
 		return tipoUnitario;
 	}
 
-	public void setTipoUnitario(Unitario tipoUnitario) {
+	public void setTipoUnitario(String tipoUnitario) {
 		this.tipoUnitario = tipoUnitario;
 	}
 

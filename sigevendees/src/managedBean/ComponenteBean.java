@@ -9,8 +9,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import org.primefaces.PrimeFaces;
-
 import dao.ComponenteDao;
 import entity.Componente;
 
@@ -21,19 +19,23 @@ public class ComponenteBean implements Serializable {
 
 	private Componente componente = new Componente();
 	private List<Componente> componentes;
+	private String mensagem;
+	private String foiCadastrado;
 
 	@Inject
 	private ComponenteDao dao = new ComponenteDao();
 
 	public void salvarComponente() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		setMensagem(componente.getDescricao());
+		setFoiCadastrado(componente.getTipoElemento());
 		if (dao.salvar(componente)) {
 			componente = new Componente();
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!",
-					"Cadastro realizado com sucesso!");
-			PrimeFaces.current().dialog().showMessageDynamic(message);
+			context.addMessage(null,
+					new FacesMessage("Sucesso", "cadastrado " + getFoiCadastrado() + " " + getMensagem()));
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Erro no cadastro!"));
+			context.addMessage(null, new FacesMessage("Erro",
+					"Não foi possivel realizar o cadastro " + getFoiCadastrado() + " " + getMensagem()));
 		}
 	}
 
@@ -51,5 +53,21 @@ public class ComponenteBean implements Serializable {
 
 	public void setComponentes(List<Componente> componentes) {
 		this.componentes = componentes;
+	}
+
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+
+	public String getFoiCadastrado() {
+		return foiCadastrado;
+	}
+
+	public void setFoiCadastrado(String foiCadastrado) {
+		this.foiCadastrado = foiCadastrado;
 	}
 }
