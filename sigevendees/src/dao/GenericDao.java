@@ -9,7 +9,7 @@ import factoryConnection.FactoryJPA;
 
 public class GenericDao {
 
-	public boolean salvar(Object objeto) {
+	public static boolean salvar(Object objeto) {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		boolean resultado = true;
 		try {
@@ -23,7 +23,7 @@ public class GenericDao {
 		return resultado;
 	}
 
-	public boolean atualizar(Object objeto) {
+	public static boolean atualizar(Object objeto) {
 		boolean resultado = true;
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		try {
@@ -38,7 +38,7 @@ public class GenericDao {
 		return resultado;
 	}
 
-	public boolean deletar(Class<?> classe, float id) {
+	public static boolean deletar(Class<?> classe, float id) {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		boolean resultado = true;
 		try {
@@ -54,7 +54,7 @@ public class GenericDao {
 		return resultado;
 	}
 
-	public Object buscarPorId(Class<?> classe, float id) {
+	public static Object buscarPorId(Class<?> classe, float id) {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		Object resultado;
 		try {
@@ -68,7 +68,7 @@ public class GenericDao {
 		return resultado;
 	}
 
-	public List<?> listarTodos(Class<?> classe) {
+	public static List<?> listarTodos(Class<?> classe) {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		List<?> lista;
 		try {

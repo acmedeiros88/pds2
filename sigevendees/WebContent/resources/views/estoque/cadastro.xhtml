@@ -4,47 +4,53 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
       
-<h:form id="formCadastroComponente">
+<h:form id="formEstoque">
 	<p:growl id="growl" showDetail="true" sticky="true" />
 	
 	<p:fieldset legend="Tipo:">
-		<p:selectOneRadio id="tipoCadastro" value="#{componenteBean.componente.tipoElemento}" layout="grid" columns="2" unselectable="true">
+		<p:selectOneRadio id="tipoCadastro" value="#{gerenciaEstoqueBean.elemento.tipoElemento}" layout="grid" columns="2" unselectable="true">
 	         <f:selectItem itemLabel="Ingrediente" itemValue="ingrediente" />
 	         <f:selectItem itemLabel="Bolo" itemValue="bolo" />
 	         <f:selectItem itemLabel="Embalagem" itemValue="embalagem" />
 	         <f:selectItem itemLabel="Salgado" itemValue="salgado" />
+	         <p:ajax envent="valueChangeListener" update="formEstoque" listener="#{gerenciaEstoqueBean.inputsCadastro()}"/>
 	    </p:selectOneRadio>
 	</p:fieldset>
 	
-	<p:inputText id="descricao" placeholder="Descrição" value="#{componenteBean.componente.descricao}"/>
+	<p:inputText id="descricao" placeholder="Descrição" value="#{gerenciaEstoqueBean.elemento.descricao}"/>
 	
-	<p:inputNumber id="estoqueMinimo" placeholder="Estoque mínimo" minValue="1" value="#{componenteBean.componente.estoqueMinimo}"/>  
+	<p:inputNumber id="estoqueMinimo" placeholder="Estoque mínimo" minValue="1" value="#{gerenciaEstoqueBean.componente.estoqueMinimo}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}"/>  
 	
-	<p:inputNumber id="valorVenda" placeholder="Valor de Venda R$"/>
+	<p:inputNumber id="valorVenda" placeholder="Valor de Venda R$" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
 	
-	<p:selectOneMenu id="tipoUnitario" value="#{componenteBean.componente.tipoUnitario}">
+	<p:selectOneMenu id="tipoUnitario" value="#{gerenciaEstoqueBean.elemento.tipoUnitario}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}">
 		<f:selectItem itemDisabled="true" itemLabel="Tipo Unítario" />
 		<f:selectItem itemLabel="Gramas" itemValue="g" />
 		<f:selectItem itemLabel="Mililitros" itemValue="ml" />
 		<f:selectItem itemLabel="Unidade" itemValue="und" />
 	</p:selectOneMenu>
 	
-	<p:autoComplete id="listaComponentes" dropdown="true" placeholder="Ingrediente/Embalagem"/>
+	<p:autoComplete id="listaComponentes" dropdown="true" placeholder="Ingrediente/Embalagem" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
 	
-	<p:inputNumber id="qtdComponente" placeholder="Quantidade" minValue="1" />
+	<p:inputNumber id="qtdComponente" placeholder="Quantidade" minValue="1" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
 	
-	<p:commandButton id="addListaComponente" value="Adicionar" />
+	<p:commandButton id="addListaComponente" value="Adicionar" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
 	
-	<p:dataTable var="componente" value="">
+	<p:dataTable var="componente" value="" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
 		<p:column headerText="Descrição">
 			<h:outputText value="#{componente}" />
 		</p:column>
 		<p:column headerText="Quantidade">
 			<h:outputText value="#{componente}" />
 		</p:column>
+		<p:column headerText="Tipo Unítario">
+			<h:outputText value="#{componente}" />
+		</p:column>
 	</p:dataTable>
 	
-	<p:commandButton value="Salvar" id="salvarCadastro" action="#{componenteBean.salvarComponente}" update="@form" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton value="Salvar" id="salvarCadastro" action="#{gerenciaEstoqueBean.salvar}" update="@form" style="margin-right:20px;" styleClass="ui-priority-primary" />
 	<p:commandButton value="Cancelar" id="cancelarAcaoCadastro" style="margin-right:20px;" styleClass="ui-priority-primary" />
-</h:form>	
+
+</h:form>
+
 </html>

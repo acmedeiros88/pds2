@@ -3,6 +3,8 @@
 	<persistence-unit name="sigevendees" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>entity.Componente</class>
+		<class>entity.ComponenteProdutoPK</class>
+		<class>entity.Produto</class>
 		<validation-mode>NONE</validation-mode>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

@@ -1,20 +1,18 @@
 package entity;
 
-import javax.persistence.Column;
+import java.io.Serializable;
+
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-
-public class Produto extends Elemento {
+@Entity
+public class Produto extends Elemento implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	//Codigo do produto, sera gerado pelo BD;
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="codProduto")
-	@Override
-	public void setCodigo(int codigo) {
-		super.setCodigo(codigo);
-	}
+	@EmbeddedId
+	private ComponenteProdutoPK cod;
+	
+	
+	
 }

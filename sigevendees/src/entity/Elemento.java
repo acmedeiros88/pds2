@@ -1,6 +1,6 @@
 package entity;
 
-public abstract class Elemento {
+public class Elemento {
 
 	private int codigo;
 	private String descricao;
