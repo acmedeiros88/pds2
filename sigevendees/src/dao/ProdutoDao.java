@@ -1,12 +1,8 @@
 package dao;
 
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityManager;
-import javax.transaction.TransactionalException;
+import java.util.List;
 
-import entity.ComponenteProdutoPK;
 import entity.Produto;
-import factoryConnection.FactoryJPA;
 
 public class ProdutoDao {
 
@@ -18,33 +14,16 @@ public class ProdutoDao {
 		return GenericDao.atualizar(produto);
 	}
 
-	public boolean deletar(ComponenteProdutoPK cod) {
-		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
-		boolean resultado = true;
-		try {
-			entityManager.getTransaction().begin();
-			entityManager.remove(entityManager.find(Produto.class, cod));
-
-			entityManager.getTransaction().commit();
-		} catch (EntityExistsException | TransactionalException e) {
-			resultado = false;
-			FactoryJPA.shutdown();
-		}
-
-		return resultado;
+	public boolean deletarProduto(int cod) {
+		return GenericDao.deletar(Produto.class, cod);
 	}
 
-	public Produto buscarPorCod(ComponenteProdutoPK cod) {
-		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
-		Produto resultado;
-		try {
-			entityManager.getTransaction().begin();
-			resultado = entityManager.find(Produto.class, cod);
-			entityManager.getTransaction().commit();
-		} catch (EntityExistsException | TransactionalException e) {
-			resultado = null;
-			FactoryJPA.shutdown();
-		}
-		return resultado;
+	public Produto buscarPorCod(int cod) {
+		return (Produto) GenericDao.buscarPorId(Produto.class, cod);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Produto> listaProduto() {
+		return (List<Produto>) GenericDao.listarTodos(Produto.class);
 	}
 }

@@ -16,12 +16,12 @@
 	         <p:ajax envent="valueChangeListener" update="formEstoque" listener="#{gerenciaEstoqueBean.inputsCadastro()}"/>
 	    </p:selectOneRadio>
 	</p:fieldset>
-	
+	<br/>
 	<p:inputText id="descricao" placeholder="Descrição" value="#{gerenciaEstoqueBean.elemento.descricao}"/>
 	
-	<p:inputNumber id="estoqueMinimo" placeholder="Estoque mínimo" minValue="1" value="#{gerenciaEstoqueBean.componente.estoqueMinimo}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}"/>  
-	
-	<p:inputNumber id="valorVenda" placeholder="Valor de Venda R$" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
+	<p:inputNumber id="estoqueMinimo" placeholder="Estoque mínimo" value="#{gerenciaEstoqueBean.estoqueMinimo}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}"/>  
+
+	<p:inputNumber id="valorVenda" placeholder="Valor de Venda R$" value="#{gerenciaEstoqueBean.elemento.valor}" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
 	
 	<p:selectOneMenu id="tipoUnitario" value="#{gerenciaEstoqueBean.elemento.tipoUnitario}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}">
 		<f:selectItem itemDisabled="true" itemLabel="Tipo Unítario" />
@@ -30,23 +30,27 @@
 		<f:selectItem itemLabel="Unidade" itemValue="und" />
 	</p:selectOneMenu>
 	
-	<p:autoComplete id="listaComponentes" dropdown="true" placeholder="Ingrediente/Embalagem" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
-	
+    <p:selectOneMenu placeholder="Ingrediente/Embalagem" id="listaDeComponentes" value="1" editable="true" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
+        <f:selectItems value="#{gerenciaEstoqueBean.listaDeComponente}" var="itemComponente" itemLabel="#{itemComponente.descricao}" itemValue="#{itemComponente.codigo}"/>
+    </p:selectOneMenu>
+    
 	<p:inputNumber id="qtdComponente" placeholder="Quantidade" minValue="1" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
 	
-	<p:commandButton id="addListaComponente" value="Adicionar" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
+	<p:commandButton id="addListaComponente" value="Adicionar" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
+		<p:collector value="" addTo="" unique="true"/>
+	</p:commandButton>
 	
-	<p:dataTable var="componente" value="" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
-		<p:column headerText="Descrição">
-			<h:outputText value="#{componente}" />
-		</p:column>
-		<p:column headerText="Quantidade">
-			<h:outputText value="#{componente}" />
-		</p:column>
-		<p:column headerText="Tipo Unítario">
-			<h:outputText value="#{componente}" />
-		</p:column>
-	</p:dataTable>
+		<p:dataTable id="tabelaComponentesDoProduto" value="" var="" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
+			<p:column headerText="Descrição">
+				<h:outputText value="" />
+			</p:column>
+			<p:column headerText="Quantidade">
+				<h:outputText value="" />
+			</p:column>
+			<p:column headerText="Tipo Unítario">
+				<h:outputText value="" />
+			</p:column>
+		</p:dataTable>
 	
 	<p:commandButton value="Salvar" id="salvarCadastro" action="#{gerenciaEstoqueBean.salvar}" update="@form" style="margin-right:20px;" styleClass="ui-priority-primary" />
 	<p:commandButton value="Cancelar" id="cancelarAcaoCadastro" style="margin-right:20px;" styleClass="ui-priority-primary" />

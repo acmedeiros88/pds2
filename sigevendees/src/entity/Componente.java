@@ -9,6 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class Componente extends Elemento {
 
+	// Codigo do produto, sera gerado pelo BD;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "codComponente")
@@ -47,6 +48,17 @@ public class Componente extends Elemento {
 	@Column(name = "estoqueAtual", nullable = true)
 	private float estoqueAtual;
 
+	public Componente() {
+
+	}
+
+	public Componente(String descricao, String tipoElemento, String tipoUnitario,float estoqueMin) {
+		setDescricao(descricao);
+		setTipoElemento(tipoElemento);
+		setTipoUnitario(tipoUnitario);
+		this.estoqueMinimo=estoqueMin;
+	}
+
 	public float getEstoqueMinimo() {
 		return estoqueMinimo;
 	}
@@ -63,20 +75,11 @@ public class Componente extends Elemento {
 		this.estoqueAtual = estoqueAtual;
 	}
 
-	public Componente() {
-
-	}
-
-	public Componente(String descricao, String tipoElemento, String tipoUnitario) {
-		setDescricao(descricao);
-		setTipoElemento(tipoElemento);
-		setTipoUnitario(tipoUnitario);
-	}
-
 	@Override
 	public String toString() {
 		return "Componente [estoqueMinimo=" + estoqueMinimo + ", estoqueAtual=" + estoqueAtual + ", getCodigo()="
 				+ getCodigo() + ", getDescricao()=" + getDescricao() + ", getTipoElemento()=" + getTipoElemento()
-				+ ", getTipoUnitario()=" + getTipoUnitario() + ", getValor()=" + getValor() + "]";
+				+ ", getTipoUnitario()=" + getTipoUnitario() + ", getValor()=" + getValor() + ", getEstoqueMinimo()="
+				+ getEstoqueMinimo() + ", getEstoqueAtual()=" + getEstoqueAtual() + "]";
 	}
 }

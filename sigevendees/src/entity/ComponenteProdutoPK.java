@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 
-/* Esta classe representa a composição da chave do produto, está chave é composta por codigo do componente + codigo do produto*/
+/* Esta classe representa a composicao da chave do produto, esta chave e composta por codigo do componente + codigo do produto*/
 
 @Embeddable
 public class ComponenteProdutoPK implements Serializable {
@@ -61,6 +61,11 @@ public class ComponenteProdutoPK implements Serializable {
 		if (codProduto != other.codProduto)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "ComponenteDoProduto [codProduto=" + codProduto + ", codComponente=" + codComponente + "]";
 	}
 
 }

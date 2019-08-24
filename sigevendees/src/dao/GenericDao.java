@@ -38,7 +38,7 @@ public class GenericDao {
 		return resultado;
 	}
 
-	public static boolean deletar(Class<?> classe, float id) {
+	public static boolean deletar(Class<?> classe, int id) {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		boolean resultado = true;
 		try {
@@ -54,7 +54,7 @@ public class GenericDao {
 		return resultado;
 	}
 
-	public static Object buscarPorId(Class<?> classe, float id) {
+	public static Object buscarPorId(Class<?> classe, int id) {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		Object resultado;
 		try {

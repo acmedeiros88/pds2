@@ -4,7 +4,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
       
-<p:autoComplete id="produto" dropdown="true" placeholder="Produto"/>
+<p:selectOneMenu placeholder="Componente" value="" effect="fold" editable="true">
+   <f:selectItems value="#{gerenciaEstoqueBean.listaDeComponente}" var="itemComponente" itemLabel="#{itemComponente.descricao}" itemValue="#{itemComponente}" />
+</p:selectOneMenu>
 
 <p:outputLabel for="qtd" value="Quantidade: " />
 <p:inputNumber id="qtd" minValue="1" />  

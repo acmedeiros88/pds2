@@ -20,16 +20,15 @@
 			</f:facet>
 			<p:row>
 				<p:column> <p:outputLabel for="nomeUsuario" value="Usuário: "/> </p:column>
-				<p:column> <p:inputText id="nomeUsuario" value="#{usuarioBean.usuario.nome}"/> </p:column>
+				<p:column> <p:inputText id="nomeUsuario" value="admin"/> </p:column>
 			</p:row>
 			<p:row>
 				<p:column> <p:outputLabel for="senha" value="Senha: "/> </p:column>
-				<p:column> <p:password id="senha" value="#{usuarioBean.usuario.senha}"/> </p:column>
+				<p:column> <p:password id="senha" value="admin"/> </p:column>
 			</p:row>
 			<p:row>
 				<p:column colspan="2" style="text-align: center">
-					<p:commandButton value="Entrar" action="#{usuarioBean.enviar}" update="@form"/>
-					<p:link outcome="resources/views/estoque/subMenu" value="ESTOQUE"></p:link>
+					<p:commandButton value="Entrar" action="resources/templates/templatePrincipal.xhtml"/>
 				</p:column>
 			</p:row>
 		</p:panelGrid>

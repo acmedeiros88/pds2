@@ -4,27 +4,31 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<f:metadata charset="utf-8"/>
-	<title>Estoque</title>
-</h:head>
-<h:body>
-	 <p:tabView>
-        <p:tab title="Entrada">
-            <h:panelGrid columns="2" cellpadding="10">
-            		<ui:include src="entrada.xhtml"></ui:include>
-            </h:panelGrid>
-        </p:tab>
-        <p:tab title="Cadastro">
-            <h:panelGrid columns="2" cellpadding="10">
-            	<ui:include src="cadastro.xhtml"></ui:include>
-            </h:panelGrid>
-        </p:tab>
-        <p:tab title="Consulta">
-            <h:panelGrid columns="2" cellpadding="10">
-            	<ui:include src="consulta.xhtml"></ui:include>
-            </h:panelGrid>
-        </p:tab>
-    </p:tabView>
-</h:body> 
+<ui:composition template="/resources/templates/templatePrincipal.xhtml">
+
+	<ui:define name="titulo">Estoque</ui:define>
+	
+	<ui:define name="tituloConteudo">ESTOQUE</ui:define>
+	
+	<ui:define name="conteudoPagina">
+			 <p:tabView>
+		        <p:tab title="Entrada">
+		            <h:panelGrid columns="2" cellpadding="10">
+		            		<ui:include src="entrada.xhtml"></ui:include>
+		            </h:panelGrid>
+		        </p:tab>
+		        <p:tab title="Cadastro">
+		            <h:panelGrid columns="2" cellpadding="10">
+		            	<ui:include src="cadastro.xhtml"></ui:include>
+		            </h:panelGrid>
+		        </p:tab>
+		        <p:tab title="Consulta">
+		            <h:panelGrid columns="2" cellpadding="10">
+		            	<ui:include src="consulta.xhtml"></ui:include>
+		            </h:panelGrid>
+		        </p:tab>
+		    </p:tabView>    
+	</ui:define>
+	
+</ui:composition> 
 </html>
