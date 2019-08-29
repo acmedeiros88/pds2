@@ -9,23 +9,22 @@
 	<title><ui:insert name="titulo"></ui:insert></title>
 </h:head>
 <h:body>
-	<nav class="cNavLateralEsq">
-		<ul>
-			<li id="vendaNav"><a href="venda">Venda</a></li>
-			<li id="estoqueNav"><p:link outcome="/resources/views/estoque/subMenu" value="ESTOQUE" /></li>
-			<li id="clienteNav"><a href="cliente">Cliente</a></li>
-			<li id="pedidoNav"><a href="pedido">Pedido</a></li>
-			<li id="produzidosNav"><a href="produzidos">Produzidos</a></li>
-			<li id="historicoNav"><a href="historico">Histórico</a></li>
-			<li id="balancoNav"><a href="balanco">Balanço</a></li>
-			<li><p:link outcome="/index" value="SAIR" /></li>
-		</ul>
-	</nav>
-	<section>
-		<h1><ui:insert name="tituloConteudo"></ui:insert></h1>
+		<nav class="cNavLateralEsq">
+			<ul>
+				<li id="vendaNav"><a href="venda">Venda</a></li>
+				<li id="estoqueNav"><p:link outcome="/resources/views/estoque/subMenu" value="ESTOQUE" /></li>
+				<li id="clienteNav"><a href="cliente">Cliente</a></li>
+				<li id="pedidoNav"><a href="pedido">Pedido</a></li>
+				<li id="produzidosNav"><a href="produzidos">Produzidos</a></li>
+				<li id="historicoNav"><a href="historico">Histórico</a></li>
+				<li id="balancoNav"><a href="balanco">Balanço</a></li>
+				<li><p:link outcome="/index" value="SAIR" /></li>
+			</ul>
+		</nav>
 		
-		<ui:insert name="conteudoPagina"></ui:insert>
-		
-	</section>
+		<section>
+			<h1><ui:insert name="tituloConteudo"></ui:insert></h1>
+			<ui:insert name="conteudoPagina"></ui:insert>
+		</section>
 </h:body> 
 </html>

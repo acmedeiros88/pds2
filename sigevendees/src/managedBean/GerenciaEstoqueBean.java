@@ -1,7 +1,6 @@
 package managedBean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -60,6 +59,7 @@ public class GerenciaEstoqueBean implements Serializable {
 					getEstoqueMinimo());
 			if (daoComponente.salvar(componente)) {
 				elemento = new Elemento();
+				init();
 				context.addMessage(null,
 						new FacesMessage("Sucesso", "cadastrado " + getFoiCadastrado() + " " + getMensagem()));
 
@@ -90,18 +90,6 @@ public class GerenciaEstoqueBean implements Serializable {
 		} else {
 			setTipoCadastro(false);
 		}
-	}
-
-	/*
-	 * Metodo para completar o imput Ingrediente/Embalagem assim que o usuario
-	 * digitar uma letra
-	 */
-	public List<String> completeText(String query) {
-		List<String> resultado = new ArrayList<String>();
-		for (int i = 0; i < 0; i++) {
-			resultado.add(query + i);
-		}
-		return resultado;
 	}
 
 	public boolean isTipoCadastro() {

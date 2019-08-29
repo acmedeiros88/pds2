@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
       
-<p:dataTable var="estoqueComponentes" value="#{gerenciaEstoqueBean.listaDeComponente}" emptyMessage="Componente sem cadastro" >
+<p:dataTable id="tabelaConsulta" var="estoqueComponentes" value="#{gerenciaEstoqueBean.listaDeComponente}" emptyMessage="Componente sem cadastro" scrollable="true" scrollHeight="250">
 	<f:facet name="header">
 		<p:outputPanel>
 			<h:outputText value="Procurar:" />
@@ -40,6 +40,5 @@
                 </p:selectOneButton>
             </f:facet>
         </p:column>
- 
 </p:dataTable>	
 </html>
