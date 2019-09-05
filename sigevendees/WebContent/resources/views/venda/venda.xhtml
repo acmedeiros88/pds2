@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/templates/templatePrincipal.xhtml">
+
+	<ui:define name="titulo">Venda</ui:define>
+	
+	<ui:define name="tituloConteudo">VENDA</ui:define>
+	
+	<ui:define name="conteudoPagina">
+		<h:form id="formVenda" style="margin-left: 5%; width: 80%">
+		
+			<p:inputText id="clienteDaVenda" placeholder="Cliente" />
+			
+		    <p:selectOneMenu id="selecionaAformaDePagamento">
+	        	<f:selectItem itemLabel="Dinheiro" itemValue="dinheiro"/>
+	        	<f:selectItem itemLabel="Cartão Credito" itemValue="cartaoCredito"/>
+	        	<f:selectItem itemLabel="Cartão Debito" itemValue="cartaoDebito"/>
+	        	<f:selectItem itemLabel="a Prazo" itemValue="aPrazo"/>
+	        </p:selectOneMenu>
+	        
+			<br/><br/>
+			
+			<p:selectOneMenu placeholder="Produto" value="" effect="fold" editable="true">
+	   			<f:selectItems itemLabel="Bolo" itemValue="" />
+			</p:selectOneMenu>
+			
+			<h:outputLabel for="qtdProduto" value="Quantidade:"/>
+			<p:inputNumber id="qtdProduto" placeholder="und" minValue="1" /> 
+			
+			<br/><br/>
+			
+			<p:inputNumber id="descontoItemVenda" placeholder="Valor de Desconto" minValue="1" />
+			<p:commandButton id="addItemPreVenda" value="Ok" />
+			
+			<br/><br/>
+			
+			<p:dataTable id="tabelaComprasAprazo" emptyMessage="Não possui compras A prazo" scrollable="true" scrollHeight="250">
+			        <p:column headerText="Item" />
+			
+			        <p:column headerText="Código" />
+			 
+			        <p:column headerText="Produto" />
+			        
+			        <p:column headerText="Qtd" />
+			        
+			        <p:column headerText="Valor Unitario" />
+			        
+			        <p:column headerText="Desconto" />
+			        
+			        <p:column headerText="Total" />		
+			</p:dataTable>
+	 		
+			<h:outputLabel value="Valor Desconto" />
+			<p:inputNumber id="vlrTotalDescontoVenda" readonly="true"/>
+			
+			<h:outputLabel value="Valor Total"/>
+			<p:inputNumber id="vlrTotalVenda" readonly="true"/>  	 		
+			
+			<br/><br/>
+			
+			<p:commandButton id="salvarVenda" value="Finalizar" style="margin-right:20px;" styleClass="ui-priority-primary"/>
+	        <p:commandButton id="cancelarAcaoVenda" value="Cancelar" style="margin-right:20px;" styleClass="ui-priority-primary" />
+			
+		</h:form>
+	</ui:define>
+	
+</ui:composition> 
+</html>

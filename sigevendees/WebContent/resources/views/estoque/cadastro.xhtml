@@ -30,15 +30,13 @@
 		<f:selectItem itemLabel="Unidade" itemValue="und" />
 	</p:selectOneMenu>
 	
-    <p:selectOneMenu placeholder="Ingrediente/Embalagem" id="listaDeComponentes" editable="true" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
+    <p:selectOneMenu id="listaDeComponentes" placeholder="Ingrediente/Embalagem"  editable="true" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
         <f:selectItems value="#{gerenciaEstoqueBean.listaDeComponente}" var="itemComponente" itemLabel="#{itemComponente.descricao}" itemValue="#{itemComponente.codigo}"/>
     </p:selectOneMenu>
     
 	<p:inputNumber id="qtdComponente" placeholder="Quantidade" minValue="1" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
 	
-	<p:commandButton id="addListaComponente" value="Adicionar" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
-		<p:collector value="" addTo="" unique="true"/>
-	</p:commandButton>
+	<p:commandButton id="addListaComponente" value="Adicionar" rendered="#{gerenciaEstoqueBean.tipoCadastro}" />
 	
 		<p:dataTable id="tabelaComponentesDoProduto" value="" var="" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
 			<p:column headerText="Descrição">
@@ -52,9 +50,9 @@
 			</p:column>
 		</p:dataTable>
 	
-	<p:commandButton value="Salvar" id="salvarCadastro" action="#{gerenciaEstoqueBean.salvar}" update="@form, :j_idt15:tabelaConsulta, :j_idt15:aquisicoes" style="margin-right:20px;" styleClass="ui-priority-primary"/>
+	<p:commandButton value="Salvar" id="salvarCadastro" action="#{gerenciaEstoqueBean.salvar}" update="@form, j_idt17:tabelaConsulta, j_idt17:aquisicoes" style="margin-right:20px;" styleClass="ui-priority-primary"/>
 	<p:commandButton value="Cancelar" id="cancelarAcaoCadastro" style="margin-right:20px;" styleClass="ui-priority-primary" />
-
+	
 </h:form>
 
 </html>

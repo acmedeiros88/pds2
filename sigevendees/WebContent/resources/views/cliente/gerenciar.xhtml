@@ -1,0 +1,30 @@
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      
+<h:form id="formGerenciarCliente">
+	
+	<p:inputText id="telefoneCliente" placeholder="Telefone" />
+	
+	<br/><br/>
+	
+	<p:inputText id="nomeCliente" placeholder="Nome"/>
+	
+	<br/><br/>
+	
+	<p:inputText id="descEstabelecimento" placeholder="Estabelecimento"/>
+	
+	<br/><br/>
+	
+	<p:inputTextarea id="descObsCliente" placeholder="Observação" rows="6" cols="33"/>
+	
+	<br/><br/>
+	<p:commandButton id="salvarCriente" value="Salvar" style="margin-right:20px;" styleClass="ui-priority-primary"/>
+	<p:commandButton id="excluirCliente" value="Excluir" style="margin-right:20px;" styleClass="ui-priority-primary"/>
+	<p:commandButton id="cancelarAcaoCliente" value="Cancelar" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	
+</h:form>
+
+</html>
