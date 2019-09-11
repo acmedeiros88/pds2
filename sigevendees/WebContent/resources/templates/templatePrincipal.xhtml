@@ -6,15 +6,15 @@
       xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<h:outputStylesheet library="css" name="estilizacao.css"/>
-	<title><ui:insert name="titulo"></ui:insert></title>
+	<title><ui:insert name="titulo">Principal</ui:insert></title>
 </h:head>
 <h:body>
 		<nav class="cNavLateralEsq">
 			<ul>
 				<li id="vendaNav"><p:link outcome="/resources/views/venda/venda" value="VENDA" /></li>
-				<li id="estoqueNav"><p:link outcome="/resources/views/estoque/subMenuEstoque" value="ESTOQUE" /></li>
-				<li id="clienteNav"><p:link outcome="/resources/views/cliente/subMenuCliente" value="CLIENTE" /></li>
-				<li id="pedidoNav"><a href="pedido">Pedido</a></li>
+				<li id="estoqueNav"><p:link outcome="/resources/views/estoque/subMenuTelaEstoque" value="ESTOQUE" /></li>
+				<li id="clienteNav"><p:link outcome="/resources/views/cliente/subMenuTelaCliente" value="CLIENTE" /></li>
+				<li id="pedidoNav"><p:link outcome="/resources/views/pedido/pedido" value="PEDIDO" /></li>
 				<li id="produzidosNav"><a href="produzidos">Produzidos</a></li>
 				<li id="historicoNav"><a href="historico">Histórico</a></li>
 				<li id="balancoNav"><a href="balanco">Balanço</a></li>
@@ -23,7 +23,7 @@
 		</nav>
 		
 		<section>
-			<h1><ui:insert name="tituloConteudo"></ui:insert></h1>
+			<h1><ui:insert name="tituloConteudo">Bem vindo!</ui:insert></h1>
 			<ui:insert name="conteudoPagina"></ui:insert>
 		</section>
 

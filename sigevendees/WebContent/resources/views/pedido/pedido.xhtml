@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/templates/templatePrincipal.xhtml">
+
+	<ui:define name="titulo">Pedido</ui:define>
+	
+	<ui:define name="tituloConteudo">PEDIDO</ui:define>
+	
+	<ui:define name="conteudoPagina">
+		<h:form id="formVenda" style="margin-left: 5%; width: 80%"> 
+				
+			<p:inputText id="clienteDaVenda" placeholder="Nome do Cliente" />
+			
+			<br/><br/>
+			
+			<p:selectOneMenu id="produtoDoPedido" placeholder="Produto" value="" effect="fold" editable="true">
+			   <f:selectItems value="" var="" itemLabel="" itemValue="" />
+			</p:selectOneMenu>
+			
+			<h:outputLabel for="qtdProdutoDoPedido" value="Quantidade:"/>
+			<p:inputNumber id="qtdProdutoDoPedido" placeholder="und" minValue="1" />
+			
+			<br/><br/>
+			
+			<h:outputLabel for="dataEntregaPedido" value="Data de entrega:"/>
+			<p:calendar id="button" placeholder="dd/mes/ano" pattern="dd-MM-yyyy" mask="true" showOn="button" />
+			
+			<p:commandButton id="salvarItemDoPedido" value="Salvar" />
+			
+			<br/><br/>
+			
+			<p:dataTable id="tabelaDePedidosFeitos" var="" value="" emptyMessage="Não possui pedidos">
+		        <f:facet name="header">
+		            Lista de Pedidos Feitos
+		        </f:facet>
+		        <p:column>
+		           <f:selectItem itemValue="" />
+		        </p:column>
+		        <p:column headerText="Código">
+		            <h:outputText value="" />
+		        </p:column>
+		        <p:column headerText="Cliente">
+		            <h:outputText value="" />
+		        </p:column>
+		        <p:column headerText="Data Solicitado">
+		            <h:outputText value="" />
+		        </p:column>
+		        <p:column headerText="Data Entrega">
+		            <h:outputText value="" />
+		        </p:column>
+		        <p:column headerText="Detalhes" style="width:32px;text-align: center">
+		             <p:commandButton update="" icon="pi pi-search" title="Itens do pedido">
+		                <f:setPropertyActionListener value="" target="" />
+		            </p:commandButton>
+		        </p:column>
+    		</p:dataTable>
+			
+			<p:commandButton id="itemProduzido" value="Produzido" style="margin-right:20px;" styleClass="ui-priority-primary"/>
+	        <p:commandButton id="excluirItem" value="Excluir" style="margin-right:20px;" styleClass="ui-priority-primary" />
+			
+		</h:form>
+	</ui:define>
+	
+</ui:composition> 
+</html>

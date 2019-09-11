@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
       
-<h:form id="formEstoque">
+<h:form id="formCadastro">
 	<p:growl id="growl" showDetail="true" sticky="true" />
 	
 	<p:fieldset legend="Tipo:">
@@ -13,7 +13,7 @@
 	         <f:selectItem itemLabel="Bolo" itemValue="bolo" />
 	         <f:selectItem itemLabel="Embalagem" itemValue="embalagem" />
 	         <f:selectItem itemLabel="Salgado" itemValue="salgado" />
-	         <p:ajax envent="valueChangeListener" update="formEstoque" listener="#{gerenciaEstoqueBean.inputsCadastro()}"/>
+	         <p:ajax envent="valueChangeListener" update="formCadastro" listener="#{gerenciaEstoqueBean.inputsCadastro()}"/>
 	    </p:selectOneRadio>
 	</p:fieldset>
 	<br/>
@@ -50,7 +50,7 @@
 			</p:column>
 		</p:dataTable>
 	
-	<p:commandButton value="Salvar" id="salvarCadastro" action="#{gerenciaEstoqueBean.salvar}" update="@form, j_idt17:tabelaConsulta, j_idt17:aquisicoes" style="margin-right:20px;" styleClass="ui-priority-primary"/>
+	<p:commandButton value="Salvar" id="salvarCadastro" action="#{gerenciaEstoqueBean.salvar}" update="@form, tabViewMenuEstoque:formAquisicoes, tabViewMenuEstoque:formTabelaDeEstoque" style="margin-right:20px;" styleClass="ui-priority-primary"/>
 	<p:commandButton value="Cancelar" id="cancelarAcaoCadastro" style="margin-right:20px;" styleClass="ui-priority-primary" />
 	
 </h:form>

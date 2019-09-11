@@ -11,10 +11,10 @@
 	<ui:define name="tituloConteudo">CLIENTE</ui:define>
 	
 	<ui:define name="conteudoPagina">
-			 <p:tabView style="margin-left: 5%; width: 80%" scrollable="true">
+			 <p:tabView id="tabViewMenuCliente" style="margin-left: 5%; width: 80%" scrollable="true">
 		        <p:tab title="Gerenciar">
 		            <h:panelGrid columns="2" cellpadding="10">
-		            		<ui:include src="gerenciar.xhtml"></ui:include>
+		            		<ui:include src="gerenciarCliente.xhtml"></ui:include>
 		            </h:panelGrid>
 		        </p:tab>
 		        <p:tab title="Consultar Compras">
