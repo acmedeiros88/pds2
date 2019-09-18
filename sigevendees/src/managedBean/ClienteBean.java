@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
 import dao.ClienteDao;
 import entity.Cliente;
 
@@ -19,7 +18,7 @@ public class ClienteBean implements Serializable {
 
 	private Cliente cliente;
 
-	// Variavel que receberar o cliente retornado da busca no BD;
+	// Variável que recebera o cliente retornado da busca no BD;
 	protected Cliente clienteRetornado;
 
 	@Inject
@@ -37,8 +36,8 @@ public class ClienteBean implements Serializable {
 		if (dao.salvar(this.cliente)) {
 			this.cliente = new Cliente();
 			/*
-			 * verifica se o cliente ja possui cadastro, se nÃ£o possui cadastro Ã© um novo
-			 * cliente a ser cadastrado, se possui cadastro Ã© um cliente a fazer atualizaÃ§Ã£o
+			 * verifica se o cliente já possui cadastro, se não possui cadastro e um novo
+			 * cliente a ser cadastrado, se possui cadastro e um cliente a fazer atualização
 			 * de cadastro;
 			 */
 			if (clienteRetornado == null) {
@@ -48,7 +47,7 @@ public class ClienteBean implements Serializable {
 			}
 
 		} else {
-			context.addMessage(null, new FacesMessage("Erro", "Nao foi possivel realizar o cadastro"));
+			context.addMessage(null, new FacesMessage("Erro", "Não foi possivel realizar o cadastro"));
 		}
 	}
 
@@ -56,7 +55,7 @@ public class ClienteBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		/*
-		 * quando o input id="telefoneCliente perde o focu faz a busca no BD do numero
+		 * quando o input id="telefoneCliente perde o foco faz a busca no BD do número
 		 * de telefone digitado no input;
 		 */
 		clienteRetornado = dao.buscarPornumTelefone(cliente.getNumTelefone());
@@ -69,7 +68,7 @@ public class ClienteBean implements Serializable {
 			this.cliente.setNomeCliente(null);
 			this.cliente.setEstabelecimentoCliente(null);
 			this.cliente.setObservacaoCliente(null);
-			context.addMessage(null, new FacesMessage("Aviso", "Cliente nÃ£o possui cadastro"));
+			context.addMessage(null, new FacesMessage("Aviso", "Cliente não possui cadastro"));
 		}
 	}
 
@@ -79,8 +78,16 @@ public class ClienteBean implements Serializable {
 			this.cliente = new Cliente();
 			context.addMessage(null, new FacesMessage("Sucesso", "Cadastro do cliente excluido"));
 		} else {
-			context.addMessage(null, new FacesMessage("Erro", "NÃ£o foi possivel excluir o cadastro do cliente"));
+
+			context.addMessage(null, new FacesMessage("Erro", "Não foi possivel excluir o cadastro do cliente"));
 		}
+	}
+
+	public void resetInputs() {
+		this.cliente.setNumTelefone(0);
+		this.cliente.setNomeCliente(null);
+		this.cliente.setEstabelecimentoCliente(null);
+		this.cliente.setObservacaoCliente(null);
 	}
 
 	public Cliente getCliente() {

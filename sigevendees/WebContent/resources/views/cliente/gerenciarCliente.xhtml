@@ -7,7 +7,7 @@
 <h:form id="formGerenciarCliente">
 	<p:growl id="growlCliente" showDetail="true" sticky="true" />
 	
-	<p:inputText id="telefoneCliente"  value="#{clienteBean.cliente.numTelefone}" placeholder="Telefone">
+	<p:inputText id="telefoneCliente" placeholder="Telefone" value="#{clienteBean.cliente.numTelefone}">
 		 <p:ajax envent="valueChangeListener" update="formGerenciarCliente" listener="#{clienteBean.buscarCliente()}"/>
 	</p:inputText>
 	
@@ -26,8 +26,7 @@
 	<br/><br/>
 	<p:commandButton id="salvarCriente" action="#{clienteBean.salvar()}" update="@form" value="Salvar" style="margin-right:20px;" styleClass="ui-priority-primary"/>
 	<p:commandButton id="excluirCliente" action="#{clienteBean.excluirCliente()}" update="@form" value="Excluir" style="margin-right:20px;" styleClass="ui-priority-primary"/>
-	<p:commandButton id="cancelarAcaoCliente" value="Cancelar" style="margin-right:20px;" styleClass="ui-priority-primary" />
-	
+	<p:commandButton id="cancelarAcaoCliente" action="#{clienteBean.resetInputs()}" update="@form" value="Cancelar" style="margin-right:20px;" styleClass="ui-priority-primary"/>
 </h:form>
 
 </html>

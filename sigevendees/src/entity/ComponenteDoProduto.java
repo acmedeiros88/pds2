@@ -6,7 +6,8 @@ import java.util.Date;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
-/*Esta classe representa  a tabela associativa entre o relacionamento de produto e componente, no qual um produto pode ser compostro por varios componentes*/
+/*Esta classe representa  a tabela associativa entre o relacionamento de produto e componente,
+ * no qual um produto pode ser composto por vários componentes*/
 
 @Entity
 public class ComponenteDoProduto implements Serializable {

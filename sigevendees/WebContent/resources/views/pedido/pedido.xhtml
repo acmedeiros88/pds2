@@ -33,13 +33,12 @@
 			
 			<br/><br/>
 			
-			<p:dataTable id="tabelaDePedidosFeitos" var="" value="" emptyMessage="Não possui pedidos">
+			<p:dataTable id="tabelaDePedidosFeitos" var="" value="" scrollable="true" scrollHeight="200"> <!--selection="" rowKey="" style="margin-bottom:0"-->
 		        <f:facet name="header">
 		            Lista de Pedidos Feitos
 		        </f:facet>
-		        <p:column>
-		           <f:selectItem itemValue="" />
-		        </p:column>
+		        <p:column style="width:16px; text-align:center"/> <!-- <p:column selectionMode="multiple" style="width:16px;text-align:center"/> -->
+	
 		        <p:column headerText="Código">
 		            <h:outputText value="" />
 		        </p:column>
@@ -52,12 +51,14 @@
 		        <p:column headerText="Data Entrega">
 		            <h:outputText value="" />
 		        </p:column>
-		        <p:column headerText="Detalhes" style="width:32px;text-align: center">
+		        <p:column headerText="Detalhes" style="text-align: center">
 		             <p:commandButton update="" icon="pi pi-search" title="Itens do pedido">
 		                <f:setPropertyActionListener value="" target="" />
 		            </p:commandButton>
 		        </p:column>
     		</p:dataTable>
+    		
+			<br/>
 			
 			<p:commandButton id="itemProduzido" value="Produzido" style="margin-right:20px;" styleClass="ui-priority-primary"/>
 	        <p:commandButton id="excluirItem" value="Excluir" style="margin-right:20px;" styleClass="ui-priority-primary" />

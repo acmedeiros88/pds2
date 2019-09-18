@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class Componente extends Elemento {
 
-	// Codigo do produto, sera gerado pelo BD;
+	// Código do produto, será gerado pelo BD;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "codComponente")

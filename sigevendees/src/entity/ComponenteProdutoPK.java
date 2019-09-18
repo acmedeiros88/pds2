@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 
-/* Esta classe representa a composicao da chave do produto, esta chave e composta por codigo do componente + codigo do produto*/
+/* Esta classe representa a composição da chave do produto, esta chave e composta por código do componente + código do produto*/
 
 @Embeddable
 public class ComponenteProdutoPK implements Serializable {

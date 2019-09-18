@@ -1,5 +1,6 @@
 package entity;
 
+/*Classe que contem os atributos em comum entre Produto e Componente;*/
 public class Elemento {
 
 	private int codigo;

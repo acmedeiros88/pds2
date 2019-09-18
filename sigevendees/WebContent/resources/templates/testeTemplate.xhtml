@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="css" name="estilizacao.css"/>
+	<title><ui:insert name="titulo">Principal</ui:insert></title>
+
+	<style>
+		#teste{
+			float: left;
+			border: 0px solid white;
+			box-shadow: 1px 1px 10px black;
+			width: 15%;
+			margin: auto;
+		}
+		#teste ul{
+			position: relative;
+			list-style: none;
+			text-transform: uppercase;
+			width: 100%;
+			padding: inherit;
+		}
+		#teste li{
+			background-color: rgba(0,0,0,.2);
+			padding: 16px;
+			width: 75%;      
+			border: 1px solid rgba(0,0,0,.3);
+			border-left: 2px solid rgba(0,0,0,.3);
+			border-right: 2px solid rgba(0,0,0,.3);
+		}
+		#teste a{
+			text-decoration: none;
+			color: black;
+		}
+	</style>
+</h:head>
+<h:body>
+<p:layout style="min-width:100%;min-height:100%;">
+<p:layoutUnit position="west" size="150" minSize="40" maxSize="200">
+	<p:tabMenu id="teste" styleClass="cNavLateralEsq">
+	
+	    <p:menuitem value="VENDA" outcome="/resources/views/venda/venda" />
+
+	    <p:menuitem value="ESTOQUE" outcome="/resources/views/estoque/subMenuTelaEstoque" />
+
+	    <p:menuitem value="CLIENTE" outcome="/resources/views/cliente/subMenuTelaCliente" />
+
+	    <p:menuitem value="PEDIDO" outcome="/resources/views/pedido/pedido" />
+
+	    <p:menuitem value="PRODUZIDOS" outcome="/index"/>
+	    
+	    <p:menuitem value="HISTÓRICO" outcome="/index" />
+	    
+	    <p:menuitem value="BALANÇO" outcome="/index" />
+	    
+	    <p:menuitem value="SAIR" outcome="/index" />
+
+	</p:tabMenu>
+		</p:layoutUnit>
+		 <p:layoutUnit position="center">
+
+		</p:layoutUnit>
+</p:layout>
+</h:body> 
+</html>

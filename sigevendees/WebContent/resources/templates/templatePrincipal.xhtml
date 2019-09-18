@@ -5,27 +5,105 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<h:outputStylesheet library="css" name="estilizacao.css"/>
 	<title><ui:insert name="titulo">Principal</ui:insert></title>
+	<style>
+		*{
+			padding : 0;
+			margin : 0;
+		}
+		body{
+			width : 95%;
+			height: 100%;
+			max-height: 95%;
+			margin : 0.5% 1% 0.5% 1%;
+			box-shadow: 1px 1px 10px black;
+			position: absolute;
+			padding: 0.4%;
+			background-color: white;
+			font-family: Arial, sans-serif;
+		}
+		h1{
+			margin: 0px 0px 20px 33px;
+			font-size: 30pt;
+		}
+		#menuPrincipal{
+			float: left;
+			border: 0px solid white;
+			box-shadow: 1px 1px 10px black;
+			width: 15%;
+			margin: auto;
+		}
+		#menuPrincipal ul{
+			position: relative;
+			list-style: none;
+			width: 100%;
+			padding: inherit;
+		}
+		#menuPrincipal li{
+			background-color: rgba(0,0,0,.2);
+			padding: 17.4px;
+			width: 75%;      
+		}
+		#menuPrincipal a{
+			text-decoration: none;
+			color: black;
+		}
+		#menuPrincipal span{
+		font: menu;
+		}
+		#section{
+			float: right;
+			position: absolute;
+			margin: auto;
+			width: 85%;
+		}
+		#section h1{
+			margin-left: 40%;
+			margin-top: 1%;
+		}
+	</style>
 </h:head>
 <h:body>
-		<nav class="cNavLateralEsq">
-			<ul>
-				<li id="vendaNav"><p:link outcome="/resources/views/venda/venda" value="VENDA" /></li>
-				<li id="estoqueNav"><p:link outcome="/resources/views/estoque/subMenuTelaEstoque" value="ESTOQUE" /></li>
-				<li id="clienteNav"><p:link outcome="/resources/views/cliente/subMenuTelaCliente" value="CLIENTE" /></li>
-				<li id="pedidoNav"><p:link outcome="/resources/views/pedido/pedido" value="PEDIDO" /></li>
-				<li id="produzidosNav"><a href="produzidos">Produzidos</a></li>
-				<li id="historicoNav"><a href="historico">Histórico</a></li>
-				<li id="balancoNav"><a href="balanco">Balanço</a></li>
-				<li><p:link outcome="/index" value="SAIR" /></li>
-			</ul>
-		</nav>
+	<p:tabMenu id="menuPrincipal" activeIndex="#{param.i}">
+	
+	    <p:menuitem value="VENDA" outcome="/resources/views/venda/venda">
+		   <f:param name="i" value="0" />
+   	    </p:menuitem>
+   	    
+	    <p:menuitem value="ESTOQUE" outcome="/resources/views/estoque/subMenuTelaEstoque">
+	    	<f:param name="i" value="1" />
+		</p:menuitem>
 		
-		<section>
-			<h1><ui:insert name="tituloConteudo">Bem vindo!</ui:insert></h1>
-			<ui:insert name="conteudoPagina"></ui:insert>
-		</section>
+	    <p:menuitem value="CLIENTE" outcome="/resources/views/cliente/subMenuTelaCliente">
+	    	<f:param name="i" value="2" />
+		</p:menuitem>
+		
+	    <p:menuitem value="PEDIDO" outcome="/resources/views/pedido/pedido">
+	    	<f:param name="i" value="3" />
+		</p:menuitem>
+		
+	    <p:menuitem value="PRODUZIDOS" outcome="/index">
+	    	<f:param name="i" value="4" />
+	    </p:menuitem>
+	    
+	    <p:menuitem value="HISTÓRICO" outcome="/index">
+	    	<f:param name="i" value="5" />
+	    </p:menuitem>
+	    
+	    <p:menuitem value="BALANÇO" outcome="/index">
+	    	<f:param name="i" value="6" />
+	    </p:menuitem>
+	    
+	    <p:menuitem value="SAIR" outcome="/index">
+	    	<f:param name="i" value="7" />
+		</p:menuitem>
+		
+	</p:tabMenu>
 
+	<h:panelGroup id="section">
+		<h1><ui:insert name="tituloConteudo">Bem vindo!</ui:insert></h1>
+		<ui:insert name="conteudoPagina"></ui:insert>	
+	</h:panelGroup>
+		
 </h:body> 
 </html>

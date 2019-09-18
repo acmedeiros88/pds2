@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Produto extends Elemento {
 
-	// Codigo do produto, sera gerado pelo BD;
+	// Código do produto, será gerado pelo BD;
 	@Id
 	@GeneratedValue
 	@Column(name = "codProduto")
@@ -46,6 +46,7 @@ public class Produto extends Elemento {
 		return super.getValor();
 	}
 
+	/* Lista que contem os componentes que fazem composição do produto */
 	private List<ComponenteDoProduto> componentes;
 
 	public Produto() {

@@ -30,14 +30,15 @@
 		<f:selectItem itemLabel="Unidade" itemValue="und" />
 	</p:selectOneMenu>
 	
-    <p:selectOneMenu id="listaDeComponentes" placeholder="Ingrediente/Embalagem"  editable="true" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
+    <p:selectOneMenu id="listaDeComponentes" placeholder="Ingrediente/Embalagem" editable="true" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
         <f:selectItems value="#{gerenciaEstoqueBean.listaDeComponente}" var="itemComponente" itemLabel="#{itemComponente.descricao}" itemValue="#{itemComponente.codigo}"/>
+    	<f:converter converterId="javax.faces.Integer"/>
     </p:selectOneMenu>
     
 	<p:inputNumber id="qtdComponente" placeholder="Quantidade" minValue="1" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
 	
-	<p:commandButton id="addListaComponente" value="Adicionar" rendered="#{gerenciaEstoqueBean.tipoCadastro}" />
-	
+	<p:commandButton id="addListaComponente" value="Adicionar" rendered="#{gerenciaEstoqueBean.tipoCadastro}" /> 
+		
 		<p:dataTable id="tabelaComponentesDoProduto" value="" var="" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
 			<p:column headerText="Descrição">
 				<h:outputText value="" />

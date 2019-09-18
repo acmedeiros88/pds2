@@ -24,6 +24,9 @@ public class GerenciaEstoqueBean implements Serializable {
 	private Elemento elemento = new Elemento();
 
 	private Componente componente = new Componente();
+	
+	private Componente componenteDoProduto = new Componente();;
+	
 	private float estoqueMinimo;
 	private List<Componente> listaDeComponente;
 
@@ -31,7 +34,7 @@ public class GerenciaEstoqueBean implements Serializable {
 	private String foiCadastrado;
 	private String mensagem;
 	/*
-	 * variavel para renderizar os inputs necessario para o cadastro de componente e
+	 * Variável para renderizar os inputs necessário para o cadastro de componente e
 	 * ou produto;
 	 */
 	private boolean tipoDoCadastro;
@@ -65,7 +68,7 @@ public class GerenciaEstoqueBean implements Serializable {
 
 			} else {
 				context.addMessage(null, new FacesMessage("Erro",
-						"Nao foi possivel realizar o cadastro " + getFoiCadastrado() + " " + getMensagem()));
+						"Não foi possivel realizar o cadastro " + getFoiCadastrado() + " " + getMensagem()));
 			}
 		} else {
 			produto = new Produto(elemento.getDescricao(), elemento.getTipoElemento(), "und", elemento.getValor());
@@ -76,12 +79,12 @@ public class GerenciaEstoqueBean implements Serializable {
 
 			} else {
 				context.addMessage(null, new FacesMessage("Erro",
-						"Nao foi possivel realizar o cadastro " + getFoiCadastrado() + " " + getMensagem()));
+						"Não foi possivel realizar o cadastro " + getFoiCadastrado() + " " + getMensagem()));
 			}
 		}
 	}
 
-	// metodo chamado no ajax do selectOneRadio(tipoCadastro) ao selecionar o tipo
+	// Método chamado no Ajax do selectOneRadio(tipoCadastro) ao selecionar o tipo
 	// de cadastro
 	// (bolo, salgado,ingrediente,embalagem) a ser realizado;
 	public void inputsCadastro() {
@@ -91,7 +94,6 @@ public class GerenciaEstoqueBean implements Serializable {
 			setTipoCadastro(false);
 		}
 	}
-
 	public boolean isTipoCadastro() {
 		return tipoDoCadastro;
 	}
@@ -130,6 +132,14 @@ public class GerenciaEstoqueBean implements Serializable {
 
 	public void setListaDeComponente(List<Componente> listaDeComponente) {
 		this.listaDeComponente = listaDeComponente;
+	}
+	
+	public Componente getComponenteDoProduto() {
+		return componenteDoProduto;
+	}
+
+	public void setComponenteDoProduto(Componente componenteDoProduto) {
+		this.componenteDoProduto = componenteDoProduto;
 	}
 
 	public Produto getProduto() {
