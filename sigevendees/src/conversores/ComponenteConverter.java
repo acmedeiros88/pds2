@@ -9,16 +9,18 @@ import javax.inject.Inject;
 import dao.ComponenteDao;
 import entity.Componente;
 
-@FacesConverter("componenteConverter")
+@FacesConverter(value="conversores.ComponenteConverter")
 public class ComponenteConverter implements Converter {
+	
 	@Inject
-	private ComponenteDao dao = new ComponenteDao();
+	private ComponenteDao dao;
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value == null || value == "") {
 			return null;
 		}
+	
 		return dao.buscarPorCod(Integer.parseInt(value));
 	}
 

@@ -1,0 +1,32 @@
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:form id="formAquisicao"> 
+	<p:growl id="growlAquisicao" showDetail="true" sticky="true" />
+	     
+	<p:selectOneMenu value="#{aquisicaoBean.codComponente}">
+		<f:selectItem itemLabel="Componente" noSelectionOption="true"/>
+	   <f:selectItems value="#{gerenciaEstoqueBean.listaDeComponente}" var="itemComponente" itemLabel="#{itemComponente.descricao}" itemValue="#{itemComponente.codigo}" />
+	</p:selectOneMenu>
+	
+	<br/><br/>
+	
+	<p:outputLabel for="qtd" value="Quantidade: " />
+	<br/>
+	<p:inputNumber id="qtd" value="#{aquisicaoBean.aquisicao.qtdAdquirida}" />
+	  
+	<br/><br/>
+	
+	<p:outputLabel for="vlrCusto" value="Valor do Custo: " />
+	<br/>
+	<p:inputNumber id="vlrCusto" value="#{aquisicaoBean.aquisicao.custoDaAquisicao}" placeholder="R$" />
+	  
+	<br/><br/>
+	
+	<p:commandButton value="Salvar" id="salvarEntrada" action="#{aquisicaoBean.salvar()}" update="@form, tabViewMenuEstoque:formTabelaDeEstoque" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton value="Cancelar" id="cancelarAcaoEntrada" style="margin-right:20px;" styleClass="ui-priority-primary" />
+</h:form>	
+</html>
