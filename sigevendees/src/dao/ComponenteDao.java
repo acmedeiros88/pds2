@@ -37,7 +37,7 @@ public class ComponenteDao {
 		return GenericDao.salvar(aquisicao);
 	}
 
-	public boolean atualizarEstoqueComponente(Componente componente) {
+	public boolean atualizarEstoque(Componente componente) {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		try {
 			String jpql = "UPDATE Componente SET valorDeCusto = :custo, estoqueAtual = :qtdAdquirida WHERE codComponente = :value";

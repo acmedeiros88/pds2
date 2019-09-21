@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-/*Esta classe é responsável por o registro de aquisições de componentes, o qual ira a qtdAdquirida atualiza o valor do estoque atual;*/
+/*Esta classe é responsável por o registro de aquisições de componentes, o qual a qtdAdquirida atualiza o valor do estoque atual do Componente;*/
 
 @Entity
 public class Aquisicao {

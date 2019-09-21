@@ -21,6 +21,8 @@ public class ClienteBean implements Serializable {
 	// Variável que recebera o cliente retornado da busca no BD;
 	protected Cliente clienteRetornado;
 
+	FacesContext context;
+
 	@Inject
 	private ClienteDao dao;
 
@@ -31,8 +33,7 @@ public class ClienteBean implements Serializable {
 	}
 
 	public void salvar() {
-		FacesContext context = FacesContext.getCurrentInstance();
-
+		this.context = FacesContext.getCurrentInstance();
 		if (dao.salvar(this.cliente)) {
 			this.cliente = new Cliente();
 			/*
@@ -51,13 +52,12 @@ public class ClienteBean implements Serializable {
 		}
 	}
 
+	/*
+	 * quando o input id="telefoneCliente perde o foco faz a busca no BD do número
+	 * de telefone digitado no input;
+	 */
 	public void buscarCliente() {
-		FacesContext context = FacesContext.getCurrentInstance();
-
-		/*
-		 * quando o input id="telefoneCliente perde o foco faz a busca no BD do número
-		 * de telefone digitado no input;
-		 */
+		this.context = FacesContext.getCurrentInstance();
 		clienteRetornado = dao.buscarPornumTelefone(cliente.getNumTelefone());
 		if (clienteRetornado != null) {
 			this.cliente.setNumTelefone(this.cliente.getNumTelefone());
@@ -73,7 +73,7 @@ public class ClienteBean implements Serializable {
 	}
 
 	public void excluirCliente() {
-		FacesContext context = FacesContext.getCurrentInstance();
+		this.context = FacesContext.getCurrentInstance();
 		if (dao.deletarCliente(cliente.getNumTelefone())) {
 			this.cliente = new Cliente();
 			context.addMessage(null, new FacesMessage("Sucesso", "Cadastro do cliente excluido"));
@@ -83,6 +83,11 @@ public class ClienteBean implements Serializable {
 		}
 	}
 
+	/*
+	 * Método utilizado no commandButton id="cancelarAcaoCliente", se o comerciante
+	 * desistir de realizar o cadastro do cliente e já ter preenchido os inputs,
+	 * assim quando clicar no botão CANCELAR limpas os inputs da tela;
+	 */
 	public void resetInputs() {
 		this.cliente.setNumTelefone(0);
 		this.cliente.setNomeCliente(null);

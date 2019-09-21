@@ -28,6 +28,6 @@ public class TestaAquisicao {
 		float y = x+aq.getQtdAdquirida();
 		c.setEstoqueAtual(y);
 		c.setValor(aq.getCustoDaAquisicao());
-		dao.atualizarEstoqueComponente(c);
+		dao.atualizarEstoque(c);
 	}
 }
