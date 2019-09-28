@@ -1,9 +1,11 @@
 package utils;
 
 public enum Unitario {
-	G("gramas"), Ml("mililitros"), UND("unidade");
+	G("Gramas"),
+	ML("Mililitros"),
+	UND("Unidade");
 
-	private String descricao;
+	private final String descricao;
 
 	private Unitario(String descricao) {
 		this.descricao = descricao;

@@ -14,8 +14,12 @@ import dao.ComponenteDao;
 import dao.ProdutoDao;
 import entity.Aquisicao;
 import entity.Componente;
+import entity.ComponenteDoProduto;
+import entity.ComponenteProdutoPK;
 import entity.Elemento;
 import entity.Produto;
+import utils.Categoria;
+import utils.Unitario;
 
 @ManagedBean
 @SessionScoped
@@ -28,7 +32,7 @@ public class GerenciaEstoqueBean implements Serializable {
 
 	private Produto produto;
 
-	// Variável List utilizado na consulta de estoque de componente, e na aquisição de componente;
+	// Variável List utilizado na consulta do estoque de componentes, e na aquisição de componente;
 	private List<Componente> listaDeComponente;
 
 	private Aquisicao aquisicao;
@@ -38,6 +42,12 @@ public class GerenciaEstoqueBean implements Serializable {
 
 	// Objeto utilizado para adicional a lista de componentes do produto;
 	private Componente componenteDoProduto;
+	
+	// Variável List utilizado na composição de uma lista no qual será add na tabela associativa ComponenteDoProduto; 
+	private List<ComponenteDoProduto> listaDaTabAssociativa;
+	
+	// Objeto utilizado para criar a chave primaria composta da tabela associativa CompondenteDoProduto;
+	protected ComponenteProdutoPK pk;
 
 	// Variável utilizado na composição de componentes do produto;
 	private float qtdUtilizado;
@@ -50,10 +60,11 @@ public class GerenciaEstoqueBean implements Serializable {
 	
 	// Variável utilizado para apresentar na mensagem ao comerciante o tipo do produto(bolo ou salgado) ou componente(ingrediente ou embalagem) que foi cadastrado no BD;
 	protected String doTipo;
-
+	
 	// Variável utilizado para renderizar os inputs necessário para o cadastro de componente e ou produto;
 	private boolean tipoDoCadastro;
-	FacesContext context;
+
+	protected FacesContext context;
 
 	@Inject
 	private ComponenteDao daoComponente = new ComponenteDao();
@@ -68,6 +79,7 @@ public class GerenciaEstoqueBean implements Serializable {
 		this.produto = new Produto();
 		this.aquisicao = new Aquisicao();
 		this.listaDeComponenteDoProduto = new ArrayList<Componente>();
+		this.pk = new ComponenteProdutoPK();
 	}
 
 	@PostConstruct
@@ -76,10 +88,10 @@ public class GerenciaEstoqueBean implements Serializable {
 	}
 
 	public void salvar() {
-		this.context = FacesContext.getCurrentInstance();
+		context = FacesContext.getCurrentInstance();
 		setDoTipo(elemento.getDescricao());
 		setFoiCadastrado(elemento.getTipoElemento());
-		if (elemento.getTipoElemento().equals("ingrediente") || elemento.getTipoElemento().equals("embalagem")) {
+		if (elemento.getTipoElemento().equalsIgnoreCase("ingrediente") || elemento.getTipoElemento().equalsIgnoreCase("embalagem")) {
 			componente = new Componente(elemento.getDescricao(), elemento.getTipoElemento(), elemento.getTipoUnitario(), getEstoqueMinimo());
 			if (daoComponente.salvar(componente)) {
 				elemento = new Elemento();
@@ -92,7 +104,19 @@ public class GerenciaEstoqueBean implements Serializable {
 		} else {
 			produto = new Produto(elemento.getDescricao(), elemento.getTipoElemento(), "und", elemento.getValor());
 			if (daoProduto.salvar(produto)) {
+				produto = daoProduto.buscarPorCod(daoProduto.buscarLastInsertId());
+				listaDaTabAssociativa = produto.getComponentes();
+				for(Componente c: listaDeComponenteDoProduto) {
+					pk.setCodProduto(produto.getCodigo());
+					pk.setCodComponente(c.getCodigo());
+					listaDaTabAssociativa.add(new ComponenteDoProduto(pk, c.getValor()));
+					pk = new ComponenteProdutoPK();
+				}
+				produto.setComponentes(listaDaTabAssociativa);
+				daoProduto.atualizar(produto);
+				produto = new Produto();
 				elemento = new Elemento();
+				listaDeComponenteDoProduto = new ArrayList<Componente>();
 				context.addMessage(null, new FacesMessage("Sucesso", "cadastrado " + getFoiCadastrado() + " " + getDoTipo()));
 			} else {
 				context.addMessage(null, new FacesMessage("Erro", "Não foi possivel realizar o cadastro " + getFoiCadastrado() + " " + getDoTipo()));
@@ -104,21 +128,9 @@ public class GerenciaEstoqueBean implements Serializable {
 	public void buscarComponente() {
 		this.componenteDoProduto = daoComponente.buscarPorCod(this.componente.getCodigo());
 	}
-
-	public void createNew() {
-		for (Componente c : listaDeComponenteDoProduto) {
-			System.out.println("Lista::::" + c);
-		}
-		/*
-		 * System.out.print("COMPONENTE DO PRODUTO: createNew"+componenteDoProduto);
-		 * this.listaDeComponenteDoProduto.add(this.componenteDoProduto);
-		 * this.componenteDoProduto = new Componente(); this.componente = new
-		 * Componente();
-		 */
-	}
 	
 	/*
-	 * Set o valor de custo do componente retornado do método buscarComponente(),
+	 * Atribui ao valor de custo do componente retornado do método buscarComponente(),
 	 * pois no componeteDoProduto o atributo valor é utilizado para informar a
 	 * quantidade utilizado desse componente na composição do produto;
 	 * Cria um novo componente a ser utilizado no produto;
@@ -151,14 +163,24 @@ public class GerenciaEstoqueBean implements Serializable {
 	 * de cadastro (bolo, salgado,ingrediente,embalagem) a ser realizado;
 	 */
 	public void inputsCadastro() {
-		if (elemento.getTipoElemento().equals("bolo") || elemento.getTipoElemento().equals("salgado")) {
+		if (elemento.getTipoElemento().equalsIgnoreCase("bolo") || elemento.getTipoElemento().equalsIgnoreCase("salgado")) {
 			setTipoCadastro(true);
 		} else {
 			setTipoCadastro(false);
 		}
 	}
 	
-	// A baixo estão todos os métodos GET e SET dos atributos da classe;
+	//Retorna todas as opções de tipos unitários que podem ser utilizado no cadastro de Componente;
+	public Unitario[] getOpcoes() {
+		return Unitario.values();
+	}
+	
+	//Retorna todas as opções de categoria que podem ser utilizado no cadastro do elemento; 
+	public Categoria[] getCategoriaElemento() {
+		return Categoria.values();
+	}
+	
+// A baixo estão todos os métodos GET e SET dos atributos da classe;
 	
 	public boolean isTipoCadastro() {
 		return tipoDoCadastro;
@@ -231,6 +253,14 @@ public class GerenciaEstoqueBean implements Serializable {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+	
+	public List<ComponenteDoProduto> getListaDaTabAssociativa() {
+		return listaDaTabAssociativa;
+	}
+
+	public void setListaDaTabAssociativa(List<ComponenteDoProduto> listaDaTabAssociativa) {
+		this.listaDaTabAssociativa = listaDaTabAssociativa;
+	}
 
 	public float getQtdUtilizado() {
 		return qtdUtilizado;
@@ -255,5 +285,4 @@ public class GerenciaEstoqueBean implements Serializable {
 	public void setDoTipo(String mensagem) {
 		this.doTipo = mensagem;
 	}
-
 }

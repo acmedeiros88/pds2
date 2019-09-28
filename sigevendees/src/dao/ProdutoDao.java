@@ -2,7 +2,13 @@ package dao;
 
 import java.util.List;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.transaction.TransactionalException;
+
 import entity.Produto;
+import factoryConnection.FactoryJPA;
 
 public class ProdutoDao {
 
@@ -20,6 +26,20 @@ public class ProdutoDao {
 
 	public Produto buscarPorCod(int cod) {
 		return (Produto) GenericDao.buscarPorId(Produto.class, cod);
+	}
+
+	public int buscarLastInsertId() {
+		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
+		int resultado = -1;
+		try {
+			String jpql = "SELECT MAX(codigo) FROM Produto";
+			Query query = entityManager.createQuery(jpql);
+			resultado = (int) query.getSingleResult();
+		} catch (EntityExistsException | TransactionalException e) {
+			FactoryJPA.shutdown();
+			return resultado;
+		}
+		return resultado;
 	}
 
 	@SuppressWarnings("unchecked")

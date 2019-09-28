@@ -9,11 +9,8 @@
 	
 	<p:fieldset legend="Tipo:">
 		<p:selectOneRadio id="tipoCadastro" value="#{gerenciaEstoqueBean.elemento.tipoElemento}" layout="grid" columns="2" unselectable="true">
-	         <f:selectItem itemLabel="Ingrediente" itemValue="ingrediente" />
-	         <f:selectItem itemLabel="Bolo" itemValue="bolo" />
-	         <f:selectItem itemLabel="Embalagem" itemValue="embalagem" />
-	         <f:selectItem itemLabel="Salgado" itemValue="salgado" />
-	         <p:ajax envent="valueChangeListener" update="formCadastro" listener="#{gerenciaEstoqueBean.inputsCadastro()}"/>
+	         <f:selectItems value="#{gerenciaEstoqueBean.categoriaElemento}" var="tipoElemento" itemLabel="#{tipoElemento.descricao}" itemValue="#{tipoElemento.toString()}"/>
+	         <p:ajax update="formCadastro" listener="#{gerenciaEstoqueBean.inputsCadastro()}"/>
 	    </p:selectOneRadio>
 	</p:fieldset>
 	<br/>
@@ -25,15 +22,13 @@
 	
 	<p:selectOneMenu id="tipoUnitario" value="#{gerenciaEstoqueBean.elemento.tipoUnitario}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}">
 		<f:selectItem itemDisabled="true" itemLabel="Tipo Unítario" />
-		<f:selectItem itemLabel="Gramas" itemValue="g" />
-		<f:selectItem itemLabel="Mililitros" itemValue="ml" />
-		<f:selectItem itemLabel="Unidade" itemValue="und" />
+		<f:selectItems value="#{gerenciaEstoqueBean.opcoes}" var="opcUnitario" itemLabel="#{opcUnitario.descricao}" itemValue="#{opcUnitario}"/>
 	</p:selectOneMenu>
 	
     <p:selectOneMenu id="listaDeComponentes" value="#{gerenciaEstoqueBean.componente.codigo}" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
         <f:selectItem itemLabel="Ingrediente/Embalagem" noSelectionOption="true"/>
         <f:selectItems value="#{gerenciaEstoqueBean['listaDeComponente']}" var="itemComponente" itemLabel="#{itemComponente.descricao}" itemValue="#{itemComponente.codigo}"/>
-		<p:ajax envent="valueChangeListener" listener="#{gerenciaEstoqueBean.buscarComponente()}"/>
+		<p:ajax listener="#{gerenciaEstoqueBean.buscarComponente()}"/>
     </p:selectOneMenu>
     
 	<p:inputText id="qtdComponente" value="#{gerenciaEstoqueBean.qtdUtilizado}" placeholder="Quantidade" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
@@ -42,7 +37,7 @@
 		<p:collector value="#{gerenciaEstoqueBean.componenteDoProduto}" addTo="#{gerenciaEstoqueBean['listaDeComponenteDoProduto']}" />
 	</p:commandButton> 
 		
-		<p:dataTable id="tabelaComponentesDoProduto" value="#{gerenciaEstoqueBean['listaDeComponenteDoProduto']}" var="itemComponente" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
+		<p:dataTable id="tabelaComponentesDoProduto" value="#{gerenciaEstoqueBean['listaDeComponenteDoProduto']}" var="itemComponente" rendered="#{gerenciaEstoqueBean.tipoCadastro}" emptyMessage="Selecione os componentes do produto">
 			<p:column headerText="Descrição">
 				<h:outputText value="#{itemComponente.descricao}" />
 			</p:column>
@@ -50,7 +45,7 @@
 				<h:outputText value="#{itemComponente.valor}" />
 			</p:column>
 			<p:column headerText="Tipo Unítario">
-				<h:outputText value="#{itemComponente.tipoUnitario}" />
+				<h:outputText value="#{itemComponente.tipoUnitario.toLowerCase()}" />
 			</p:column>
 		</p:dataTable>
 	

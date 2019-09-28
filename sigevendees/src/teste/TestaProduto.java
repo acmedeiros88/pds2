@@ -11,8 +11,9 @@ import entity.Produto;
 public class TestaProduto {
 
 	public static void main(String[] args) {
-		
-		//Testando inserir novo cadastro no BD de produto e seus componentes;
+/*
+
+//ABAIXO ESTÁ O TESTE DE INSERIR UM NOVO CADASTRO DE PRODUTO E SEUSU COMPONENTES NO BD;		
 		
 		// Cria um elemento;
 		Elemento el = new Elemento();
@@ -24,7 +25,7 @@ public class TestaProduto {
 		// DAO para persistir no BD;
 		ProdutoDao dao = new ProdutoDao();
 		
-		// Cria um produto, busca o elemento e salva como um produto;
+		// Cria um produto, get os atributos do elemento e cria o objeto do tipo Produto;
 		Produto p1 = new Produto(el.getDescricao(), el.getTipoElemento(), el.getTipoUnitario(), el.getValor());
 		
 		// Salva o produto no BD;
@@ -60,7 +61,29 @@ public class TestaProduto {
 
 		// Atualiza a lista de componentes do produto;
 		dao.atualizar(p2);
-
+*/
+		
+//ABAIXO ESTÁ O TESTE DE BUSCA DO ID DO ÚLTIMO PRODUTO SALVO NO BD;
+		
+		// Cria um elemento;
+		Elemento el = new Elemento();
+		el.setDescricao("Teste produto last id");
+		el.setTipoElemento("bolo");
+		el.setTipoUnitario("und");
+		el.setValor((float) 7.00);
+		
+		// DAO para persistir no BD;
+		ProdutoDao dao = new ProdutoDao();
+		
+		// Cria um produto, get os atributos do elemento e cria objeto do tipo Produto;
+		Produto p1 = new Produto(el.getDescricao(), el.getTipoElemento(), el.getTipoUnitario(), el.getValor());
+		
+		// Salva o produto no BD;
+		dao.salvar(p1);
+		
+		//Busca o ID do ultimo Produto salvo no BD;
+		int id = dao.buscarLastInsertId();
+		System.out.println("O ULTIMO ID É "+id);
 	}
 
 }

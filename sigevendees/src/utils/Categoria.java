@@ -1,7 +1,11 @@
 package utils;
 
 public enum Categoria {
-	BOLO("bolo"), SALGADO("salgado"), INGREDIENTE("ingrediente"), EMBALAGEM("embalagem");
+	
+	INGREDIENTE("Ingrediente"),
+	BOLO("Bolo"),
+	EMBALAGEM("Embalagem"),
+	SALGADO("Salgado");
 
 	private String descricao;
 
