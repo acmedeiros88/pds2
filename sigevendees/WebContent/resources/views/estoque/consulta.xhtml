@@ -29,7 +29,7 @@
         </p:column>
         
         <p:column headerText="Valor total">
-        	<h:outputText value="" />
+        	<h:outputText value="#{estoqueComponentes.estoqueAtual*estoqueComponentes.valor}" />
         </p:column>
  
         <p:column filterBy="#{estoqueComponentes}" headerText="Tipo" >

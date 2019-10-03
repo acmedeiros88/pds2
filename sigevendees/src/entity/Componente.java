@@ -36,7 +36,7 @@ public class Componente extends Elemento {
 		return super.getTipoUnitario();
 	}
 
-	@Column(name = "valorDeCusto", nullable = true)
+	@Column(name = "precoMedioDeCustoUnd", nullable = true)
 	@Override
 	public float getValor() {
 		return super.getValor();
@@ -52,11 +52,11 @@ public class Componente extends Elemento {
 
 	}
 
-	public Componente(String descricao, String tipoElemento, String tipoUnitario,float estoqueMin) {
+	public Componente(String descricao, String tipoElemento, String tipoUnitario, float estoqueMin) {
 		setDescricao(descricao);
 		setTipoElemento(tipoElemento);
 		setTipoUnitario(tipoUnitario);
-		this.estoqueMinimo=estoqueMin;
+		this.estoqueMinimo = estoqueMin;
 	}
 
 	public float getEstoqueMinimo() {

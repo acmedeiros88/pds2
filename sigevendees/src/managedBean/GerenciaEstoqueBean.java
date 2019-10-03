@@ -142,15 +142,38 @@ public class GerenciaEstoqueBean implements Serializable {
 	}
 
 	public void salvarAquisicao() {
-		this.context = FacesContext.getCurrentInstance();
-		this.aquisicao.setComponenteAdquirido(daoComponente.buscarPorCod(this.componente.getCodigo()));
-		this.componente = this.aquisicao.getComponenteAdquirido();
-		this.componente.setEstoqueAtual(this.componente.getEstoqueAtual() + this.aquisicao.getQtdAdquirida());
-		this.componente.setValor(this.aquisicao.getCustoDaAquisicao());
-		this.aquisicao.setDataDaAquisicao(new Date());
-		if (daoComponente.salvarAquisicaoDeComponente(this.aquisicao) && daoComponente.atualizarEstoque(this.componente)) {
-			this.componente = new Componente();
-			this.aquisicao = new Aquisicao();
+		context = FacesContext.getCurrentInstance();
+		aquisicao.setComponenteAdquirido(daoComponente.buscarPorCod(componente.getCodigo()));
+		componente = aquisicao.getComponenteAdquirido();
+		
+		float qtdEstoqueAtual, qtdEntrada, precoMedioAtual, precoCompra;
+		qtdEstoqueAtual = componente.getEstoqueAtual();
+		qtdEntrada = aquisicao.getQtdAdquirida();
+		precoMedioAtual = componente.getValor();
+		precoCompra = aquisicao.getCustoDaAquisicao();
+		float novoPrecoMedio = 0;
+		
+		if(componente.getTipoUnitario().equalsIgnoreCase("G") || componente.getTipoUnitario().equalsIgnoreCase("ML")) {
+			if(componente.getEstoqueAtual() != 0) {
+				novoPrecoMedio = (qtdEstoqueAtual * precoMedioAtual + qtdEntrada * (precoCompra / qtdEntrada)) / (qtdEstoqueAtual + qtdEntrada);
+			}else {
+				novoPrecoMedio = precoCompra / qtdEntrada;
+			}
+		}else {
+			if(componente.getEstoqueAtual() != 0) {
+				novoPrecoMedio = (qtdEstoqueAtual * precoMedioAtual + qtdEntrada * precoCompra) / (qtdEstoqueAtual + qtdEntrada);
+			}else {
+				novoPrecoMedio = precoCompra;
+			}
+		}
+		
+		componente.setValor(novoPrecoMedio);		
+		componente.setEstoqueAtual(qtdEstoqueAtual + qtdEntrada);
+		aquisicao.setDataDaAquisicao(new Date());
+		
+		if (daoComponente.salvarAquisicaoDeComponente(aquisicao) && daoComponente.atualizarEstoque(componente)) {
+			componente = new Componente();
+			aquisicao = new Aquisicao();
 			init();
 			context.addMessage(null, new FacesMessage("Sucesso", "Estoque do componente atualizado"));
 		} else {
