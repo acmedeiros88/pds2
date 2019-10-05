@@ -40,7 +40,7 @@ public class ComponenteDao {
 	public boolean atualizarEstoque(Componente componente) {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		try {
-			String jpql = "UPDATE Componente SET precoMedioDeCustoUnd = :custo, estoqueAtual = :qtdAdquirida WHERE codComponente = :value";
+			String jpql = "UPDATE Componente SET precoMedioDoCustoUnitario = :custo, estoqueAtual = :qtdAdquirida WHERE codComponente = :value";
 			entityManager.getTransaction().begin();
 			entityManager.createQuery(jpql).setParameter("qtdAdquirida", componente.getEstoqueAtual())
 					.setParameter("custo", componente.getValor()).setParameter("value", componente.getCodigo()).executeUpdate();

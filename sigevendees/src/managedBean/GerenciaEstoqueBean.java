@@ -96,15 +96,16 @@ public class GerenciaEstoqueBean implements Serializable {
 			if (daoComponente.salvar(componente)) {
 				elemento = new Elemento();
 				componente = new Componente();
+				setEstoqueMinimo(0);
 				init();
 				context.addMessage(null, new FacesMessage("Sucesso", "cadastrado " + getFoiCadastrado() + " " + getDoTipo()));
 			} else {
 				context.addMessage(null, new FacesMessage("Erro", "Não foi possivel realizar o cadastro " + getFoiCadastrado() + " " + getDoTipo()));
 			}
 		} else {
-			produto = new Produto(elemento.getDescricao(), elemento.getTipoElemento(), "und", elemento.getValor());
+			produto = new Produto(elemento.getDescricao(), elemento.getTipoElemento(),Unitario.UND.toString(), elemento.getValor());
 			if (daoProduto.salvar(produto)) {
-				produto = daoProduto.buscarPorCod(daoProduto.buscarLastInsertId());
+				produto = daoProduto.buscarPorCod(daoProduto.getLastInsertId());
 				listaDaTabAssociativa = produto.getComponentes();
 				for(Componente c: listaDeComponenteDoProduto) {
 					pk.setCodProduto(produto.getCodigo());
@@ -146,31 +147,21 @@ public class GerenciaEstoqueBean implements Serializable {
 		aquisicao.setComponenteAdquirido(daoComponente.buscarPorCod(componente.getCodigo()));
 		componente = aquisicao.getComponenteAdquirido();
 		
+		//Valor total em estoque de componentes é utilizado o valor unitário de custo médio;
 		float qtdEstoqueAtual, qtdEntrada, precoMedioAtual, precoCompra;
 		qtdEstoqueAtual = componente.getEstoqueAtual();
 		qtdEntrada = aquisicao.getQtdAdquirida();
 		precoMedioAtual = componente.getValor();
 		precoCompra = aquisicao.getCustoDaAquisicao();
 		float novoPrecoMedio = 0;
-		
-		if(componente.getTipoUnitario().equalsIgnoreCase("G") || componente.getTipoUnitario().equalsIgnoreCase("ML")) {
-			if(componente.getEstoqueAtual() != 0) {
-				novoPrecoMedio = (qtdEstoqueAtual * precoMedioAtual + qtdEntrada * (precoCompra / qtdEntrada)) / (qtdEstoqueAtual + qtdEntrada);
-			}else {
-				novoPrecoMedio = precoCompra / qtdEntrada;
-			}
+		if(componente.getEstoqueAtual() != 0) {
+			novoPrecoMedio = (qtdEstoqueAtual * precoMedioAtual + qtdEntrada * (precoCompra / qtdEntrada)) / (qtdEstoqueAtual + qtdEntrada);
 		}else {
-			if(componente.getEstoqueAtual() != 0) {
-				novoPrecoMedio = (qtdEstoqueAtual * precoMedioAtual + qtdEntrada * precoCompra) / (qtdEstoqueAtual + qtdEntrada);
-			}else {
-				novoPrecoMedio = precoCompra;
-			}
+			novoPrecoMedio = precoCompra / qtdEntrada;
 		}
-		
 		componente.setValor(novoPrecoMedio);		
 		componente.setEstoqueAtual(qtdEstoqueAtual + qtdEntrada);
 		aquisicao.setDataDaAquisicao(new Date());
-		
 		if (daoComponente.salvarAquisicaoDeComponente(aquisicao) && daoComponente.atualizarEstoque(componente)) {
 			componente = new Componente();
 			aquisicao = new Aquisicao();

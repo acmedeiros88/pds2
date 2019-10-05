@@ -36,7 +36,7 @@ public class Componente extends Elemento {
 		return super.getTipoUnitario();
 	}
 
-	@Column(name = "precoMedioDeCustoUnd", nullable = true)
+	@Column(name = "precoMedioDoCustoUnitario", nullable = true)
 	@Override
 	public float getValor() {
 		return super.getValor();

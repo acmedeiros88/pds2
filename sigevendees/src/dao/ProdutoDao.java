@@ -28,7 +28,7 @@ public class ProdutoDao {
 		return (Produto) GenericDao.buscarPorId(Produto.class, cod);
 	}
 
-	public int buscarLastInsertId() {
+	public int getLastInsertId() {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		int resultado = -1;
 		try {

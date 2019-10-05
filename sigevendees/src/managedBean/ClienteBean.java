@@ -58,17 +58,20 @@ public class ClienteBean implements Serializable {
 	 */
 	public void buscarCliente() {
 		this.context = FacesContext.getCurrentInstance();
-		clienteRetornado = dao.buscarPornumTelefone(cliente.getNumTelefone());
-		if (clienteRetornado != null) {
-			this.cliente.setNumTelefone(this.cliente.getNumTelefone());
-			this.cliente.setNomeCliente(clienteRetornado.getNomeCliente());
-			this.cliente.setEstabelecimentoCliente(clienteRetornado.getEstabelecimentoCliente());
-			this.cliente.setObservacaoCliente(clienteRetornado.getObservacaoCliente());
-		} else {
-			this.cliente.setNomeCliente(null);
-			this.cliente.setEstabelecimentoCliente(null);
-			this.cliente.setObservacaoCliente(null);
-			context.addMessage(null, new FacesMessage("Aviso", "Cliente não possui cadastro"));
+		int telefoneSolicitado = cliente.getNumTelefone();
+		if(telefoneSolicitado !=0) {
+			clienteRetornado = dao.buscarPornumTelefone(telefoneSolicitado);
+			if (clienteRetornado != null) {
+				this.cliente.setNumTelefone(this.cliente.getNumTelefone());
+				this.cliente.setNomeCliente(clienteRetornado.getNomeCliente());
+				this.cliente.setEstabelecimentoCliente(clienteRetornado.getEstabelecimentoCliente());
+				this.cliente.setObservacaoCliente(clienteRetornado.getObservacaoCliente());
+			} else {
+				this.cliente.setNomeCliente(null);
+				this.cliente.setEstabelecimentoCliente(null);
+				this.cliente.setObservacaoCliente(null);
+				context.addMessage(null, new FacesMessage("Aviso", "Cliente não possui cadastro"));
+			}
 		}
 	}
 

@@ -16,20 +16,28 @@
             <h:outputText value="#{estoqueComponentes.codigo}" />
         </p:column>
 
-        <p:column filterBy="#{estoqueComponentes}" headerText="Produto" >
+        <p:column filterBy="#{estoqueComponentes}" headerText="Componente" >
             <h:outputText value="#{estoqueComponentes.descricao}" />
         </p:column>
  
         <p:column headerText="Estoque mínimo" >
- 			<h:outputText value="#{estoqueComponentes.estoqueMinimo}" />
+ 			<h:outputText value="#{estoqueComponentes.estoqueMinimo}" >
+ 				<f:convertNumber pattern="###"/>
+ 			</h:outputText>
+ 			<h:outputText value="#{estoqueComponentes.tipoUnitario.toLowerCase()}"/>
  		</p:column>
         
         <p:column headerText="Estoque Atual">
-        	<h:outputText value="#{estoqueComponentes.estoqueAtual}" />
+        	<h:outputText value="#{estoqueComponentes.estoqueAtual}" >
+        		<f:convertNumber pattern="###"/>
+        	</h:outputText>
+        	<h:outputText value="#{estoqueComponentes.tipoUnitario.toLowerCase()}"/>
         </p:column>
         
         <p:column headerText="Valor total">
-        	<h:outputText value="#{estoqueComponentes.estoqueAtual*estoqueComponentes.valor}" />
+        	<h:outputText value="#{estoqueComponentes.estoqueAtual*estoqueComponentes.valor}" >
+        		<f:convertNumber currencyCode ="BRL" type="currency"/>
+        	</h:outputText>
         </p:column>
  
         <p:column filterBy="#{estoqueComponentes}" headerText="Tipo" >
@@ -39,6 +47,7 @@
                     <f:selectItem itemLabel="Embalagem" itemValue="embalagem" />
                 </p:selectOneButton>
             </f:facet>
+             <h:outputText value="#{estoqueComponentes.tipoElemento}" />
         </p:column>
 </p:dataTable>
 </h:form>	

@@ -82,7 +82,7 @@ public class TestaProduto {
 		dao.salvar(p1);
 		
 		//Busca o ID do ultimo Produto salvo no BD;
-		int id = dao.buscarLastInsertId();
+		int id = dao.getLastInsertId();
 		System.out.println("O ULTIMO ID É "+id);
 	}
 

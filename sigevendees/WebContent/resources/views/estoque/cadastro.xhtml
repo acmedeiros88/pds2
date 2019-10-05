@@ -42,9 +42,9 @@
 				<h:outputText value="#{itemComponente.descricao}" />
 			</p:column>
 			<p:column headerText="Quantidade">
-				<h:outputText value="#{itemComponente.valor}" />
-			</p:column>
-			<p:column headerText="Tipo Unítario">
+				<h:outputText value="#{itemComponente.valor}">
+					<f:convertNumber pattern="###"/>
+				</h:outputText>
 				<h:outputText value="#{itemComponente.tipoUnitario.toLowerCase()}" />
 			</p:column>
 		</p:dataTable>
