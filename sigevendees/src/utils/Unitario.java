@@ -7,7 +7,7 @@ public enum Unitario {
 
 	private final String descricao;
 
-	private Unitario(String descricao) {
+	Unitario(String descricao) {
 		this.descricao = descricao;
 	}
 

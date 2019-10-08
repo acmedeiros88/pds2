@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import utils.Unitario;
+
 @Entity
 public class Produto extends Elemento {
 
@@ -53,11 +55,11 @@ public class Produto extends Elemento {
 
 	}
 
-	public Produto(String descricao, String tipoElemento, String tipoUnitario, float valor) {
+	public Produto(String descricao, String tipoElemento, float valor) {
 		setDescricao(descricao);
 		setTipoElemento(tipoElemento);
-		setTipoUnitario(tipoUnitario);
 		setValor(valor);
+		setTipoUnitario(Unitario.UND.toString());
 	}
 
 	@OneToMany(targetEntity = ComponenteDoProduto.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)

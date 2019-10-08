@@ -13,7 +13,7 @@ import entity.Produto;
 public class TestaPedido {
 
 	public static void main(String[] args) {
-		Cliente cliente = new Cliente();
+		/*Cliente cliente = new Cliente();
 		Produto produto = new Produto();
 
 		cliente.setNomeCliente("adriano");
@@ -37,7 +37,7 @@ public class TestaPedido {
 		Pedido pedido = new Pedido(cliente, iten, new Date(), new Date());
 
 		System.out.print(pedido);
-
+*/
 	}
 
 }

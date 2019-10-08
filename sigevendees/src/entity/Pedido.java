@@ -2,33 +2,39 @@ package entity;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import utils.Situacao;
 
 @Entity
 public class Pedido {
-	
+
 	@Id
 	@GeneratedValue
 	private int codPedido;
-	
-	@Column(nullable = true)
+
+	@JoinColumn(name="codCliente")
+	@ManyToOne
 	private Cliente cliente;
-	
+
 	private List<ItemDoPedido> itens;
-	
+
 	@Column(nullable = false)
 	private Date dataSolicitado;
-	
-	@Column(nullable = true)
+
+	@Column(nullable = false)
 	private Date dataEntrega;
 	
+	@Column(nullable = false)
+	private Situacao statusDoPedido;
+
 	public Pedido() {
 
 	}
@@ -38,6 +44,7 @@ public class Pedido {
 		this.itens = itens;
 		this.dataSolicitado = dataSolicitado;
 		this.dataEntrega = dataEntrega;
+		this.statusDoPedido = Situacao.EFETUADO;
 	}
 
 	public int getCodPedido() {
@@ -55,7 +62,7 @@ public class Pedido {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
+
 	@OneToMany(targetEntity = ItemDoPedido.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public List<ItemDoPedido> getItens() {
 		return itens;
@@ -79,6 +86,14 @@ public class Pedido {
 
 	public void setDataEntrega(Date dataEntrega) {
 		this.dataEntrega = dataEntrega;
+	}
+
+	public Situacao getStatusDoPedido() {
+		return statusDoPedido;
+	}
+
+	public void setStatusDoPedido(Situacao statusDoPedido) {
+		this.statusDoPedido = statusDoPedido;
 	}
 
 	@Override

@@ -3,6 +3,8 @@ package entity;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import utils.Situacao;
+
 /*Esta classe representa  a tabela associativa entre o relacionamento de pedido e produto,
  * no qual um pedido pode ser composto por vários produtos*/
 
@@ -14,18 +16,18 @@ public class ItemDoPedido {
 	private int qtdProduto;
 	private float vlrDescItem;
 	private float vlrTotalItem;
-	private String situacao;
+	private Situacao statusDoItem;
 
 	public ItemDoPedido() {
 
 	}
 
-	public ItemDoPedido(ItemDoPedidoPK cod, int qtdProduto, float vlrDescItem, float vlrTotalItem, String situacao) {
+	public ItemDoPedido(ItemDoPedidoPK cod, int qtdProduto, float vlrDescItem, float vlrTotalItem) {
 		this.cod = cod;
 		this.qtdProduto = qtdProduto;
 		this.vlrDescItem = vlrDescItem;
 		this.vlrTotalItem = vlrTotalItem;
-		this.situacao = situacao;
+		this.statusDoItem = Situacao.PRODUZIR;
 	}
 
 	public ItemDoPedidoPK getCod() {
@@ -60,12 +62,12 @@ public class ItemDoPedido {
 		this.vlrTotalItem = vlrTotalItem;
 	}
 
-	public String getSituacao() {
-		return situacao;
+	public Situacao getStatusDoItem() {
+		return statusDoItem;
 	}
 
-	public void setSituacao(String situacao) {
-		this.situacao = situacao;
+	public void setStatusDoItem(Situacao statusDoItem) {
+		this.statusDoItem = statusDoItem;
 	}
 
 	@Override
@@ -88,6 +90,6 @@ public class ItemDoPedido {
 	@Override
 	public String toString() {
 		return "ItemDoPedido [cod=" + cod + ", qtdProduto=" + qtdProduto + ", vlrDescItem=" + vlrDescItem
-				+ ", vlrTotalItem=" + vlrTotalItem + ", situacao=" + situacao + "]";
+				+ ", vlrTotalItem=" + vlrTotalItem + ", statusDoItem=" + statusDoItem + "]";
 	}
 }

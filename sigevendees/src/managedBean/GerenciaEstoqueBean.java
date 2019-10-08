@@ -103,7 +103,7 @@ public class GerenciaEstoqueBean implements Serializable {
 				context.addMessage(null, new FacesMessage("Erro", "Não foi possivel realizar o cadastro " + getFoiCadastrado() + " " + getDoTipo()));
 			}
 		} else {
-			produto = new Produto(elemento.getDescricao(), elemento.getTipoElemento(),Unitario.UND.toString(), elemento.getValor());
+			produto = new Produto(elemento.getDescricao(), elemento.getTipoElemento(), elemento.getValor());
 			if (daoProduto.salvar(produto)) {
 				produto = daoProduto.buscarPorCod(daoProduto.getLastInsertId());
 				listaDaTabAssociativa = produto.getComponentes();

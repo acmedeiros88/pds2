@@ -11,7 +11,7 @@ import entity.Produto;
 public class TestaProduto {
 
 	public static void main(String[] args) {
-/*
+
 
 //ABAIXO ESTÁ O TESTE DE INSERIR UM NOVO CADASTRO DE PRODUTO E SEUSU COMPONENTES NO BD;		
 		
@@ -19,14 +19,13 @@ public class TestaProduto {
 		Elemento el = new Elemento();
 		el.setDescricao("Teste produto");
 		el.setTipoElemento("bolo");
-		el.setTipoUnitario("und");
 		el.setValor((float) 7.00);
 		
 		// DAO para persistir no BD;
 		ProdutoDao dao = new ProdutoDao();
 		
 		// Cria um produto, get os atributos do elemento e cria o objeto do tipo Produto;
-		Produto p1 = new Produto(el.getDescricao(), el.getTipoElemento(), el.getTipoUnitario(), el.getValor());
+		Produto p1 = new Produto(el.getDescricao(), el.getTipoElemento(), el.getValor());
 		
 		// Salva o produto no BD;
 		dao.salvar(p1);
@@ -41,15 +40,15 @@ public class TestaProduto {
 		// Cria a chave composta;
 		ComponenteProdutoPK pk1 = new ComponenteProdutoPK();
 		pk1.setCodProduto(p2.getCodigo());
-		pk1.setCodComponente(4);
+		pk1.setCodComponente(1);
 		
 		ComponenteProdutoPK pk2 = new ComponenteProdutoPK();
 		pk2.setCodProduto(p2.getCodigo());
-		pk2.setCodComponente(5);
+		pk2.setCodComponente(3);
 		
 		ComponenteProdutoPK pk3 = new ComponenteProdutoPK();
 		pk3.setCodProduto(p2.getCodigo());
-		pk3.setCodComponente(6);
+		pk3.setCodComponente(5);
 
 		// Adiciona na lista a chave composta e a quantidade utilizada;
 		lista.add(new ComponenteDoProduto(pk1, 100));
@@ -61,22 +60,21 @@ public class TestaProduto {
 
 		// Atualiza a lista de componentes do produto;
 		dao.atualizar(p2);
-*/
-		
+
+/*		
 //ABAIXO ESTÁ O TESTE DE BUSCA DO ID DO ÚLTIMO PRODUTO SALVO NO BD;
 		
 		// Cria um elemento;
 		Elemento el = new Elemento();
 		el.setDescricao("Teste produto last id");
 		el.setTipoElemento("bolo");
-		el.setTipoUnitario("und");
 		el.setValor((float) 7.00);
 		
 		// DAO para persistir no BD;
 		ProdutoDao dao = new ProdutoDao();
 		
 		// Cria um produto, get os atributos do elemento e cria objeto do tipo Produto;
-		Produto p1 = new Produto(el.getDescricao(), el.getTipoElemento(), el.getTipoUnitario(), el.getValor());
+		Produto p1 = new Produto(el.getDescricao(), el.getTipoElemento(), el.getValor());
 		
 		// Salva o produto no BD;
 		dao.salvar(p1);
@@ -84,6 +82,7 @@ public class TestaProduto {
 		//Busca o ID do ultimo Produto salvo no BD;
 		int id = dao.getLastInsertId();
 		System.out.println("O ULTIMO ID É "+id);
+*/
 	}
 
 }
