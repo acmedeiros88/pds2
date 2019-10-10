@@ -13,7 +13,7 @@ public class TestaProduto {
 	public static void main(String[] args) {
 
 
-//ABAIXO ESTÁ O TESTE DE INSERIR UM NOVO CADASTRO DE PRODUTO E SEUSU COMPONENTES NO BD;		
+//ABAIXO ESTÁ O TESTE DE INSERIR UM NOVO CADASTRO DE PRODUTO E SEUS COMPONENTES NO BD;		
 		
 		// Cria um elemento;
 		Elemento el = new Elemento();

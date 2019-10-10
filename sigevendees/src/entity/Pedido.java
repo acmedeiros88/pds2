@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import utils.Situacao;
 
 @Entity
 public class Pedido {
@@ -20,10 +19,11 @@ public class Pedido {
 	@GeneratedValue
 	private int codPedido;
 
-	@JoinColumn(name="codCliente")
+	@JoinColumn(name = "codCliente")
 	@ManyToOne
 	private Cliente cliente;
 
+	@OneToMany(targetEntity = ItemDoPedido.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<ItemDoPedido> itens;
 
 	@Column(nullable = false)
@@ -31,20 +31,15 @@ public class Pedido {
 
 	@Column(nullable = false)
 	private Date dataEntrega;
-	
-	@Column(nullable = false)
-	private Situacao statusDoPedido;
 
 	public Pedido() {
 
 	}
 
-	public Pedido(Cliente cliente, List<ItemDoPedido> itens, Date dataSolicitado, Date dataEntrega) {
+	public Pedido(Cliente cliente, Date dataSolicitado, Date dataEntrega) {
 		this.cliente = cliente;
-		this.itens = itens;
 		this.dataSolicitado = dataSolicitado;
 		this.dataEntrega = dataEntrega;
-		this.statusDoPedido = Situacao.EFETUADO;
 	}
 
 	public int getCodPedido() {
@@ -63,7 +58,6 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	@OneToMany(targetEntity = ItemDoPedido.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public List<ItemDoPedido> getItens() {
 		return itens;
 	}
@@ -88,17 +82,9 @@ public class Pedido {
 		this.dataEntrega = dataEntrega;
 	}
 
-	public Situacao getStatusDoPedido() {
-		return statusDoPedido;
-	}
-
-	public void setStatusDoPedido(Situacao statusDoPedido) {
-		this.statusDoPedido = statusDoPedido;
-	}
-
 	@Override
 	public String toString() {
-		return "Pedido [codPedido=" + codPedido + ", cliente=" + cliente + ", itens=" + itens + ", dataSolicitado="
-				+ dataSolicitado + ", dataEntrega=" + dataEntrega + "]";
+		return "Pedido [codPedido=" + codPedido + ", cliente=" + cliente.getNomeCliente() + ", itens=" + itens
+				+ ", dataSolicitado=" + dataSolicitado + ", dataEntrega=" + dataEntrega + "]";
 	}
 }

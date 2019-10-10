@@ -1,9 +1,8 @@
 package utils;
 
 public enum Situacao {
-	PRODUZIR("a Produzir"),
+	PRODUZIR("A produzir"),
 	PRODUZIDO("Produzido"),
-	EFETUADO("Efetuado"),
 	FINALIZADO("Finalizado"),
 	CANCELADO("Cancelado");
 
