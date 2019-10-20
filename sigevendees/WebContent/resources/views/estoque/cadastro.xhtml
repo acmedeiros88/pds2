@@ -27,17 +27,17 @@
 	
     <p:selectOneMenu id="listaDeComponentes" value="#{gerenciaEstoqueBean.componente.codigo}" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
         <f:selectItem itemLabel="Ingrediente/Embalagem" noSelectionOption="true"/>
-        <f:selectItems value="#{gerenciaEstoqueBean['listaDeComponente']}" var="itemComponente" itemLabel="#{itemComponente.descricao}" itemValue="#{itemComponente.codigo}"/>
+        <f:selectItems value="#{gerenciaEstoqueBean['listaDeComponentes']}" var="itemComponente" itemLabel="#{itemComponente.descricao}" itemValue="#{itemComponente.codigo}"/>
 		<p:ajax listener="#{gerenciaEstoqueBean.buscarComponente()}"/>
     </p:selectOneMenu>
     
 	<p:inputText id="qtdComponente" value="#{gerenciaEstoqueBean.qtdUtilizado}" placeholder="Quantidade" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
 	
 	<p:commandButton id="addListaComponente" action="#{gerenciaEstoqueBean.reinitComponenteDoProduto()}" value="Adicionar" update="tabViewMenuEstoque:formCadastro" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
-		<p:collector value="#{gerenciaEstoqueBean.componenteDoProduto}" addTo="#{gerenciaEstoqueBean['listaDeComponenteDoProduto']}" />
+		<p:collector value="#{gerenciaEstoqueBean.componenteDoProduto}" addTo="#{gerenciaEstoqueBean['listaDeComponentesDoProduto']}" />
 	</p:commandButton> 
 		
-		<p:dataTable id="tabelaComponentesDoProduto" value="#{gerenciaEstoqueBean['listaDeComponenteDoProduto']}" var="itemComponente" rendered="#{gerenciaEstoqueBean.tipoCadastro}" emptyMessage="Selecione os componentes do produto">
+		<p:dataTable id="tabelaComponentesDoProduto" value="#{gerenciaEstoqueBean['listaDeComponentesDoProduto']}" var="itemComponente" rendered="#{gerenciaEstoqueBean.tipoCadastro}" emptyMessage="Selecione os componentes do produto">
 			<p:column headerText="Descrição">
 				<h:outputText value="#{itemComponente.descricao}" />
 			</p:column>

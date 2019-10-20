@@ -33,18 +33,15 @@ public class GerenciaEstoqueBean implements Serializable {
 	private Produto produto;
 
 	// Variável List utilizado na consulta do estoque de componentes, e na aquisição de componente;
-	private List<Componente> listaDeComponente;
+	private List<Componente> listaDeComponentes;
 
 	private Aquisicao aquisicao;
 
 	// Variável utilizado na lista de composição de componentes do produto;
-	private List<Componente> listaDeComponenteDoProduto;
+	private List<Componente> listaDeComponentesDoProduto;
 
 	// Objeto utilizado para adicional a lista de componentes do produto;
 	private Componente componenteDoProduto;
-	
-	// Variável List utilizado na composição de uma lista no qual será add na tabela associativa ComponenteDoProduto; 
-	private List<ComponenteDoProduto> listaDaTabAssociativa;
 	
 	// Objeto utilizado para criar a chave primaria composta da tabela associativa CompondenteDoProduto;
 	protected ComponenteProdutoPK pk;
@@ -78,13 +75,13 @@ public class GerenciaEstoqueBean implements Serializable {
 		this.componenteDoProduto = new Componente();
 		this.produto = new Produto();
 		this.aquisicao = new Aquisicao();
-		this.listaDeComponenteDoProduto = new ArrayList<Componente>();
+		this.listaDeComponentesDoProduto = new ArrayList<Componente>();
 		this.pk = new ComponenteProdutoPK();
 	}
 
 	@PostConstruct
 	public void init() {
-		this.listaDeComponente = daoComponente.listaComponente();
+		this.listaDeComponentes = daoComponente.listarComponentes();
 	}
 
 	public void salvar() {
@@ -106,18 +103,18 @@ public class GerenciaEstoqueBean implements Serializable {
 			produto = new Produto(elemento.getDescricao(), elemento.getTipoElemento(), elemento.getValor());
 			if (daoProduto.salvar(produto)) {
 				produto = daoProduto.buscarPorCod(daoProduto.getLastInsertId());
-				listaDaTabAssociativa = produto.getComponentes();
-				for(Componente c: listaDeComponenteDoProduto) {
+				List<ComponenteDoProduto> componentes = produto.getComponentes();
+				for(Componente c: listaDeComponentesDoProduto) {
 					pk.setCodProduto(produto.getCodigo());
 					pk.setCodComponente(c.getCodigo());
-					listaDaTabAssociativa.add(new ComponenteDoProduto(pk, c.getValor()));
+					componentes.add(new ComponenteDoProduto(pk, c.getValor()));
 					pk = new ComponenteProdutoPK();
 				}
-				produto.setComponentes(listaDaTabAssociativa);
+				produto.setComponentes(componentes);
 				daoProduto.atualizar(produto);
 				produto = new Produto();
 				elemento = new Elemento();
-				listaDeComponenteDoProduto = new ArrayList<Componente>();
+				listaDeComponentesDoProduto = new ArrayList<Componente>();
 				context.addMessage(null, new FacesMessage("Sucesso", "cadastrado " + getFoiCadastrado() + " " + getDoTipo()));
 			} else {
 				context.addMessage(null, new FacesMessage("Erro", "Não foi possivel realizar o cadastro " + getFoiCadastrado() + " " + getDoTipo()));
@@ -236,20 +233,20 @@ public class GerenciaEstoqueBean implements Serializable {
 		this.estoqueMinimo = estoqueMinimo;
 	}
 
-	public List<Componente> getListaDeComponente() {
-		return listaDeComponente;
+	public List<Componente> getListaDeComponentes() {
+		return listaDeComponentes;
 	}
 
-	public void setListaDeComponente(List<Componente> listaDeComponente) {
-		this.listaDeComponente = listaDeComponente;
+	public void setListaDeComponentes(List<Componente> listaDeComponente) {
+		this.listaDeComponentes = listaDeComponente;
 	}
 
-	public List<Componente> getListaDeComponenteDoProduto() {
-		return listaDeComponenteDoProduto;
+	public List<Componente> getListaDeComponentesDoProduto() {
+		return listaDeComponentesDoProduto;
 	}
 
-	public void setListaDeComponenteDoProduto(List<Componente> listaDeComponenteDoProduto) {
-		this.listaDeComponenteDoProduto = listaDeComponenteDoProduto;
+	public void setListaDeComponentesDoProduto(List<Componente> listaDeComponenteDoProduto) {
+		this.listaDeComponentesDoProduto = listaDeComponenteDoProduto;
 	}
 
 	public Componente getComponenteDoProduto() {
@@ -266,14 +263,6 @@ public class GerenciaEstoqueBean implements Serializable {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
-	}
-	
-	public List<ComponenteDoProduto> getListaDaTabAssociativa() {
-		return listaDaTabAssociativa;
-	}
-
-	public void setListaDaTabAssociativa(List<ComponenteDoProduto> listaDaTabAssociativa) {
-		this.listaDaTabAssociativa = listaDaTabAssociativa;
 	}
 
 	public float getQtdUtilizado() {

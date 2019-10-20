@@ -11,7 +11,7 @@ public class TestaCliente {
 
 		ClienteDao dao = new ClienteDao();
 		
-		
+	/*
 		//Testando inserir novo cadastro de cliente no BD;
 		int tel = 123;
 		String nome = "Cliente c1";
@@ -47,11 +47,13 @@ public class TestaCliente {
 		 
 
 		 //Testando buscar todos os cadastro de cliente no BD;
-		 List<Cliente> lista = dao.getListaClientes();
+		 List<Cliente> lista = dao.listarClientes();
 		 for(Cliente l : lista) {
 			 System.out.println(l.getNomeCliente());
 		 }
-		 
+	*/	 
+		 // Teste da busca por nome do cliente;
+		 System.out.println(dao.buscarPornome("Adriano"));
 	}
 
 }

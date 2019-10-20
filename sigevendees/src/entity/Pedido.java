@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Pedido {
@@ -30,6 +32,7 @@ public class Pedido {
 	private Date dataSolicitado;
 
 	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date dataEntrega;
 
 	public Pedido() {

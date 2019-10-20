@@ -29,7 +29,7 @@ public class ComponenteDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Componente> listaComponente() {
+	public List<Componente> listarComponentes() {
 		return (List<Componente>) GenericDao.listarTodos(Componente.class);
 	}
 

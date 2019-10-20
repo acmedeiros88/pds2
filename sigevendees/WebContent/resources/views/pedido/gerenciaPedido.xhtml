@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:form id="formGerenciarPedido" style="margin-left: 5%; width: 85%">
+	<p:dataTable id="tabelaDePedidosFeitos" var="pedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}" rowKey="#{pedidosItemProzuzir.codPedido}" scrollable="true" scrollHeight="100">
+		<f:facet name="header">
+			Lista de Pedidos Feitos
+		</f:facet>
+		<p:column style="width:16px; text-align:center" />
+
+		<p:column headerText="Código">
+			<h:outputText value="#{pedido.codPedido}" />
+		</p:column>
+		<p:column headerText="Cliente">
+			<h:outputText value="#{pedido.cliente.nomeCliente}" />
+		</p:column>
+		<p:column headerText="Data Solicitado">
+			<h:outputText value="#{pedido.dataSolicitado}" />
+		</p:column>
+		<p:column headerText="Data Entrega">
+			<h:outputText value="#{pedido.dataEntrega}" />
+		</p:column>
+		<p:column headerText="Detalhes" style="text-align: center">
+			<p:commandButton update="tabViewMenuPedido:formGerenciarPedido:pedioDetail" oncomplete="PF('pedidoDialog').show()" icon="pi pi-search">
+				<f:setPropertyActionListener value="pedido" target="#{gerenciaPedidoBean.pedido}" />
+			</p:commandButton>
+		</p:column>
+	</p:dataTable>
+	
+	<p:dialog header="Itens do pedido" widgetVar="pedidoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="pedioDetail" style="text-align:center;">
+			<p:dataTable id="tabelaItensPedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}" var="item" rendered="#{not empty gerenciaPedidoBean.itens}">
+		
+				<p:column headerText="Código">
+					<h:outputText value="#{item.itens}" />
+				</p:column>
+				
+				<p:column headerText="Produto">
+					<h:outputText value="#{item.itens}" />
+				</p:column>
+				
+				<p:column headerText="Qtd">
+					<h:outputText value="#{item.itens}">
+						<f:convertNumber pattern="###"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Valor Unitario">
+					<h:outputText value="#{item.itens}">
+						<f:convertNumber currencyCode ="BRL" type="currency"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Total">
+					<h:outputText value="#{item.itens*gerenciaPedidoBean.produto.valor}">
+						<f:convertNumber currencyCode ="BRL" type="currency"/>
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+        </p:outputPanel>
+    </p:dialog>
+
+	<br />
+
+	<p:commandButton id="itemProduzido" value="Produzido" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton id="excluirItem" value="Excluir" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	
+</h:form>
+</html>

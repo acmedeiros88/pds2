@@ -9,7 +9,7 @@
 	     
 	<p:selectOneMenu value="#{gerenciaEstoqueBean.componente.codigo}">
 		<f:selectItem itemLabel="Componente" noSelectionOption="true"/>
-	   <f:selectItems value="#{gerenciaEstoqueBean['listaDeComponente']}" var="itemComponente" itemLabel="#{itemComponente.descricao}" itemValue="#{itemComponente.codigo}" />
+	   <f:selectItems value="#{gerenciaEstoqueBean['listaDeComponentes']}" var="itemComponente" itemLabel="#{itemComponente.descricao}" itemValue="#{itemComponente.codigo}" />
 	</p:selectOneMenu>
 	
 	<br/><br/>

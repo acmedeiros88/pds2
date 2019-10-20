@@ -16,7 +16,7 @@ public class ItemDoPedido {
 	private int qtdProduto;
 	private float vlrDescItem;
 	private float vlrTotalItem;
-	private Situacao statusDoItem;
+	private String statusDoItem;
 
 	public ItemDoPedido() {
 
@@ -27,7 +27,7 @@ public class ItemDoPedido {
 		this.qtdProduto = qtdProduto;
 		this.vlrDescItem = vlrDescItem;
 		this.vlrTotalItem = vlrTotalItem;
-		this.statusDoItem = Situacao.PRODUZIR;
+		this.statusDoItem = Situacao.PRODUZIR.toString();
 	}
 
 	public ItemDoPedidoPK getCod() {
@@ -62,11 +62,11 @@ public class ItemDoPedido {
 		this.vlrTotalItem = vlrTotalItem;
 	}
 
-	public Situacao getStatusDoItem() {
+	public String getStatusDoItem() {
 		return statusDoItem;
 	}
 
-	public void setStatusDoItem(Situacao statusDoItem) {
+	public void setStatusDoItem(String statusDoItem) {
 		this.statusDoItem = statusDoItem;
 	}
 

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Tuple;
+
+import dao.ClienteDao;
 import dao.PedidoDao;
 import dao.ProdutoDao;
 import entity.Cliente;
-import entity.Componente;
 import entity.ItemDoPedido;
 import entity.ItemDoPedidoPK;
 import entity.Pedido;
@@ -70,11 +72,10 @@ public class TestaPedido {
 */
 		
 //ABAIXO ESTA O TESTE SALVAR PEDIDO NO BD
-		
+/*		
 		// Identifica o cliente;
-		Cliente cliente = new Cliente();
-		cliente.setNumTelefone(1234);
-		cliente.setNomeCliente("adriano");
+		ClienteDao daoCliente = new ClienteDao();
+		Cliente cliente = daoCliente.buscarPornumTelefone(123);
 		
 		// cria o pedido e salva no BD
 		PedidoDao dao = new PedidoDao();
@@ -90,26 +91,35 @@ public class TestaPedido {
 		// Cria uma lista de produtos;
 		List<Produto> listaDeProdutos = new ArrayList<Produto>();
 		
-		// Identifica o produto solicitado;
+		// Identifica e busca o produto solicitado;
 		ProdutoDao daoProduto = new ProdutoDao();
-		Produto produto = new Produto();
-		produto = daoProduto.buscarPorCod(1);
+		Produto produto_A = daoProduto.buscarPorCod(8); 
 		//  Adiciona o produto solicitado a lista;
-		listaDeProdutos.add(produto);
-		
+		listaDeProdutos.add(produto_A);
+		// cliente solicitou mais produto?
+			//Sim
+				// Identifica e busca o segundo produto solicitado, adiciona o produto a lista;
+				Produto produto_B = daoProduto.buscarPorCod(10);
+				listaDeProdutos.add(produto_B);
+				// Identifica e busca o terceiro produto solicitado, adiciona o produto a lista;
+				Produto produto_C = daoProduto.buscarPorCod(13);
+				listaDeProdutos.add(produto_C);
+	
 		// Cria uma chave primaria composta do item do pedido;
 		ItemDoPedidoPK pk = new ItemDoPedidoPK();
 		// Percore a lista de produtos para criar os itens do pedido;
 		for(Produto p: listaDeProdutos) {
 			pk.setCodPedido(pedidoRetornado.getCodPedido());
 			pk.setCodProduto(p.getCodigo());
-			itens.add(new ItemDoPedido(pk, 1, 0, 7));
+			itens.add(new ItemDoPedido(pk, 1, 0, p.getValor()));
+			pk = new ItemDoPedidoPK();
 		}
 		// Adiciona a lista de itens a lista do pedido;
 		pedidoRetornado.setItens(itens);
 		// Salva a lista de itens no BD;
 		dao.atualizar(pedidoRetornado);
-		
+*/		
+
 	}
 
 }

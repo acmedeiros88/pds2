@@ -43,7 +43,7 @@ public class ProdutoDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Produto> listaProduto() {
+	public List<Produto> listarProdutos() {
 		return (List<Produto>) GenericDao.listarTodos(Produto.class);
 	}
 }

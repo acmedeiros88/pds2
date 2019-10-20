@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="formIncluirPedido" style="margin-left: 5%; width: 85%">
+	<p:growl id="growlIncluirPedido" showDetail="true" sticky="true" />
+	
+	<p:inputText id="clientePedido" placeholder="Nome do Cliente" value="#{gerenciaPedidoBean.cliente.nomeCliente}"/>
+	<br />
+	<p:inputText id="telefoneClientePedido" value="#{gerenciaPedidoBean.cliente.numTelefone}" placeholder="Telefone do Cliente"/>
+
+	<p:commandButton id="buscaClientePedido" action="#{gerenciaPedidoBean.buscarCliente()}" update="formIncluirPedido" value="Buscar"/>
+
+	<br />
+	<br />
+
+	<h:outputLabel for="dataEntregaPedido" value="Data de entrega:" />
+	<p:calendar id="dataEntregaPedido" value="#{gerenciaPedidoBean.pedido.dataEntrega}" placeholder="dd/mes/ano" pattern="dd-MM-yyyy" mask="true" showOn="button" />
+
+	<br />
+	<br />
+
+	<p:selectOneMenu id="produtoDoPedido" placeholder="Produto" value="#{gerenciaPedidoBean.produto.codigo}">
+		<f:selectItem itemLabel="Produto" noSelectionOption="true"/>
+		<f:selectItems value="#{gerenciaPedidoBean['listaDeProdutos']}" var="itemPedido" itemLabel="#{itemPedido.descricao}" itemValue="#{itemPedido.codigo}" />
+		<p:ajax listener="#{gerenciaPedidoBean.buscarProduto()}"/>
+	</p:selectOneMenu>
+	
+	<p:inputNumber id="qtdProdutoDoPedido" placeholder="Qtd" value="#{gerenciaPedidoBean.qtdProduto}" />
+	
+	<p:commandButton id="addItenPedido" action="#{gerenciaPedidoBean.reinitItenDoPedido()}" update="tabViewMenuPedido:formIncluirPedido" value="Adicionar" >
+		<p:collector value="#{gerenciaPedidoBean.iten}" addTo="#{gerenciaPedidoBean['produtos']}" />
+	</p:commandButton>
+
+	<br />
+	<br />
+	
+	<p:dataTable id="tabelaItensPedido" value="#{gerenciaPedidoBean['produtos']}" var="itemPedido" emptyMessage="Selecione os produtos">
+		<f:facet name="header">
+			Itens do pedido
+		</f:facet>
+
+		<p:column headerText="Código">
+			<h:outputText value="#{itemPedido.codigo}" />
+		</p:column>
+		
+		<p:column headerText="Produto">
+			<h:outputText value="#{itemPedido.descricao}" />
+		</p:column>
+		
+		<p:column headerText="Qtd">
+			<h:outputText value="#{itemPedido.valor}">
+				<f:convertNumber pattern="###"/>
+			</h:outputText>
+		</p:column>
+		
+		<p:column headerText="Valor Unitario">
+			<h:outputText value="#{gerenciaPedidoBean.produto.valor}">
+				<f:convertNumber currencyCode ="BRL" type="currency"/>
+			</h:outputText>
+		</p:column>
+		
+		<p:column headerText="Total">
+			<h:outputText value="#{itemPedido.valor*gerenciaPedidoBean.produto.valor}">
+				<f:convertNumber currencyCode ="BRL" type="currency"/>
+			</h:outputText>
+		</p:column>
+	</p:dataTable>
+	<br />
+	<p:commandButton id="salvarPedido" value="Salvar" action="#{gerenciaPedidoBean.salvar()}" update="@form" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton id="cancelarAcaoPedido" value="Cancelar" style="margin-right:20px;" styleClass="ui-priority-primary" />
+</h:form>
+</html>

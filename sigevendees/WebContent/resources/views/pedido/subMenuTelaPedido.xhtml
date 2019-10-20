@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/templates/templatePrincipal.xhtml">
+	<ui:define name="titulo">Pedido</ui:define>
+	<ui:define name="tituloConteudo">PEDIDO</ui:define>	
+	<ui:define name="conteudoPagina">
+		<p:tabView id="tabViewMenuPedido" style="margin-left: 5%; width: 80%" scrollable="true"> 
+			<p:tab title="Incluir pedido">
+				<h:panelGrid columns="2" cellpadding="10">	
+					<ui:include src="incluiPedido.xhtml"></ui:include>
+				</h:panelGrid>
+			</p:tab>
+			<p:tab title="Gerenciar pedido">
+				<h:panelGrid columns="2" cellpadding="10">
+					<ui:include src="gerenciaPedido.xhtml"></ui:include>
+				</h:panelGrid>
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:composition> 
+</html>
