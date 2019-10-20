@@ -6,11 +6,11 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 <h:form id="formGerenciarPedido" style="margin-left: 5%; width: 85%">
-	<p:dataTable id="tabelaDePedidosFeitos" var="pedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}" rowKey="#{pedidosItemProzuzir.codPedido}" scrollable="true" scrollHeight="100">
+	<p:dataTable id="tabelaDePedidosFeitos" var="pedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}" selection="#{gerenciaPedidoBean.pedidosItemProzuzir}" rowKey="#{gerenciaPedidoBean.pedido.codPedido}" scrollable="true" scrollHeight="100" style="margin-bottom:0">
 		<f:facet name="header">
 			Lista de Pedidos Feitos
 		</f:facet>
-		<p:column style="width:16px; text-align:center" />
+		<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 
 		<p:column headerText="Código">
 			<h:outputText value="#{pedido.codPedido}" />
@@ -19,10 +19,14 @@
 			<h:outputText value="#{pedido.cliente.nomeCliente}" />
 		</p:column>
 		<p:column headerText="Data Solicitado">
-			<h:outputText value="#{pedido.dataSolicitado}" />
+			<h:outputText value="#{pedido.dataSolicitado}" >
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>
 		</p:column>
 		<p:column headerText="Data Entrega">
-			<h:outputText value="#{pedido.dataEntrega}" />
+			<h:outputText value="#{pedido.dataEntrega}" >
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>
 		</p:column>
 		<p:column headerText="Detalhes" style="text-align: center">
 			<p:commandButton update="tabViewMenuPedido:formGerenciarPedido:pedioDetail" oncomplete="PF('pedidoDialog').show()" icon="pi pi-search">
@@ -33,33 +37,22 @@
 	
 	<p:dialog header="Itens do pedido" widgetVar="pedidoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
         <p:outputPanel id="pedioDetail" style="text-align:center;">
-			<p:dataTable id="tabelaItensPedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}" var="item" rendered="#{not empty gerenciaPedidoBean.itens}">
+			<p:dataTable id="tabelaItensPedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}" var="item" rendered="#{not empty gerenciaPedidoBean.pedidosItemProzuzir}">
 		
 				<p:column headerText="Código">
-					<h:outputText value="#{item.itens}" />
+					<h:outputText value="#{item.itens.size()}" />
 				</p:column>
 				
 				<p:column headerText="Produto">
-					<h:outputText value="#{item.itens}" />
+					<h:outputText value="#{item.itens.size()}" />
 				</p:column>
 				
 				<p:column headerText="Qtd">
-					<h:outputText value="#{item.itens}">
+					<h:outputText value="#{item.itens.size()}">
 						<f:convertNumber pattern="###"/>
 					</h:outputText>
 				</p:column>
-				
-				<p:column headerText="Valor Unitario">
-					<h:outputText value="#{item.itens}">
-						<f:convertNumber currencyCode ="BRL" type="currency"/>
-					</h:outputText>
-				</p:column>
-				
-				<p:column headerText="Total">
-					<h:outputText value="#{item.itens*gerenciaPedidoBean.produto.valor}">
-						<f:convertNumber currencyCode ="BRL" type="currency"/>
-					</h:outputText>
-				</p:column>
+
 			</p:dataTable>
         </p:outputPanel>
     </p:dialog>
