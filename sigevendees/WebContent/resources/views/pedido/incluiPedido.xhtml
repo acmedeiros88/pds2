@@ -70,7 +70,7 @@
 		</p:column>
 	</p:dataTable>
 	<br />
-	<p:commandButton id="salvarPedido" value="Salvar" action="#{gerenciaPedidoBean.salvar()}" update="@form" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton id="salvarPedido" value="Salvar" action="#{gerenciaPedidoBean.salvar()}" update="@form, tabViewMenuPedido:formGerenciarPedido" style="margin-right:20px;" styleClass="ui-priority-primary" />
 	<p:commandButton id="cancelarAcaoPedido" value="Cancelar" style="margin-right:20px;" styleClass="ui-priority-primary" />
 </h:form>
 </html>

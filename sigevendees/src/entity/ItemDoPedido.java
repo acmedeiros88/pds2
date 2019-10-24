@@ -2,6 +2,8 @@ package entity;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import utils.Situacao;
 
@@ -17,6 +19,10 @@ public class ItemDoPedido {
 	private float vlrDescItem;
 	private float vlrTotalItem;
 	private String statusDoItem;
+
+	@JoinColumn(name = "codProduto", insertable = false, updatable = false)
+	@ManyToOne
+	private Produto produto;
 
 	public ItemDoPedido() {
 
@@ -68,6 +74,14 @@ public class ItemDoPedido {
 
 	public void setStatusDoItem(String statusDoItem) {
 		this.statusDoItem = statusDoItem;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	@Override

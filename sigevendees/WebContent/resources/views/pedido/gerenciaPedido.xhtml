@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 <h:form id="formGerenciarPedido" style="margin-left: 5%; width: 85%">
-	<p:dataTable id="tabelaDePedidosFeitos" var="pedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}" selection="#{gerenciaPedidoBean.pedidosItemProzuzir}" rowKey="#{gerenciaPedidoBean.pedido.codPedido}" scrollable="true" scrollHeight="100" style="margin-bottom:0">
+	<p:dataTable id="tabelaDePedidosFeitos" var="pedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}"  rowKey="#{pedido.codPedido}" scrollable="true" scrollHeight="300" style="margin-bottom:0">
 		<f:facet name="header">
 			Lista de Pedidos Feitos
 		</f:facet>
@@ -29,26 +29,26 @@
 			</h:outputText>
 		</p:column>
 		<p:column headerText="Detalhes" style="text-align: center">
-			<p:commandButton update="tabViewMenuPedido:formGerenciarPedido:pedioDetail" oncomplete="PF('pedidoDialog').show()" icon="pi pi-search">
-				<f:setPropertyActionListener value="pedido" target="#{gerenciaPedidoBean.pedido}" />
+			<p:commandButton update="tabViewMenuPedido:formGerenciarPedido:pedidoDetail" oncomplete="PF('pedidoDialog').show()" icon="pi pi-search">
+				<f:setPropertyActionListener value="#{pedido}" target="#{gerenciaPedidoBean.pedidoSelecionado}" />
 			</p:commandButton>
 		</p:column>
 	</p:dataTable>
 	
 	<p:dialog header="Itens do pedido" widgetVar="pedidoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-        <p:outputPanel id="pedioDetail" style="text-align:center;">
-			<p:dataTable id="tabelaItensPedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}" var="item" rendered="#{not empty gerenciaPedidoBean.pedidosItemProzuzir}">
+        <p:outputPanel id="pedidoDetail" style="text-align:center;">
+			<p:dataTable id="tabelaItensPedido" value="#{gerenciaPedidoBean.pedidoSelecionado.itens}" var="item" rendered="#{not empty gerenciaPedidoBean.pedidoSelecionado.itens}">
 		
 				<p:column headerText="Código">
-					<h:outputText value="#{item.itens.size()}" />
+					<h:outputText value="#{item.produto.codigo}" />
 				</p:column>
 				
 				<p:column headerText="Produto">
-					<h:outputText value="#{item.itens.size()}" />
+					<h:outputText value="#{item.produto.descricao}" />
 				</p:column>
 				
 				<p:column headerText="Qtd">
-					<h:outputText value="#{item.itens.size()}">
+					<h:outputText value="#{item.qtdProduto}">
 						<f:convertNumber pattern="###"/>
 					</h:outputText>
 				</p:column>

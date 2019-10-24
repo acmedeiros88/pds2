@@ -27,6 +27,8 @@ public class GerenciaPedidoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Pedido pedido;
+	
+	private Pedido pedidoSelecionado;
 
 	private List<Pedido> pedidosItemProzuzir;
 
@@ -68,7 +70,7 @@ public class GerenciaPedidoBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		this.listaDeProdutos = daoProduto.listarProdutos();
-		this.pedidosItemProzuzir = daoPedido.listarPedidos();
+		this.pedidosItemProzuzir = daoPedido.listarPedidosItemProduzir();
 	}
 	
 	public void salvar() {
@@ -92,6 +94,7 @@ public class GerenciaPedidoBean implements Serializable {
 			produto = new Produto();
 			cliente = new Cliente();
 			produtos = new ArrayList<Produto>();
+			init();
 			context.addMessage(null, new FacesMessage("Sucesso", "Pedido incluido"));
 		} else {
 			context.addMessage(null, new FacesMessage("Erro", "Não foi possivel incluir o pedido!"));
@@ -197,6 +200,14 @@ public class GerenciaPedidoBean implements Serializable {
 
 	public void setPk(ItemDoPedidoPK pk) {
 		this.pk = pk;
+	}
+
+	public Pedido getPedidoSelecionado() {
+		return pedidoSelecionado;
+	}
+
+	public void setPedidoSelecionado(Pedido pedidoSelecionado) {
+		this.pedidoSelecionado = pedidoSelecionado;
 	}
 
 	public int getQtdProduto() {
