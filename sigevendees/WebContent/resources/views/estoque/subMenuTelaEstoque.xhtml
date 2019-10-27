@@ -5,6 +5,16 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/resources/templates/templatePrincipal.xhtml">
+	<ui:define name="scriptJS">
+		function limpaCamposDefault(){
+			document.getElementById("tabViewMenuEstoque:formAquisicao:qtd_input").value = '';
+			document.getElementById("tabViewMenuEstoque:formAquisicao:vlrCusto_input").value = '';
+			document.getElementById("tabViewMenuEstoque:formCadastro:estoqueMinimo").value = '';
+			document.getElementById("tabViewMenuEstoque:formCadastro:valorVenda").value = '';
+			document.getElementById("tabViewMenuEstoque:formCadastro:qtdComponente").value = '';
+		}
+		window.onload = limpaCamposDefault;
+	</ui:define>
 	<ui:define name="titulo">Estoque</ui:define>
 	
 	<ui:define name="tituloConteudo">ESTOQUE</ui:define>
@@ -27,19 +37,6 @@
 		            </h:panelGrid>
 		        </p:tab>
 		    </p:tabView>
-		     
-	<script type="text/javascript">
-		function limpaCamposDefault(){
-			document.getElementById("tabViewMenuEstoque:formAquisicao:qtd_input").value = '';
-			document.getElementById("tabViewMenuEstoque:formAquisicao:vlrCusto_input").value = '';
-			document.getElementById("tabViewMenuEstoque:formCadastro:estoqueMinimo").value = '';
-			document.getElementById("tabViewMenuEstoque:formCadastro:valorVenda").value = '';
-			document.getElementById("tabViewMenuEstoque:formCadastro:qtdComponente").value = '';
-		}
-		window.onload = limpaCamposDefault;
-	</script>
-	
 	</ui:define>
-	
 </ui:composition> 
 </html>

@@ -5,6 +5,13 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/resources/templates/templatePrincipal.xhtml">
+	<ui:define name="scriptJS">
+		function limpaCamposDefault(){
+			document.getElementById("tabViewMenuCliente:formGerenciarCliente:telefoneCliente").value = '';
+		}
+		window.onload = limpaCamposDefault;
+	</ui:define>
+	
 	<ui:define name="titulo">Cliente</ui:define>
 	
 	<ui:define name="tituloConteudo">CLIENTE</ui:define>
@@ -21,14 +28,7 @@
 		            	<ui:include src="consultarCompras.xhtml"></ui:include>
 		            </h:panelGrid>
 		        </p:tab>
-		    </p:tabView>
-	<script type="text/javascript">
-		function limpaCamposDefault(){
-			telCliente = document.getElementById("tabViewMenuCliente:formGerenciarCliente:telefoneCliente").value = '';
-		}
-		window.onload = limpaCamposDefault;
-	</script> 
+		    </p:tabView> 
 	</ui:define>
-	
 </ui:composition> 
 </html>

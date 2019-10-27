@@ -5,6 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
+	<script type="text/javascript"><ui:insert name="scriptJS"></ui:insert></script>
 	<title><ui:insert name="titulo">Principal</ui:insert></title>
 	<style>
 		*{
@@ -73,24 +74,22 @@
 		    text-align: center;
 		}
 	</style>
-
 </h:head>
 <h:body>
 	<p:tabMenu id="menuPrincipal" activeIndex="#{param.i}">
-	
-	    <p:menuitem value="VENDA" outcome="/resources/views/venda/venda">
-		   <f:param name="i" value="0" />
-   	    </p:menuitem>
-   	    
-	    <p:menuitem value="ESTOQUE" outcome="/resources/views/estoque/subMenuTelaEstoque">
+		<p:menuitem value="PEDIDO" outcome="/resources/views/pedido/subMenuTelaPedido">
+	    	<f:param name="i" value="0" />
+		</p:menuitem>
+		
+		<p:menuitem value="ESTOQUE" outcome="/resources/views/estoque/subMenuTelaEstoque">
 	    	<f:param name="i" value="1" />
 		</p:menuitem>
 		
-	    <p:menuitem value="CLIENTE" outcome="/resources/views/cliente/subMenuTelaCliente">
-	    	<f:param name="i" value="2" />
-		</p:menuitem>
+	    <p:menuitem value="VENDA" outcome="/resources/views/venda/venda">
+		   <f:param name="i" value="2" />
+   	    </p:menuitem>
 		
-	    <p:menuitem value="PEDIDO" outcome="/resources/views/pedido/subMenuTelaPedido">
+	    <p:menuitem value="CLIENTE" outcome="/resources/views/cliente/subMenuTelaCliente">
 	    	<f:param name="i" value="3" />
 		</p:menuitem>
 	    
