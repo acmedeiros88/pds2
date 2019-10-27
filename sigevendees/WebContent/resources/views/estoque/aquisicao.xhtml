@@ -7,8 +7,8 @@
 <h:form id="formAquisicao"> 
 	<p:growl id="growlAquisicao" showDetail="true" sticky="true" />
 	     
-	<p:selectOneMenu value="#{gerenciaEstoqueBean.componente.codigo}">
-		<f:selectItem itemLabel="Componente" noSelectionOption="true"/>
+	<p:selectOneMenu id="inputListaComponentesDaAquisicao" value="#{gerenciaEstoqueBean.componente.codigo}" style="width: 150%;">
+	   <f:selectItem itemLabel="Componente" noSelectionOption="true" />
 	   <f:selectItems value="#{gerenciaEstoqueBean['listaDeComponentes']}" var="itemComponente" itemLabel="#{itemComponente.descricao}" itemValue="#{itemComponente.codigo}" />
 	</p:selectOneMenu>
 	
@@ -26,7 +26,7 @@
 	  
 	<br/><br/>
 	
-	<p:commandButton value="Salvar" id="salvarEntrada" action="#{gerenciaEstoqueBean.salvarAquisicao()}" update="@form, tabViewMenuEstoque:formTabelaDeEstoque" style="margin-right:20px;" styleClass="ui-priority-primary" />
-	<p:commandButton value="Cancelar" id="cancelarAcaoEntrada" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton value="Salvar" id="salvarEntrada" action="#{gerenciaEstoqueBean.salvarAquisicao()}" update="@form, tabViewMenuEstoque:formTabelaDeEstoque" styleClass="ui-priority-primary" />
+	<p:commandButton value="Cancelar" id="cancelarAcaoEntrada" styleClass="ui-priority-primary" />
 </h:form>	
 </html>

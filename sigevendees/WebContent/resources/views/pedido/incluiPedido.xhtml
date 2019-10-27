@@ -5,31 +5,31 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:form id="formIncluirPedido" style="margin-left: 5%; width: 85%">
+<h:form id="formIncluirPedido">
 	<p:growl id="growlIncluirPedido" showDetail="true" sticky="true" />
 	
-	<p:inputText id="clientePedido" placeholder="Nome do Cliente" value="#{gerenciaPedidoBean.cliente.nomeCliente}"/>
+	<p:inputText id="clientePedido" placeholder="Nome do Cliente" value="#{gerenciaPedidoBean.cliente.nomeCliente}" style="width: 472px; margin-bottom: 10px;"/>
 	<br />
-	<p:inputText id="telefoneClientePedido" value="#{gerenciaPedidoBean.cliente.numTelefone}" placeholder="Telefone do Cliente"/>
+	<p:inputText id="telefoneClientePedido" value="#{gerenciaPedidoBean.cliente.numTelefone}" placeholder="Telefone do Cliente" style="width: 375px; margin-right: 5px;"/>
 
 	<p:commandButton id="buscaClientePedido" action="#{gerenciaPedidoBean.buscarCliente()}" update="formIncluirPedido" value="Buscar"/>
 
 	<br />
 	<br />
 
-	<h:outputLabel for="dataEntregaPedido" value="Data de entrega:" />
-	<p:calendar id="dataEntregaPedido" value="#{gerenciaPedidoBean.pedido.dataEntrega}" placeholder="dd/mes/ano" pattern="dd-MM-yyyy" mask="true" showOn="button" />
+	<h:outputLabel for="dataEntregaPedido" value="Data de entrega:" style="margin-right: 5px;"/>
+	<p:calendar id="dataEntregaPedido" value="#{gerenciaPedidoBean.pedido.dataEntrega}" placeholder="dd/mes/ano" pattern="dd/MM/yyyy" mask="true" showOn="button"  style="text-align:center"/>
 
 	<br />
 	<br />
 
-	<p:selectOneMenu id="produtoDoPedido" placeholder="Produto" value="#{gerenciaPedidoBean.produto.codigo}">
+	<p:selectOneMenu id="produtoDoPedido" placeholder="Produto" value="#{gerenciaPedidoBean.produto.codigo}" style="width: 245px; margin-right: 5px;">
 		<f:selectItem itemLabel="Produto" noSelectionOption="true"/>
 		<f:selectItems value="#{gerenciaPedidoBean['listaDeProdutos']}" var="itemPedido" itemLabel="#{itemPedido.descricao}" itemValue="#{itemPedido.codigo}" />
 		<p:ajax listener="#{gerenciaPedidoBean.buscarProduto()}"/>
 	</p:selectOneMenu>
 	
-	<p:inputNumber id="qtdProdutoDoPedido" placeholder="Qtd" value="#{gerenciaPedidoBean.qtdProduto}" />
+	<p:inputText id="qtdProdutoDoPedido" placeholder="Qtd" value="#{gerenciaPedidoBean.qtdProduto}" style="width: 70px; margin-right: 5px;"/>
 	
 	<p:commandButton id="addItenPedido" action="#{gerenciaPedidoBean.reinitItenDoPedido()}" update="tabViewMenuPedido:formIncluirPedido" value="Adicionar" >
 		<p:collector value="#{gerenciaPedidoBean.iten}" addTo="#{gerenciaPedidoBean['produtos']}" />
@@ -38,32 +38,32 @@
 	<br />
 	<br />
 	
-	<p:dataTable id="tabelaItensPedido" value="#{gerenciaPedidoBean['produtos']}" var="itemPedido" emptyMessage="Selecione os produtos">
+	<p:dataTable id="tabelaItensPedido" value="#{gerenciaPedidoBean['produtos']}" var="itemPedido" emptyMessage="Selecione os produtos" style="width: 485px; text-align:center;">
 		<f:facet name="header">
 			Itens do pedido
 		</f:facet>
 
-		<p:column headerText="Código">
+		<p:column headerText="Código" style="width: 55px;">
 			<h:outputText value="#{itemPedido.codigo}" />
 		</p:column>
 		
-		<p:column headerText="Produto">
+		<p:column headerText="Produto" style="width: 140px;">
 			<h:outputText value="#{itemPedido.descricao}" />
 		</p:column>
 		
-		<p:column headerText="Qtd">
+		<p:column headerText="Qtd" style="width: 30px;">
 			<h:outputText value="#{itemPedido.valor}">
 				<f:convertNumber pattern="###"/>
 			</h:outputText>
 		</p:column>
 		
-		<p:column headerText="Valor Unitario">
+		<p:column headerText="Valor Unitario" style="width: 65px;">
 			<h:outputText value="#{gerenciaPedidoBean.produto.valor}">
 				<f:convertNumber currencyCode ="BRL" type="currency"/>
 			</h:outputText>
 		</p:column>
 		
-		<p:column headerText="Total">
+		<p:column headerText="Total" style="width: 85px;">
 			<h:outputText value="#{itemPedido.valor*gerenciaPedidoBean.produto.valor}">
 				<f:convertNumber currencyCode ="BRL" type="currency"/>
 			</h:outputText>

@@ -7,41 +7,41 @@
 <h:form id="formCadastro">
 	<p:growl id="growl" showDetail="true" sticky="true" />
 	
-	<p:fieldset legend="Tipo:">
-		<p:selectOneRadio id="tipoCadastro" value="#{gerenciaEstoqueBean.elemento.tipoElemento}" layout="grid" columns="2" unselectable="true">
+	<p:fieldset legend="Tipo:" style="width: 67%; padding: 10px;">
+		<p:selectOneRadio id="tipoCadastro" value="#{gerenciaEstoqueBean.elemento.tipoElemento}" layout="grid" columns="2" unselectable="true" style="margin-left: 10%">
 	         <f:selectItems value="#{gerenciaEstoqueBean.categoriaElemento}" var="tipoElemento" itemLabel="#{tipoElemento.descricao}" itemValue="#{tipoElemento.toString()}"/>
-	         <p:ajax update="formCadastro" listener="#{gerenciaEstoqueBean.inputsCadastro()}"/>
+	         <p:ajax update="formCadastro" listener="#{gerenciaEstoqueBean.inputsCadastro()}" />
 	    </p:selectOneRadio>
 	</p:fieldset>
 	<br/>
-	<p:inputText id="descricao" placeholder="Descrição" value="#{gerenciaEstoqueBean.elemento.descricao}"/>
+	<p:inputText id="descricao" placeholder="Descrição" value="#{gerenciaEstoqueBean.elemento.descricao}" style="width: 245px; margin-right: 8px; margin-bottom: 10px"/>
 	
-	<p:inputNumber id="estoqueMinimo" placeholder="Estoque mínimo" value="#{gerenciaEstoqueBean.estoqueMinimo}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}"/>  
+	<p:inputText id="estoqueMinimo" placeholder="Estoque mínimo" value="#{gerenciaEstoqueBean.estoqueMinimo}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}" style="width: 130px; margin-right: 5px; margin-bottom: 10px;"/>  
 
-	<p:inputNumber id="valorVenda" placeholder="Valor de Venda R$" value="#{gerenciaEstoqueBean.elemento.valor}" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
+	<p:inputText id="valorVenda" placeholder="Valor de Venda R$" value="#{gerenciaEstoqueBean.elemento.valor}" rendered="#{gerenciaEstoqueBean.tipoCadastro}" style="width: 160px; margin-right: 245px; margin-bottom: 10px;"/>
 	
-	<p:selectOneMenu id="tipoUnitario" value="#{gerenciaEstoqueBean.elemento.tipoUnitario}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}">
+	<p:selectOneMenu id="tipoUnitario" value="#{gerenciaEstoqueBean.elemento.tipoUnitario}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}" style="width: 100px; margin-right: 180px; margin-bottom: 10px">
 		<f:selectItem itemDisabled="true" itemLabel="Tipo Unítario" />
 		<f:selectItems value="#{gerenciaEstoqueBean.opcoes}" var="opcUnitario" itemLabel="#{opcUnitario.descricao}" itemValue="#{opcUnitario}"/>
 	</p:selectOneMenu>
 	
-    <p:selectOneMenu id="listaDeComponentes" value="#{gerenciaEstoqueBean.componente.codigo}" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
+    <p:selectOneMenu id="listaDeComponentes" value="#{gerenciaEstoqueBean.componente.codigo}" rendered="#{gerenciaEstoqueBean.tipoCadastro}" style="width: 215px; margin-right: 8px; margin-bottom: 10px;">
         <f:selectItem itemLabel="Ingrediente/Embalagem" noSelectionOption="true"/>
         <f:selectItems value="#{gerenciaEstoqueBean['listaDeComponentes']}" var="itemComponente" itemLabel="#{itemComponente.descricao}" itemValue="#{itemComponente.codigo}"/>
 		<p:ajax listener="#{gerenciaEstoqueBean.buscarComponente()}"/>
     </p:selectOneMenu>
     
-	<p:inputText id="qtdComponente" value="#{gerenciaEstoqueBean.qtdUtilizado}" placeholder="Quantidade" rendered="#{gerenciaEstoqueBean.tipoCadastro}"/>
+	<p:inputText id="qtdComponente" value="#{gerenciaEstoqueBean.qtdUtilizado}" placeholder="Quantidade" rendered="#{gerenciaEstoqueBean.tipoCadastro}" style="width: 163px; margin-right: 5px; margin-bottom: 10px;"/>
 	
 	<p:commandButton id="addListaComponente" action="#{gerenciaEstoqueBean.reinitComponenteDoProduto()}" value="Adicionar" update="tabViewMenuEstoque:formCadastro" rendered="#{gerenciaEstoqueBean.tipoCadastro}">
 		<p:collector value="#{gerenciaEstoqueBean.componenteDoProduto}" addTo="#{gerenciaEstoqueBean['listaDeComponentesDoProduto']}" />
 	</p:commandButton> 
 		
-		<p:dataTable id="tabelaComponentesDoProduto" value="#{gerenciaEstoqueBean['listaDeComponentesDoProduto']}" var="itemComponente" rendered="#{gerenciaEstoqueBean.tipoCadastro}" emptyMessage="Selecione os componentes do produto">
+		<p:dataTable id="tabelaComponentesDoProduto" value="#{gerenciaEstoqueBean['listaDeComponentesDoProduto']}" var="itemComponente" rendered="#{gerenciaEstoqueBean.tipoCadastro}" emptyMessage="Selecione os componentes do produto" style="width: 70%; margin-bottom: 10px;">
 			<p:column headerText="Descrição">
 				<h:outputText value="#{itemComponente.descricao}" />
 			</p:column>
-			<p:column headerText="Quantidade">
+			<p:column headerText="Qtd" style="width: 70px; text-align: center;">
 				<h:outputText value="#{itemComponente.valor}">
 					<f:convertNumber pattern="###"/>
 				</h:outputText>

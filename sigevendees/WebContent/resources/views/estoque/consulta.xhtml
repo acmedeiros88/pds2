@@ -3,8 +3,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-<h:form id="formTabelaDeEstoque">      
-<p:dataTable id="tabelaConsulta" value="#{gerenciaEstoqueBean['listaDeComponentes']}" var="estoqueComponentes" emptyMessage="Componente sem cadastro" scrollable="true" scrollHeight="280">
+<h:form id="formTabelaDeEstoque">
+<p:dataTable id="tabelaConsulta" value="#{gerenciaEstoqueBean['listaDeComponentes']}" var="estoqueComponentes" emptyMessage="Componente sem cadastro" scrollable="true" scrollHeight="280" style="margin-left: -25px; text-align: center;">
 	<f:facet name="header">
 		<p:outputPanel>
 			<h:outputText value="Procurar:" />
@@ -12,35 +12,35 @@
 		</p:outputPanel>
 	</f:facet>
  
-        <p:column filterBy="#{estoqueComponentes}" headerText="Código" >
+        <p:column filterBy="#{estoqueComponentes}" headerText="Código" style="width: 12%">
             <h:outputText value="#{estoqueComponentes.codigo}" />
         </p:column>
 
-        <p:column filterBy="#{estoqueComponentes}" headerText="Componente" >
+        <p:column filterBy="#{estoqueComponentes}" headerText="Componente" style="width: 20%">
             <h:outputText value="#{estoqueComponentes.descricao}" />
         </p:column>
  
-        <p:column headerText="Estoque mínimo" >
+        <p:column headerText="Estoque mínimo" style="width: 15%">
  			<h:outputText value="#{estoqueComponentes.estoqueMinimo}" >
  				<f:convertNumber pattern="###"/>
  			</h:outputText>
  			<h:outputText value="#{estoqueComponentes.tipoUnitario.toLowerCase()}"/>
  		</p:column>
         
-        <p:column headerText="Estoque Atual">
+        <p:column headerText="Estoque Atual" style="width: 15%">
         	<h:outputText value="#{estoqueComponentes.estoqueAtual}" >
         		<f:convertNumber pattern="###"/>
         	</h:outputText>
         	<h:outputText value="#{estoqueComponentes.tipoUnitario.toLowerCase()}"/>
         </p:column>
         
-        <p:column headerText="Valor total">
+        <p:column headerText="Valor total" style="width: 12%">
         	<h:outputText value="#{estoqueComponentes.estoqueAtual*estoqueComponentes.valor}" >
         		<f:convertNumber currencyCode ="BRL" type="currency"/>
         	</h:outputText>
         </p:column>
  
-        <p:column filterBy="#{estoqueComponentes}" headerText="Tipo" >
+        <p:column filterBy="#{estoqueComponentes}" headerText="Tipo" style="width: 31%">
             <f:facet name="filter">
                 <p:selectOneButton>
                     <f:selectItem itemLabel="Ingrediente" itemValue="ingrediente" />

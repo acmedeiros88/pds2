@@ -6,30 +6,30 @@
 
 <h:form id="formConsultarCompras">
 
-	<p:inputText id="nomeAbuscarCompras" placeholder="Nome" />
+	<p:inputText id="nomeAbuscarCompras" placeholder="Nome" style="width: 330px;"/>
 	
 	<br/><br/>
 	
-	<p:inputText id="telefoneAbuscarCompras" placeholder="Telefone" />
+	<p:inputText id="telefoneAbuscarCompras" placeholder="Telefone" style="width: 235px; margin-right: 5px;"/>
 	
 	<p:commandButton id="buscarCompras" value="Buscar" />
 	
     <br/><br/>  
     
-	<p:dataTable id="tabelaComprasAprazo" emptyMessage="Não possui compras A prazo" scrollable="true" scrollHeight="200">
+	<p:dataTable id="tabelaComprasAprazo" emptyMessage="Não possui compras A prazo" scrollable="true" scrollHeight="180" style="width: 70%;">
 		<f:facet name="header">
 			<p:outputPanel>
 				<h:outputText value="Lista de Compras Feitas" />
 			</p:outputPanel>
 		</f:facet>
 	 
-	        <p:column headerText="Data" />
+	        <p:column headerText="Data" style="width: 20%;"/>
 	
-	        <p:column headerText="Produto" />
+	        <p:column headerText="Produto" style="width: 20%;"/>
 	 
-	        <p:column headerText="Valor" />
+	        <p:column headerText="Valor" style="width: 20%;"/>
 	        
-	        <p:column headerText="Situação">
+	        <p:column headerText="Situação" style="width: 20%;">
 	        	<p:selectOneMenu id="situacaoDaCompra">
 	        		<f:selectItem itemLabel="Pendente" itemValue="pendente"/>
 	        		<f:selectItem itemLabel="Pago" itemValue="pago"/>

@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="formItensProduzidos">
+	<p:growl id="growlProduzidos" showDetail="true" sticky="true" />
+	
+	<p:dataTable id="tabelaItensProduzidos" value="" var="" rowKey="" scrollable="true" scrollHeight="280" style="margin-left: -25px; text-align: center; margin-bottom: 0" emptyMessage="Não há itens produzidos">
+		
+		<p:column selectionMode="multiple" style="width:10px;text-align:center"/>
+		
+		<p:column headerText="Código" style="width: 12%;">
+			<h:outputText value="" />
+		</p:column>
+		
+		<p:column headerText="Cliente" style="width: 20%;">
+			<h:outputText value="" />
+		</p:column>
+		
+		<p:column headerText="Produto" style="width: 20%;">
+			<h:outputText value="" />
+		</p:column>
+	</p:dataTable>
+	<br />
+	<p:commandButton id="descarteItenPedido" value="Fora" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton id="vendaItenPedido" value="Venda" style="margin-right:20px;" styleClass="ui-priority-primary" />
+</h:form>
+</html>

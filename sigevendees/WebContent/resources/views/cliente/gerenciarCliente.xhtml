@@ -7,21 +7,21 @@
 <h:form id="formGerenciarCliente">
 	<p:growl id="growlCliente" showDetail="true" sticky="true" />
 	
-	<p:inputText id="telefoneCliente" placeholder="Telefone" value="#{clienteBean.cliente.numTelefone}" >
+	<p:inputText id="telefoneCliente" placeholder="Telefone" value="#{clienteBean.cliente.numTelefone}" style="width: 330px;">
 		 <p:ajax update="formGerenciarCliente" listener="#{clienteBean.buscarCliente()}"/>
 	</p:inputText>
 	
 	<br/><br/>
 	
-	<p:inputText id="nomeCliente" value="#{clienteBean.cliente.nomeCliente}" placeholder="Nome"/>
+	<p:inputText id="nomeCliente" value="#{clienteBean.cliente.nomeCliente}" placeholder="Nome" style="width: 330px;"/>
 	
 	<br/><br/>
 	
-	<p:inputText id="descEstabelecimento" value="#{clienteBean.cliente.estabelecimentoCliente}" placeholder="Estabelecimento"/>
+	<p:inputText id="descEstabelecimento" value="#{clienteBean.cliente.estabelecimentoCliente}" placeholder="Estabelecimento" style="width: 330px;"/>
 	
 	<br/><br/>
 	
-	<p:inputTextarea id="descObsCliente" value="#{clienteBean.cliente.observacaoCliente}" placeholder="Observação" rows="6" cols="33"/>
+	<p:inputTextarea id="descObsCliente" value="#{clienteBean.cliente.observacaoCliente}" placeholder="Observação" rows="6" cols="33" style="width: 330px;"/>
 	
 	<br/><br/>
 	<p:commandButton id="salvarCriente" action="#{clienteBean.salvar()}" update="@form" value="Salvar" style="margin-right:20px;" styleClass="ui-priority-primary"/>
