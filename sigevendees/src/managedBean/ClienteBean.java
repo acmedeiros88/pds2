@@ -20,7 +20,9 @@ public class ClienteBean implements Serializable {
 
 	// Variável que recebera o cliente retornado da busca no BD;
 	protected Cliente clienteRetornado;
-
+	// Variável utilizado no input id="telefoneCliente", para não iniciar o input com o valor 0 do atributo numTelefone da classe Cliente;
+	protected String numeroTelerone;
+	
 	FacesContext context;
 
 	@Inject
@@ -34,8 +36,10 @@ public class ClienteBean implements Serializable {
 
 	public void salvar() {
 		this.context = FacesContext.getCurrentInstance();
+		this.cliente.setNumTelefone(Integer.parseInt(getNumeroTelerone()));
 		if (dao.salvar(this.cliente)) {
 			this.cliente = new Cliente();
+			setNumeroTelerone(null);
 			/*
 			 * verifica se o cliente já possui cadastro, se não possui cadastro e um novo
 			 * cliente a ser cadastrado, se possui cadastro e um cliente a fazer atualização
@@ -58,7 +62,8 @@ public class ClienteBean implements Serializable {
 	 */
 	public void buscarCliente() {
 		this.context = FacesContext.getCurrentInstance();
-		int telefoneSolicitado = cliente.getNumTelefone();
+		
+		int telefoneSolicitado = Integer.parseInt(getNumeroTelerone());
 		if(telefoneSolicitado !=0) {
 			clienteRetornado = dao.buscarPornumTelefone(telefoneSolicitado);
 			if (clienteRetornado != null) {
@@ -67,6 +72,7 @@ public class ClienteBean implements Serializable {
 				this.cliente.setEstabelecimentoCliente(clienteRetornado.getEstabelecimentoCliente());
 				this.cliente.setObservacaoCliente(clienteRetornado.getObservacaoCliente());
 			} else {
+				this.cliente.setNumTelefone(Integer.parseInt(getNumeroTelerone()));
 				this.cliente.setNomeCliente(null);
 				this.cliente.setEstabelecimentoCliente(null);
 				this.cliente.setObservacaoCliente(null);
@@ -77,8 +83,9 @@ public class ClienteBean implements Serializable {
 
 	public void excluirCliente() {
 		this.context = FacesContext.getCurrentInstance();
-		if (dao.deletarCliente(cliente.getNumTelefone())) {
+		if (dao.deletarCliente(Integer.parseInt(getNumeroTelerone()))) {
 			this.cliente = new Cliente();
+			setNumeroTelerone(null);
 			context.addMessage(null, new FacesMessage("Sucesso", "Cadastro do cliente excluido"));
 		} else {
 
@@ -92,7 +99,7 @@ public class ClienteBean implements Serializable {
 	 * assim quando clicar no botão CANCELAR limpas os inputs da tela;
 	 */
 	public void resetInputs() {
-		this.cliente.setNumTelefone(0);
+		setNumeroTelerone(null);
 		this.cliente.setNomeCliente(null);
 		this.cliente.setEstabelecimentoCliente(null);
 		this.cliente.setObservacaoCliente(null);
@@ -106,4 +113,11 @@ public class ClienteBean implements Serializable {
 		this.cliente = cliente;
 	}
 
+	public String getNumeroTelerone() {
+		return numeroTelerone;
+	}
+
+	public void setNumeroTelerone(String numeroTelerone) {
+		this.numeroTelerone = numeroTelerone;
+	}
 }

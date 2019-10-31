@@ -5,12 +5,12 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:form id="formIncluirPedido">
+<h:form id="formIncluirPedido" style="margin-left: -20px;">
 	<p:growl id="growlIncluirPedido" showDetail="true" sticky="true" />
 	
 	<p:inputText id="clientePedido" placeholder="Nome do Cliente" value="#{gerenciaPedidoBean.cliente.nomeCliente}" style="width: 472px; margin-bottom: 10px;"/>
 	<br />
-	<p:inputText id="telefoneClientePedido" value="#{gerenciaPedidoBean.cliente.numTelefone}" placeholder="Telefone do Cliente" style="width: 375px; margin-right: 5px;"/>
+	<p:inputText id="telefoneClientePedido" value="#{gerenciaPedidoBean.numeroTelefone}" placeholder="Telefone do Cliente" style="width: 375px; margin-right: 5px;"/>
 
 	<p:commandButton id="buscaClientePedido" action="#{gerenciaPedidoBean.buscarCliente()}" update="formIncluirPedido" value="Buscar"/>
 
@@ -38,7 +38,7 @@
 	<br />
 	<br />
 	
-	<p:dataTable id="tabelaItensPedido" value="#{gerenciaPedidoBean['produtos']}" var="itemPedido" emptyMessage="Selecione os produtos" style="width: 485px; text-align:center;">
+	<p:dataTable id="tabelaItensPedido" value="#{gerenciaPedidoBean['produtos']}" var="itemPedido" emptyMessage="Selecione os produtos" scrollable="true" scrollHeight="90" style="width: 500px; text-align:center;">
 		<f:facet name="header">
 			Itens do pedido
 		</f:facet>

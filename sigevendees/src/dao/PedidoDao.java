@@ -6,6 +6,7 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.TransactionalException;
+
 import entity.Pedido;
 import factoryConnection.FactoryJPA;
 
@@ -22,7 +23,11 @@ public class PedidoDao {
 	public Pedido buscarPorCod(int cod) {
 		return (Pedido) GenericDao.buscarPorId(Pedido.class, cod);
 	}
-
+	
+	public boolean deletarPedido(int cod) {
+		return GenericDao.deletar(Pedido.class, cod);
+	}
+	
 	public int getLastInsertId() {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		int resultado = -1;

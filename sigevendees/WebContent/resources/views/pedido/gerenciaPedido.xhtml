@@ -6,7 +6,9 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 <h:form id="formGerenciarPedido">
-	<p:dataTable id="tabelaDePedidosFeitos" var="pedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}"  rowKey="#{pedido.codPedido}" scrollable="true" scrollHeight="280" style="margin-left: -25px; text-align: center; margin-bottom: 0">
+	<p:growl id="growlGerenciarPedido" showDetail="true" />
+	
+	<p:dataTable id="tabelaDePedidosFeitos" var="pedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}" selection="#{gerenciaPedidoBean['pedidosSelecionados']}" rowKey="#{pedido.codPedido}" scrollable="true" scrollHeight="280" style="margin-left: -25px; text-align: center; margin-bottom: 0">
 		<f:facet name="header">
 			Lista de Pedidos Feitos
 		</f:facet>
@@ -60,7 +62,13 @@
 	<br />
 
 	<p:commandButton id="itemProduzido" value="Produzido" style="margin-right:20px;" styleClass="ui-priority-primary" />
-	<p:commandButton id="excluirItem" value="Excluir" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton id="excluirItem" value="Excluir" action="#{gerenciaPedidoBean.excluir()}" update="@form, tabViewMenuPedido:formGerenciarPedido, growlGerenciarPedido" style="margin-right:20px;" styleClass="ui-priority-primary" >
+		<p:confirm header="Confirmação" message="Deseja excluir?" icon="fa fa-exclamation-triangle" />
+	</p:commandButton>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+    </p:confirmDialog>
 	
 </h:form>
 </html>

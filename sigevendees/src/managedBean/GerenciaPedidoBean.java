@@ -27,26 +27,25 @@ public class GerenciaPedidoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Pedido pedido;
+	protected String qtdProduto;
 	
 	private Pedido pedidoSelecionado;
-
+	private List<Pedido> pedidosSelecionados;
+	
 	private List<Pedido> pedidosItemProzuzir;
-
-	private Produto produtoDoPedido;
 
 	private Produto produto;
 
 	private List<Produto> listaDeProdutos;
 
 	private Cliente cliente;
-
+	protected String numeroTelefone;
+	
 	protected List<Produto> produtos;
 
 	private Produto iten;
 
 	protected ItemDoPedidoPK pk;
-
-	protected int qtdProduto;
 
 	protected FacesContext context;
 
@@ -61,7 +60,6 @@ public class GerenciaPedidoBean implements Serializable {
 		this.pedido = new Pedido();
 		this.produto = new Produto();
 		this.cliente = new Cliente();
-		this.produtoDoPedido = new Produto();
 		this.produtos = new ArrayList<Produto>();
 		this.iten = new Produto();
 		this.pk = new ItemDoPedidoPK();
@@ -94,16 +92,27 @@ public class GerenciaPedidoBean implements Serializable {
 			produto = new Produto();
 			cliente = new Cliente();
 			produtos = new ArrayList<Produto>();
+			setNumeroTelefone(null);
 			init();
 			context.addMessage(null, new FacesMessage("Sucesso", "Pedido incluido"));
 		} else {
 			context.addMessage(null, new FacesMessage("Erro", "Não foi possivel incluir o pedido!"));
 		}
 	}
-
+	
+	public void excluir() {
+		for(Pedido p: getPedidosSelecionados()) {
+			daoPedido.deletarPedido(p.getCodPedido());
+		}
+		init();
+	}
+	
 	public void buscarCliente() {
 		context = FacesContext.getCurrentInstance();
-
+		if(!getNumeroTelefone().isEmpty()) {
+			cliente.setNumTelefone(Integer.parseInt(getNumeroTelefone()));
+		}
+		
 		if (cliente.getNomeCliente().isEmpty() && cliente.getNumTelefone() > 0) {
 			this.cliente = daoCliente.buscarPornumTelefone(cliente.getNumTelefone());
 		} else if (cliente.getNumTelefone() <= 0 && !cliente.getNomeCliente().isEmpty()) {
@@ -111,6 +120,7 @@ public class GerenciaPedidoBean implements Serializable {
 		}
 
 		if (cliente != null) {
+			setNumeroTelefone(Integer.toString(cliente.getNumTelefone()));
 			this.cliente.setNumTelefone(cliente.getNumTelefone());
 			this.cliente.setNomeCliente(cliente.getNomeCliente());
 		} else {
@@ -125,8 +135,8 @@ public class GerenciaPedidoBean implements Serializable {
 	}
 
 	public void reinitItenDoPedido() {
-		iten.setValor(getQtdProduto());
-		setQtdProduto(0);
+		iten.setValor(Float.parseFloat(getQtdProduto()));
+		setQtdProduto(null);
 	}
 
 // A baixo estão todos os métodos GET e SET dos atributos da classe;
@@ -144,14 +154,6 @@ public class GerenciaPedidoBean implements Serializable {
 
 	public void setPedidosItemProzuzir(List<Pedido> pedidosItemProzuzir) {
 		this.pedidosItemProzuzir = pedidosItemProzuzir;
-	}
-
-	public Produto getProdutoDoPedido() {
-		return produtoDoPedido;
-	}
-
-	public void setProdutoDoPedido(Produto produtoDoPedido) {
-		this.produtoDoPedido = produtoDoPedido;
 	}
 
 	public Produto getProduto() {
@@ -210,12 +212,27 @@ public class GerenciaPedidoBean implements Serializable {
 		this.pedidoSelecionado = pedidoSelecionado;
 	}
 
-	public int getQtdProduto() {
+	public String getQtdProduto() {
 		return qtdProduto;
 	}
 
-	public void setQtdProduto(int qtdProduto) {
+	public void setQtdProduto(String qtdProduto) {
 		this.qtdProduto = qtdProduto;
 	}
 
+	public String getNumeroTelefone() {
+		return numeroTelefone;
+	}
+
+	public void setNumeroTelefone(String numeroTelefone) {
+		this.numeroTelefone = numeroTelefone;
+	}
+
+	public List<Pedido> getPedidosSelecionados() {
+		return pedidosSelecionados;
+	}
+
+	public void setPedidosSelecionados(List<Pedido> pedidosSelecionados) {
+		this.pedidosSelecionados = pedidosSelecionados;
+	}
 }

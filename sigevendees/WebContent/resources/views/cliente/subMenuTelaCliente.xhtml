@@ -5,12 +5,6 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/resources/templates/templatePrincipal.xhtml">
-	<ui:define name="scriptJS">
-		function limpaCamposDefault(){
-			document.getElementById("tabViewMenuCliente:formGerenciarCliente:telefoneCliente").value = '';
-		}
-		window.onload = limpaCamposDefault;
-	</ui:define>
 	
 	<ui:define name="titulo">Cliente</ui:define>
 	
@@ -20,12 +14,12 @@
 			 <p:tabView id="tabViewMenuCliente" style="margin-left: 5%; width: 80%" scrollable="true">
 		        <p:tab title="Gerenciar">
 		            <h:panelGrid columns="2" cellpadding="10">
-		            		<ui:include src="gerenciarCliente.xhtml"></ui:include>
+		            		<ui:include src="gerenciaCliente.xhtml"></ui:include>
 		            </h:panelGrid>
 		        </p:tab>
 		        <p:tab title="Consultar Compras">
 		            <h:panelGrid columns="2" cellpadding="10">
-		            	<ui:include src="consultarCompras.xhtml"></ui:include>
+		            	<ui:include src="consultaCompras.xhtml"></ui:include>
 		            </h:panelGrid>
 		        </p:tab>
 		    </p:tabView> 

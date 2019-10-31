@@ -7,7 +7,7 @@
 <h:form id="formGerenciarCliente">
 	<p:growl id="growlCliente" showDetail="true" sticky="true" />
 	
-	<p:inputText id="telefoneCliente" placeholder="Telefone" value="#{clienteBean.cliente.numTelefone}" style="width: 330px;">
+	<p:inputText id="telefoneCliente" placeholder="Telefone" value="#{clienteBean.numeroTelerone}" style="width: 330px;">
 		 <p:ajax update="formGerenciarCliente" listener="#{clienteBean.buscarCliente()}"/>
 	</p:inputText>
 	

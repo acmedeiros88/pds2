@@ -36,7 +36,11 @@ public class GerenciaEstoqueBean implements Serializable {
 	private List<Componente> listaDeComponentes;
 
 	private Aquisicao aquisicao;
-
+	
+	// Variáveis utilizado nos inputs id="qtd", id="vlrCusto", para não iniciar os inputs com o valor 0 (default) do atributo da classe;
+	protected String valorDaQtdAdquirida;
+	protected String valorDoCustoDaAquisicao;
+	
 	// Variável utilizado na lista de composição de componentes do produto;
 	private List<Componente> listaDeComponentesDoProduto;
 
@@ -47,10 +51,13 @@ public class GerenciaEstoqueBean implements Serializable {
 	protected ComponenteProdutoPK pk;
 
 	// Variável utilizado na composição de componentes do produto;
-	private float qtdUtilizado;
+	private String qtdUtilizado;
 
 	// Variável utilizado no cadastro de componente para salvar a quantidade mínima de componentes desejado no estoque de componentes;
-	private float estoqueMinimo;
+	private String estoqueMinimo;
+	
+	// Variável utilizado no input id="valorVenda", para não iniciar o input com o valor 0 (default) do atributo da classe;
+	private String valorVenda;
 	
 	// Variável utilizado para apresentar na mensagem ao comerciante a descrição do produto ou componente que foi cadastrado no BD;
 	protected String foiCadastrado;
@@ -89,18 +96,18 @@ public class GerenciaEstoqueBean implements Serializable {
 		setDoTipo(elemento.getDescricao());
 		setFoiCadastrado(elemento.getTipoElemento());
 		if (elemento.getTipoElemento().equalsIgnoreCase("ingrediente") || elemento.getTipoElemento().equalsIgnoreCase("embalagem")) {
-			componente = new Componente(elemento.getDescricao(), elemento.getTipoElemento(), elemento.getTipoUnitario(), getEstoqueMinimo());
+			componente = new Componente(elemento.getDescricao(), elemento.getTipoElemento(), elemento.getTipoUnitario(), Float.parseFloat(getEstoqueMinimo()));
 			if (daoComponente.salvar(componente)) {
 				elemento = new Elemento();
 				componente = new Componente();
-				setEstoqueMinimo(0);
+				setEstoqueMinimo(null);
 				init();
 				context.addMessage(null, new FacesMessage("Sucesso", "cadastrado " + getFoiCadastrado() + " " + getDoTipo()));
 			} else {
 				context.addMessage(null, new FacesMessage("Erro", "Não foi possivel realizar o cadastro " + getFoiCadastrado() + " " + getDoTipo()));
 			}
 		} else {
-			produto = new Produto(elemento.getDescricao(), elemento.getTipoElemento(), elemento.getValor());
+			produto = new Produto(elemento.getDescricao(), elemento.getTipoElemento(), Float.parseFloat(getValorVenda()));
 			if (daoProduto.salvar(produto)) {
 				produto = daoProduto.buscarPorCod(daoProduto.getLastInsertId());
 				List<ComponenteDoProduto> componentes = produto.getComponentes();
@@ -113,6 +120,7 @@ public class GerenciaEstoqueBean implements Serializable {
 				produto.setComponentes(componentes);
 				daoProduto.atualizar(produto);
 				produto = new Produto();
+				setValorVenda(null);
 				elemento = new Elemento();
 				listaDeComponentesDoProduto = new ArrayList<Componente>();
 				context.addMessage(null, new FacesMessage("Sucesso", "cadastrado " + getFoiCadastrado() + " " + getDoTipo()));
@@ -134,8 +142,8 @@ public class GerenciaEstoqueBean implements Serializable {
 	 * Cria um novo componente a ser utilizado no produto;
 	 */
 	public void reinitComponenteDoProduto() {
-		this.componenteDoProduto.setValor(getQtdUtilizado());
-		setQtdUtilizado(0);
+		this.componenteDoProduto.setValor(Float.parseFloat(getQtdUtilizado()));
+		setQtdUtilizado(null);
 		this.componente = new Componente();
 	}
 
@@ -147,9 +155,9 @@ public class GerenciaEstoqueBean implements Serializable {
 		//Valor total em estoque de componentes é utilizado o valor unitário de custo médio;
 		float qtdEstoqueAtual, qtdEntrada, precoMedioAtual, precoCompra;
 		qtdEstoqueAtual = componente.getEstoqueAtual();
-		qtdEntrada = aquisicao.getQtdAdquirida();
+		qtdEntrada = Float.parseFloat(getValorDaQtdAdquirida());
 		precoMedioAtual = componente.getValor();
-		precoCompra = aquisicao.getCustoDaAquisicao();
+		precoCompra = Float.parseFloat(getValorDoCustoDaAquisicao());
 		float novoPrecoMedio = 0;
 		if(componente.getEstoqueAtual() != 0) {
 			novoPrecoMedio = (qtdEstoqueAtual * precoMedioAtual + qtdEntrada * (precoCompra / qtdEntrada)) / (qtdEstoqueAtual + qtdEntrada);
@@ -158,10 +166,14 @@ public class GerenciaEstoqueBean implements Serializable {
 		}
 		componente.setValor(novoPrecoMedio);		
 		componente.setEstoqueAtual(qtdEstoqueAtual + qtdEntrada);
+		aquisicao.setCustoDaAquisicao(precoCompra);
+		aquisicao.setQtdAdquirida(qtdEntrada);
 		aquisicao.setDataDaAquisicao(new Date());
 		if (daoComponente.salvarAquisicaoDeComponente(aquisicao) && daoComponente.atualizarEstoque(componente)) {
 			componente = new Componente();
 			aquisicao = new Aquisicao();
+			setValorDaQtdAdquirida(null);
+			setValorDoCustoDaAquisicao(null);
 			init();
 			context.addMessage(null, new FacesMessage("Sucesso", "Estoque do componente atualizado"));
 		} else {
@@ -225,11 +237,11 @@ public class GerenciaEstoqueBean implements Serializable {
 		this.aquisicao = aquisicao;
 	}
 
-	public float getEstoqueMinimo() {
+	public String getEstoqueMinimo() {
 		return estoqueMinimo;
 	}
 
-	public void setEstoqueMinimo(float estoqueMinimo) {
+	public void setEstoqueMinimo(String estoqueMinimo) {
 		this.estoqueMinimo = estoqueMinimo;
 	}
 
@@ -265,12 +277,36 @@ public class GerenciaEstoqueBean implements Serializable {
 		this.produto = produto;
 	}
 
-	public float getQtdUtilizado() {
+	public String getQtdUtilizado() {
 		return qtdUtilizado;
 	}
 
-	public void setQtdUtilizado(float qtdUtilizado) {
+	public void setQtdUtilizado(String qtdUtilizado) {
 		this.qtdUtilizado = qtdUtilizado;
+	}
+
+	public String getValorVenda() {
+		return valorVenda;
+	}
+
+	public void setValorVenda(String valorVenda) {
+		this.valorVenda = valorVenda;
+	}
+
+	public String getValorDaQtdAdquirida() {
+		return valorDaQtdAdquirida;
+	}
+
+	public void setValorDaQtdAdquirida(String valorDaQtdAdquirida) {
+		this.valorDaQtdAdquirida = valorDaQtdAdquirida;
+	}
+
+	public String getValorDoCustoDaAquisicao() {
+		return valorDoCustoDaAquisicao;
+	}
+
+	public void setValorDoCustoDaAquisicao(String valorDoCustoDaAquisicao) {
+		this.valorDoCustoDaAquisicao = valorDoCustoDaAquisicao;
 	}
 
 	public String getFoiCadastrado() {
