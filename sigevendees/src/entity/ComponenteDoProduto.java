@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /*Esta classe representa  a tabela associativa entre o relacionamento de produto e componente,
  * no qual um produto pode ser composto por vários componentes*/
@@ -16,7 +18,11 @@ public class ComponenteDoProduto implements Serializable {
 	private ComponenteProdutoPK cod;
 	private float qtdUtilizada;
 	private Date dataProducao;
-
+	
+	@JoinColumn(name = "codComponente", insertable = false, updatable = false)
+	@ManyToOne
+	private Componente componente;
+	
 	public ComponenteDoProduto() {
 
 	}
@@ -48,6 +54,14 @@ public class ComponenteDoProduto implements Serializable {
 
 	public void setDateProducao(Date dateProducao) {
 		this.dataProducao = dateProducao;
+	}
+
+	public Componente getComponente() {
+		return componente;
+	}
+
+	public void setComponente(Componente componente) {
+		this.componente = componente;
 	}
 
 	@Override

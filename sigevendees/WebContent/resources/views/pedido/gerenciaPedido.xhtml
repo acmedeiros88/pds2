@@ -8,7 +8,7 @@
 <h:form id="formGerenciarPedido">
 	<p:growl id="growlGerenciarPedido" showDetail="true" />
 	
-	<p:dataTable id="tabelaDePedidosFeitos" var="pedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}" selection="#{gerenciaPedidoBean['pedidosSelecionados']}" rowKey="#{pedido.codPedido}" scrollable="true" scrollHeight="280" style="margin-left: -25px; text-align: center; margin-bottom: 0">
+	<p:dataTable id="tabelaDePedidosFeitos" var="pedido" value="#{gerenciaPedidoBean['pedidosItemProzuzir']}" selection="#{gerenciaPedidoBean['pedidosSelecionados']}" rowKey="#{pedido.codPedido}" scrollable="true" scrollHeight="280" style="margin-left: -25px; text-align: center; margin-bottom: 0" emptyMessage="Não há pedidos">
 		<f:facet name="header">
 			Lista de Pedidos Feitos
 		</f:facet>
@@ -61,7 +61,7 @@
 
 	<br />
 
-	<p:commandButton id="itemProduzido" value="Produzido" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton id="itemProduzido" value="Produzido" action="#{gerenciaPedidoBean.produzido()}" actionListener="#{gerenciaEstoqueBean.init()}" update="@form, tabViewMenuPedido:formItensProduzidos:tabelaPedidoItensProduzidos" style="margin-right:20px;" styleClass="ui-priority-primary" />
 	<p:commandButton id="excluirItem" value="Excluir" action="#{gerenciaPedidoBean.excluir()}" update="@form, tabViewMenuPedido:formGerenciarPedido, growlGerenciarPedido" style="margin-right:20px;" styleClass="ui-priority-primary" >
 		<p:confirm header="Confirmação" message="Deseja excluir?" icon="fa fa-exclamation-triangle" />
 	</p:commandButton>

@@ -13,13 +13,16 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import dao.ClienteDao;
+import dao.ComponenteDao;
 import dao.PedidoDao;
 import dao.ProdutoDao;
 import entity.Cliente;
+import entity.ComponenteDoProduto;
 import entity.ItemDoPedido;
 import entity.ItemDoPedidoPK;
 import entity.Pedido;
 import entity.Produto;
+import utils.Situacao;
 
 @ManagedBean
 @SessionScoped
@@ -28,19 +31,20 @@ public class GerenciaPedidoBean implements Serializable {
 
 	private Pedido pedido;
 	protected String qtdProduto;
-	
+
 	private Pedido pedidoSelecionado;
 	private List<Pedido> pedidosSelecionados;
-	
+
 	private List<Pedido> pedidosItemProzuzir;
+	private List<Pedido> pedidosItemProzuzido;
 
 	private Produto produto;
 
-	private List<Produto> listaDeProdutos;
+	// private List<Produto> listaDeProdutos;
 
 	private Cliente cliente;
 	protected String numeroTelefone;
-	
+
 	protected List<Produto> produtos;
 
 	private Produto iten;
@@ -55,6 +59,8 @@ public class GerenciaPedidoBean implements Serializable {
 	private ProdutoDao daoProduto = new ProdutoDao();
 	@Inject
 	private ClienteDao daoCliente = new ClienteDao();
+	@Inject
+	private ComponenteDao daoComponente = new ComponenteDao();
 
 	public GerenciaPedidoBean() {
 		this.pedido = new Pedido();
@@ -67,10 +73,10 @@ public class GerenciaPedidoBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		this.listaDeProdutos = daoProduto.listarProdutos();
 		this.pedidosItemProzuzir = daoPedido.listarPedidosItemProduzir();
+		this.pedidosItemProzuzido = daoPedido.listarPedidosItemProduzido();
 	}
-	
+
 	public void salvar() {
 		context = FacesContext.getCurrentInstance();
 		this.pedido.setCliente(cliente);
@@ -99,20 +105,35 @@ public class GerenciaPedidoBean implements Serializable {
 			context.addMessage(null, new FacesMessage("Erro", "Não foi possivel incluir o pedido!"));
 		}
 	}
-	
+
+	public void produzido() {
+		for (Pedido p : getPedidosSelecionados()) {
+			for (ItemDoPedido ip : p.getItens()) {
+				ip.setStatusDoItem(Situacao.PRODUZIDO.toString());
+				for (ComponenteDoProduto c : ip.getProduto().getComponentes()) {
+					float novoEstoque = c.getComponente().getEstoqueAtual() - (c.getQtdUtilizada()*ip.getQtdProduto());
+					c.getComponente().setEstoqueAtual(novoEstoque);
+					daoComponente.atualizar(c.getComponente());
+				}
+			}
+			daoPedido.atualizar(p);
+		}
+		init();
+	}
+
 	public void excluir() {
-		for(Pedido p: getPedidosSelecionados()) {
+		for (Pedido p : getPedidosSelecionados()) {
 			daoPedido.deletarPedido(p.getCodPedido());
 		}
 		init();
 	}
-	
+
 	public void buscarCliente() {
 		context = FacesContext.getCurrentInstance();
-		if(!getNumeroTelefone().isEmpty()) {
+		if (!getNumeroTelefone().isEmpty()) {
 			cliente.setNumTelefone(Integer.parseInt(getNumeroTelefone()));
 		}
-		
+
 		if (cliente.getNomeCliente().isEmpty() && cliente.getNumTelefone() > 0) {
 			this.cliente = daoCliente.buscarPornumTelefone(cliente.getNumTelefone());
 		} else if (cliente.getNumTelefone() <= 0 && !cliente.getNomeCliente().isEmpty()) {
@@ -156,20 +177,20 @@ public class GerenciaPedidoBean implements Serializable {
 		this.pedidosItemProzuzir = pedidosItemProzuzir;
 	}
 
+	public List<Pedido> getPedidosItemProzuzido() {
+		return pedidosItemProzuzido;
+	}
+
+	public void setPedidosItemProzuzido(List<Pedido> pedidosItemProzuzido) {
+		this.pedidosItemProzuzido = pedidosItemProzuzido;
+	}
+
 	public Produto getProduto() {
 		return produto;
 	}
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
-	}
-
-	public List<Produto> getListaDeProdutos() {
-		return listaDeProdutos;
-	}
-
-	public void setListaDeProdutos(List<Produto> listaDeProdutos) {
-		this.listaDeProdutos = listaDeProdutos;
 	}
 
 	public Cliente getCliente() {

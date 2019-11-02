@@ -23,9 +23,9 @@
 	<br />
 	<br />
 
-	<p:selectOneMenu id="produtoDoPedido" placeholder="Produto" value="#{gerenciaPedidoBean.produto.codigo}" style="width: 245px; margin-right: 5px;">
+	<p:selectOneMenu id="produtoDoPedido" value="#{gerenciaPedidoBean.produto.codigo}" style="width: 245px; margin-right: 5px;">
 		<f:selectItem itemLabel="Produto" noSelectionOption="true"/>
-		<f:selectItems value="#{gerenciaPedidoBean['listaDeProdutos']}" var="itemPedido" itemLabel="#{itemPedido.descricao}" itemValue="#{itemPedido.codigo}" />
+		<f:selectItems value="#{gerenciaEstoqueBean['listaDeProdutos']}" var="itemPedido" itemLabel="#{itemPedido.descricao}" itemValue="#{itemPedido.codigo}" />
 		<p:ajax listener="#{gerenciaPedidoBean.buscarProduto()}"/>
 	</p:selectOneMenu>
 	

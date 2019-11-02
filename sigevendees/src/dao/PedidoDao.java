@@ -55,4 +55,18 @@ public class PedidoDao {
 		}
 		return pedidos;
 	}
+	
+	public List<Pedido> listarPedidosItemProduzido() {
+		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
+		List<Pedido> pedidos;
+		try {
+			String jpql = "SELECT p FROM Pedido p WHERE p.codPedido IN (SELECT i.cod.codPedido FROM ItemDoPedido i WHERE i.statusDoItem LIKE('%PRODUZIDO%'))";
+			entityManager.getTransaction().begin();
+			pedidos = entityManager.createQuery(jpql, Pedido.class).getResultList();
+		} catch (EntityExistsException | TransactionalException e) {
+			pedidos = null;
+			FactoryJPA.shutdown();
+		}
+		return pedidos;
+	}
 }

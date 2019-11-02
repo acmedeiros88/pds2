@@ -77,9 +77,9 @@ public class Componente extends Elemento {
 
 	@Override
 	public String toString() {
-		return "Componente [estoqueMinimo=" + estoqueMinimo + ", estoqueAtual=" + estoqueAtual + ", getCodigo()="
-				+ getCodigo() + ", getDescricao()=" + getDescricao() + ", getTipoElemento()=" + getTipoElemento()
-				+ ", getTipoUnitario()=" + getTipoUnitario() + ", getValor()=" + getValor() + ", getEstoqueMinimo()="
-				+ getEstoqueMinimo() + ", getEstoqueAtual()=" + getEstoqueAtual() + "]";
+		return "Componente [" + "getCodigo()=" + getCodigo() + ", getDescricao()=" + getDescricao()
+				+ ", getTipoElemento()=" + getTipoElemento() + ", getTipoUnitario()=" + getTipoUnitario()
+				+ ", getValor()=" + getValor() + ", getEstoqueMinimo()=" + getEstoqueMinimo() + ", getEstoqueAtual()="
+				+ getEstoqueAtual() + "]";
 	}
 }

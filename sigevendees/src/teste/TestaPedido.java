@@ -7,9 +7,12 @@ import java.util.List;
 import javax.persistence.Tuple;
 
 import dao.ClienteDao;
+import dao.ComponenteDao;
 import dao.PedidoDao;
 import dao.ProdutoDao;
 import entity.Cliente;
+import entity.Componente;
+import entity.ComponenteDoProduto;
 import entity.ItemDoPedido;
 import entity.ItemDoPedidoPK;
 import entity.Pedido;
@@ -87,13 +90,12 @@ public class TestaPedido {
 		 * lista do pedido; pedidoRetornado.setItens(itens); // Salva a lista de itens
 		 * no BD; dao.atualizar(pedidoRetornado);
 		 */
+// ABAIXO ESTÁ O TESTE DE BUSCAR E LISTAR PEDIDOS E SEUS ITENS QUE POSSUI O STATUS 'PRODUZIR';
 		PedidoDao dao = new PedidoDao();
-		for (Pedido p : dao.listarPedidosItemProduzir()) {
+		/*for (Pedido p : dao.listarPedidosItemProduzir()) {
 			System.out.println();
-
 			System.out.println(" --------------------------");
 			System.out.println("pedido = " + p.getCodPedido());
-			// if (p.getCodPedido() == 21) {
 			System.out.println(p.getItens());
 			if (p.getItens().size() > 0) {
 				System.out.println(" itens do pedido");
@@ -105,8 +107,27 @@ public class TestaPedido {
 			} else {
 				System.out.println(" pedido sem itens");
 			}
-
-			// }
+		}
+		*/
+// ABAIXO ESTÁ O TESTE DE BUSCAR E LISTAR PEDIDOS E SEUS ITENS QUE POSSUI O STATAUS 'PRODUZIDO', 
+// VERIFICA OS PRODUTOS QUE COMPOE O PEDIDO E OS COMPONENTES QUE COMPOE O PRODUTO DO MESMO,
+// BUSCA O ESTOQUE ATUAL DO COMPONENTE PARA BAIXAR DO ESTOQUE O VALOR UTILIZADO DESSE COMPONENTE NA COMPOSIÇÃO DO PRODUTO; 
+		//ComponenteDao cDao = new ComponenteDao();
+		for (Pedido p: dao.listarPedidosItemProduzido()) {
+			System.out.println("Itens do Pedido: "+p.getItens()+"\n");
+			for(ItemDoPedido ip: p.getItens()) {
+				System.out.println("Produto do Item do Pedido: "+ip.getProduto().getCodigo()+" "+ip.getProduto().getDescricao());
+				for(ComponenteDoProduto c: ip.getProduto().getComponentes()) {
+					System.out.println("Componente: "+c.getComponente().getCodigo()+" "+c.getComponente().getDescricao());
+					System.out.println("Estoque atual: "+c.getComponente().getEstoqueAtual());
+					System.out.println("Utiliza: "+c.getQtdUtilizada());
+					float novoEstoque = c.getComponente().getEstoqueAtual()-c.getQtdUtilizada();
+					c.getComponente().setEstoqueAtual(novoEstoque);
+					System.out.println("Valor do novo estoque: "+c.getComponente().getEstoqueAtual());
+					System.out.println();
+					//cDao.atualizar(c.getComponente());
+				}
+			}
 		}
 	}
 }

@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 <h:form id="formTabelaDeEstoque">
-<p:dataTable id="tabelaConsulta" value="#{gerenciaEstoqueBean['listaDeComponentes']}" var="estoqueComponentes" emptyMessage="Componente sem cadastro" scrollable="true" scrollHeight="280" style="margin-left: -25px; text-align: center;">
+<p:dataTable id="tabelaConsulta" value="#{gerenciaEstoqueBean['listaDeComponentes']}" var="estoqueComponentes" emptyMessage="Não há componentes cadastrados" scrollable="true" scrollHeight="280" style="margin-left: -25px; text-align: center;">
 	<f:facet name="header">
 		<p:outputPanel>
 			<h:outputText value="Procurar:" />

@@ -31,6 +31,7 @@ public class GerenciaEstoqueBean implements Serializable {
 	private Componente componente;
 
 	private Produto produto;
+	private List<Produto> listaDeProdutos;
 
 	// Variável List utilizado na consulta do estoque de componentes, e na aquisição de componente;
 	private List<Componente> listaDeComponentes;
@@ -89,6 +90,7 @@ public class GerenciaEstoqueBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		this.listaDeComponentes = daoComponente.listarComponentes();
+		this.listaDeProdutos = daoProduto.listarProdutos();
 	}
 
 	public void salvar() {
@@ -276,7 +278,15 @@ public class GerenciaEstoqueBean implements Serializable {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+	
+	public List<Produto> getListaDeProdutos() {
+		return listaDeProdutos;
+	}
 
+	public void setListaDeProdutos(List<Produto> listaDeProdutos) {
+		this.listaDeProdutos = listaDeProdutos;
+	}
+	
 	public String getQtdUtilizado() {
 		return qtdUtilizado;
 	}
