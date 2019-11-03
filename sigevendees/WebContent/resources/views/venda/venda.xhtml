@@ -11,16 +11,13 @@
 	<ui:define name="tituloConteudo">VENDA</ui:define>
 	
 	<ui:define name="conteudoPagina">
-		<h:form id="formVenda" style="margin-left: 5%; width: 80%">
+		<h:form id="formVenda" style="margin-left: 15%; width: 80%">
 		
 			<p:inputText id="clienteDaVenda" placeholder="Cliente" style="width: 37%; margin-right: 10px;"/>
 			
 		    <p:selectOneMenu id="selecionaAformaDePagamento" style="width: 180px;">
-	        	<f:selectItem itemLabel="Forma de Pagamento" noSelectionOption="true"/>
-	        	<f:selectItem itemLabel="Dinheiro" itemValue="dinheiro"/>
-	        	<f:selectItem itemLabel="Cartão Credito" itemValue="cartaoCredito"/>
-	        	<f:selectItem itemLabel="Cartão Debito" itemValue="cartaoDebito"/>
-	        	<f:selectItem itemLabel="a Prazo" itemValue="aPrazo"/>
+	        	<f:selectItem itemLabel="Forma de Pagamento" noSelectionOption="true" itemDisabled="true"/>
+	        	<f:selectItems value="#{vendaBean.opcoesPagamento}" var="opcPagamento" itemLabel="#{opcPagamento.descricao}" itemValue="#{opcPagamento}"/>
 	        </p:selectOneMenu>
 	        
 			<br/><br/>
@@ -66,10 +63,10 @@
 			</p:dataTable>
 	 		
 			<h:outputLabel value="Valor Desconto " />
-			<p:inputText id="vlrTotalDescontoVenda" readonly="true" style="width: 50px; margin-right: 28%;"/>
+			<p:inputText id="vlrTotalDescontoVenda" placeholder="R$" readonly="true" style="width: 50px; margin-right: 28%;"/>
 			
 			<h:outputLabel value="Valor Total "/>
-			<p:inputText id="vlrTotalVenda" readonly="true" style="width: 50px;"/>  	 		
+			<p:inputText id="vlrTotalVenda" placeholder="R$" readonly="true" style="width: 50px;"/>  	 		
 			
 			<br/><br/>
 			
