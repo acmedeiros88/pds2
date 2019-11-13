@@ -1,4 +1,4 @@
-package utils;
+package enumOpc;
 
 public enum OpcoesDePagamento {
 	DINHEIRO("Dinheiro"),

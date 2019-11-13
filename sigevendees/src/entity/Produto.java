@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import utils.Unitario;
+import enumOpc.Unitario;
 
 @Entity
 public class Produto extends Elemento {

@@ -61,7 +61,9 @@
 
 	<br />
 
-	<p:commandButton id="itemProduzido" value="Produzido" action="#{gerenciaPedidoBean.produzido()}" actionListener="#{gerenciaEstoqueBean.init()}" update="@form, tabViewMenuPedido:formItensProduzidos:tabelaPedidoItensProduzidos" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton id="itemProduzido" value="Produzido" action="#{gerenciaPedidoBean.produzido()}" actionListener="#{gerenciaEstoqueBean.init()}" update="@form, tabViewMenuPedido:formItensProduzidos:tabelaPedidoItensProduzidos" style="margin-right:20px;" styleClass="ui-priority-primary">
+		<p:confirm header="Confirmação" message="Todos os Itens produzidos?" icon="fa fa-exclamation-triangle" />
+	</p:commandButton>
 	<p:commandButton id="excluirItem" value="Excluir" action="#{gerenciaPedidoBean.excluir()}" update="@form, tabViewMenuPedido:formGerenciarPedido, growlGerenciarPedido" style="margin-right:20px;" styleClass="ui-priority-primary" >
 		<p:confirm header="Confirmação" message="Deseja excluir?" icon="fa fa-exclamation-triangle" />
 	</p:commandButton>

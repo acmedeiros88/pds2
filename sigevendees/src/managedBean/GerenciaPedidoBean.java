@@ -22,7 +22,7 @@ import entity.ItemDoPedido;
 import entity.ItemDoPedidoPK;
 import entity.Pedido;
 import entity.Produto;
-import utils.Situacao;
+import enumOpc.Situacao;
 
 @ManagedBean
 @SessionScoped

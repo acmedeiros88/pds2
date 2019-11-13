@@ -1,16 +1,11 @@
 package entity;
 
 import java.util.Date;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Venda {
@@ -20,27 +15,30 @@ public class Venda {
 	private int codVenda;
 
 	@Column(nullable = false)
-	private String opcPagamento;
+	private String formaPagamento;
 
 	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
 	private Date dataRealizada;
 
 	@Column(nullable = false)
 	private float vlrTotal;
 
-	@OneToMany(targetEntity = Pedido.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Pedido> pedidos;
+	@Column(nullable = false)
+	private float vlrTotalDesconto;
+
+	@ManyToOne
+	private Pedido itensVenda;
 
 	public Venda() {
 
 	}
 
-	public Venda(String opcPagamento, Date dataRealizada, float vlrTotal, List<Pedido> pedidos) {
-		this.opcPagamento = opcPagamento;
+	public Venda(String formaPagamento, Date dataRealizada, float vlrTotal, float vlrTotalDesconto, Pedido itensVenda) {
+		this.formaPagamento = formaPagamento;
 		this.dataRealizada = dataRealizada;
 		this.vlrTotal = vlrTotal;
-		this.pedidos = pedidos;
+		this.vlrTotalDesconto = vlrTotalDesconto;
+		this.itensVenda = itensVenda;
 	}
 
 	public int getCodVenda() {
@@ -51,12 +49,12 @@ public class Venda {
 		this.codVenda = codVenda;
 	}
 
-	public String getOpcPagamento() {
-		return opcPagamento;
+	public String getFormaPagamento() {
+		return formaPagamento;
 	}
 
-	public void setOpcPagamento(String opcPagamento) {
-		this.opcPagamento = opcPagamento;
+	public void setFormaPagamento(String formaPagamento) {
+		this.formaPagamento = formaPagamento;
 	}
 
 	public Date getDataRealizada() {
@@ -75,12 +73,20 @@ public class Venda {
 		this.vlrTotal = vlrTotal;
 	}
 
-	public List<Pedido> getPedidos() {
-		return pedidos;
+	public float getVlrTotalDesconto() {
+		return vlrTotalDesconto;
 	}
 
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
+	public void setVlrTotalDesconto(float vlrTotalDesconto) {
+		this.vlrTotalDesconto = vlrTotalDesconto;
+	}
+
+	public Pedido getItensVenda() {
+		return itensVenda;
+	}
+
+	public void setItensVenda(Pedido itensVenda) {
+		this.itensVenda = itensVenda;
 	}
 
 	@Override
@@ -107,7 +113,8 @@ public class Venda {
 
 	@Override
 	public String toString() {
-		return "Venda [codVenda=" + codVenda + ", opcPagamento=" + opcPagamento + ", dataRealizada=" + dataRealizada
-				+ ", vlrTotal=" + vlrTotal + ", pedidos=" + pedidos + "]";
+		return "Venda [codVenda=" + codVenda + ", formaPagamento=" + formaPagamento + ", dataRealizada=" + dataRealizada
+				+ ", vlrTotal=" + vlrTotal + ", vlrTotalDesconto=" + vlrTotalDesconto + ", itensVenda=" + itensVenda
+				+ "]";
 	}
 }

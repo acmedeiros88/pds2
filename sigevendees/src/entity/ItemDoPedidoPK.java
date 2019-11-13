@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 
-/* Esta classe representa a composição da chave composta primaria do item do pedido, esta chave e composta por código do pedido + código do produto*/
+/* Esta classe representa a composição da chave primaria composta do item do pedido, esta chave e composta por código do pedido + código do produto*/
 
 @Embeddable
 public class ItemDoPedidoPK implements Serializable {
@@ -65,7 +65,7 @@ public class ItemDoPedidoPK implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ItemDoPedidoPK [codPedido=" + codPedido + ", codProduto=" + codProduto + "]";
+		return "codPedido=" + codPedido + ", codProduto=" + codProduto;
 	}
 
 }

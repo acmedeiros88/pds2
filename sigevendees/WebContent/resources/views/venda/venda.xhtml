@@ -13,9 +13,9 @@
 	<ui:define name="conteudoPagina">
 		<h:form id="formVenda" style="margin-left: 15%; width: 80%">
 		
-			<p:inputText id="clienteDaVenda" placeholder="Cliente" style="width: 37%; margin-right: 10px;"/>
+			<p:inputText id="clienteDaVenda" value="#{vendaBean.clienteVenda.nomeCliente}" placeholder="Cliente" style="width: 37%; margin-right: 10px;"/>
 			
-		    <p:selectOneMenu id="selecionaAformaDePagamento" style="width: 180px;">
+		    <p:selectOneMenu id="selecionaAformaDePagamento" value="#{vendaBean.formaPgm}" style="width: 180px;">
 	        	<f:selectItem itemLabel="Forma de Pagamento" noSelectionOption="true" itemDisabled="true"/>
 	        	<f:selectItems value="#{vendaBean.opcoesPagamento}" var="opcPagamento" itemLabel="#{opcPagamento.descricao}" itemValue="#{opcPagamento}"/>
 	        </p:selectOneMenu>
@@ -38,35 +38,45 @@
 			
 			<br/><br/>
 			
-			<p:dataTable id="tabelaComprasAprazo" value="" var="" scrollable="true" scrollHeight="200" style="width: 570px; max-width: 100%; font-size: 75%;" emptyMessage="">
+			<p:dataTable id="tabelaPreVenda" var="item" value="#{vendaBean.venda.itensVenda.itens}" rowIndexVar="rowIndex" scrollable="true" scrollHeight="200" style="width: 570px; max-width: 100%; font-size: 75%;" emptyMessage="">
 			        <p:column headerText="Item" style="width: 8%; text-align: center;">
-						<h:outputText value="01" />
+						<h:outputText value="#{rowIndex+1}"/>
 					</p:column>	
 			        <p:column headerText="Código" style="width: 11%; text-align: center;">
-			 			<h:outputText value="14" />
+			 			<h:outputText value="#{item.produto.codigo}" />
 			 		</p:column>
-			        <p:column headerText="Produto" style="width: 20%;">
-			        	<h:outputText value="Bolo de Chocolate" />
+			        <p:column headerText="Produto" style="width: 18%;">
+			        	<h:outputText value="#{item.produto.descricao}" />
 			        </p:column>
 			        <p:column headerText="Qtd" style="width: 7%; text-align: center;">
-			        	<h:outputText value="01" />
+			        	<h:outputText value="#{item.qtdProduto}" />
 			        </p:column>
-			        <p:column headerText="Valor Unitario" style="width: 12%; text-align: center;">
-			        	<h:outputText value="R$7,00" />
+			        <p:column headerText="Valor Unitario" style="width: 13%; text-align: center;">
+			        	<h:outputText value="#{item.produto.valor}">
+			        		<f:convertNumber currencyCode ="BRL" type="currency"/>
+			        	</h:outputText>
 			        </p:column>
-			        <p:column headerText="Desconto" style="width: 16%; text-align: center;">
-			        	<h:outputText value="R$0,00" />
+			        <p:column headerText="Desconto" style="width: 13%; text-align: center;">
+			        	<h:outputText value="#{item.vlrDescItem}">
+			        		<f:convertNumber currencyCode ="BRL" type="currency"/>
+			        	</h:outputText>
 			        </p:column>
-			        <p:column headerText="Total" style="width: 10%; text-align: center;">
-			        	<h:outputText value="R$7,00" />
+			        <p:column headerText="Total" style="width: 15%; text-align: center;">
+			        	<h:outputText value="#{item.vlrTotalItem}">
+			        		<f:convertNumber currencyCode ="BRL" type="currency"/>
+			        	</h:outputText>
 			        </p:column>		
 			</p:dataTable>
 	 		
 			<h:outputLabel value="Valor Desconto " />
-			<p:inputText id="vlrTotalDescontoVenda" placeholder="R$" readonly="true" style="width: 50px; margin-right: 28%;"/>
+			<p:inputText id="vlrTotalDescontoVenda" value="#{vendaBean.venda.vlrTotalDesconto}" placeholder="R$" readonly="true" style="font-size: 90%; width: 55px;">
+				<f:convertNumber currencyCode ="BRL" type="currency"/>
+			</p:inputText>
 			
-			<h:outputLabel value="Valor Total "/>
-			<p:inputText id="vlrTotalVenda" placeholder="R$" readonly="true" style="width: 50px;"/>  	 		
+			<h:outputLabel value="Valor Total " style="margin-left: 25%;"/>
+			<p:inputText id="vlrTotalVenda" value="#{vendaBean.venda.vlrTotal}" placeholder="R$" readonly="true" style="font-size: 90%; width: 65px;">
+				<f:convertNumber currencyCode ="BRL" type="currency"/>
+			</p:inputText>  	 		
 			
 			<br/><br/>
 			

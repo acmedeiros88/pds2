@@ -49,6 +49,6 @@
     </p:dialog>
 	<br />
 	<p:commandButton id="descarteItenPedido" value="Fora" style="margin-right:20px;" styleClass="ui-priority-primary" />
-	<p:commandButton id="vendaItenPedido" value="Venda" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton id="vendaItenPedido" value="Venda" action="#{vendaBean.vendaPedido(gerenciaPedidoBean.pedidosSelecionados)}" update="@form" style="margin-right:20px;" styleClass="ui-priority-primary" />
 </h:form>
 </html>

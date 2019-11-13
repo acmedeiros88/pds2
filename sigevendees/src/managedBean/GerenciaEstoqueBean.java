@@ -18,8 +18,8 @@ import entity.ComponenteDoProduto;
 import entity.ComponenteProdutoPK;
 import entity.Elemento;
 import entity.Produto;
-import utils.Categoria;
-import utils.Unitario;
+import enumOpc.Categoria;
+import enumOpc.Unitario;
 
 @ManagedBean
 @SessionScoped

@@ -1,10 +1,10 @@
-package utils;
+package enumOpc;
 
 public enum Situacao {
 	PRODUZIR("A produzir"),
 	PRODUZIDO("Produzido"),
 	FINALIZADO("Finalizado"),
-	CANCELADO("Cancelado");
+	PARCIAL("Vendido parcial");
 
 	private final String descricao;
 
