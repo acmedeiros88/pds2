@@ -41,7 +41,7 @@ public class GerenciaPedidoBean implements Serializable {
 	private Produto produto;
 
 	// private List<Produto> listaDeProdutos;
-
+	protected GerenciaEstoqueBean estoque;
 	private Cliente cliente;
 	protected String numeroTelefone;
 

@@ -125,6 +125,7 @@ public class GerenciaEstoqueBean implements Serializable {
 				setValorVenda(null);
 				elemento = new Elemento();
 				listaDeComponentesDoProduto = new ArrayList<Componente>();
+				init();
 				context.addMessage(null, new FacesMessage("Sucesso", "cadastrado " + getFoiCadastrado() + " " + getDoTipo()));
 			} else {
 				context.addMessage(null, new FacesMessage("Erro", "Não foi possivel realizar o cadastro " + getFoiCadastrado() + " " + getDoTipo()));

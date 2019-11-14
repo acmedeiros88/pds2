@@ -18,9 +18,9 @@
 	
 	<p:inputText id="estoqueMinimo" placeholder="Estoque mínimo" value="#{gerenciaEstoqueBean.estoqueMinimo}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}" style="width: 130px; margin-right: 5px; margin-bottom: 10px;"/>  
 
-	<p:inputText id="valorVenda" placeholder="Valor de Venda R$" value="#{gerenciaEstoqueBean.valorVenda}" rendered="#{gerenciaEstoqueBean.tipoCadastro}" style="width: 168px; margin-right: 245px; margin-bottom: 10px;"/>
+	<p:inputText id="valorVenda" placeholder="Valor de Venda R$" value="#{gerenciaEstoqueBean.valorVenda}" rendered="#{gerenciaEstoqueBean.tipoCadastro}" style="width: 168px; margin-right: 50%; margin-bottom: 10px;"/>
 	
-	<p:selectOneMenu id="tipoUnitario" value="#{gerenciaEstoqueBean.elemento.tipoUnitario}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}" style="width: 100px; margin-right: 180px; margin-bottom: 10px">
+	<p:selectOneMenu id="tipoUnitario" value="#{gerenciaEstoqueBean.elemento.tipoUnitario}" rendered="#{!gerenciaEstoqueBean.tipoCadastro}" style="width: 100px; margin-right: 25%; margin-bottom: 10px">
 		<f:selectItem itemDisabled="true" itemLabel="Tipo Unítario" />
 		<f:selectItems value="#{gerenciaEstoqueBean.opcoes}" var="opcUnitario" itemLabel="#{opcUnitario.descricao}" itemValue="#{opcUnitario}"/>
 	</p:selectOneMenu>
@@ -49,7 +49,7 @@
 			</p:column>
 		</p:dataTable>
 	
-	<p:commandButton value="Salvar" id="salvarCadastro" action="#{gerenciaEstoqueBean.salvar()}" update="@form, tabViewMenuEstoque:formAquisicao, tabViewMenuEstoque:formTabelaDeEstoque" style="margin-right:20px;" styleClass="ui-priority-primary" />
+	<p:commandButton value="Salvar" id="salvarCadastro" action="#{gerenciaEstoqueBean.salvar()}" update="@form, tabViewMenuEstoque:formAquisicao, tabViewMenuEstoque:formTabelaDeEstoque, @(#tabViewMenuPedido:formIncluirPedido)" style="margin-right:20px;" styleClass="ui-priority-primary" />
 	<p:commandButton value="Cancelar" id="cancelarAcaoCadastro" style="margin-right:20px;" styleClass="ui-priority-primary" />
 	
 </h:form>
