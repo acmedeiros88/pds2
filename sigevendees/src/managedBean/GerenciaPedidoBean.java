@@ -31,7 +31,7 @@ public class GerenciaPedidoBean implements Serializable {
 
 	private Pedido pedido;
 	protected String qtdProduto;
-
+	
 	private Pedido pedidoSelecionado;
 	private List<Pedido> pedidosSelecionados;
 
@@ -40,15 +40,13 @@ public class GerenciaPedidoBean implements Serializable {
 
 	private Produto produto;
 
-	// private List<Produto> listaDeProdutos;
-	protected GerenciaEstoqueBean estoque;
 	private Cliente cliente;
 	protected String numeroTelefone;
 
 	protected List<Produto> produtos;
 
 	private Produto iten;
-
+	
 	protected ItemDoPedidoPK pk;
 
 	protected FacesContext context;
@@ -75,6 +73,7 @@ public class GerenciaPedidoBean implements Serializable {
 	public void init() {
 		this.pedidosItemProzuzir = daoPedido.listarPedidosItemProduzir();
 		this.pedidosItemProzuzido = daoPedido.listarPedidosItemProduzido();
+		this.cliente.setNumTelefone(1);
 	}
 
 	public void salvar() {

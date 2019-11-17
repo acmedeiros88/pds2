@@ -23,11 +23,11 @@ public class PedidoDao {
 	public Pedido buscarPorCod(int cod) {
 		return (Pedido) GenericDao.buscarPorId(Pedido.class, cod);
 	}
-	
+
 	public boolean deletarPedido(int cod) {
 		return GenericDao.deletar(Pedido.class, cod);
 	}
-	
+
 	public int getLastInsertId() {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		int resultado = -1;
@@ -55,12 +55,26 @@ public class PedidoDao {
 		}
 		return pedidos;
 	}
-	
+
 	public List<Pedido> listarPedidosItemProduzido() {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		List<Pedido> pedidos;
 		try {
 			String jpql = "SELECT p FROM Pedido p WHERE p.codPedido IN (SELECT i.cod.codPedido FROM ItemDoPedido i WHERE i.statusDoItem LIKE('%PRODUZIDO%'))";
+			entityManager.getTransaction().begin();
+			pedidos = entityManager.createQuery(jpql, Pedido.class).getResultList();
+		} catch (EntityExistsException | TransactionalException e) {
+			pedidos = null;
+			FactoryJPA.shutdown();
+		}
+		return pedidos;
+	}
+
+	public List<Pedido> listarPedidosVendaGeral() {
+		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
+		List<Pedido> pedidos;
+		try {
+			String jpql = "SELECT p FROM Pedido p WHERE p.codPedido IN (SELECT i.cod.codPedido FROM ItemDoPedido i WHERE i.statusDoItem LIKE('%PRODUZIDO%')) AND codCliente=1";
 			entityManager.getTransaction().begin();
 			pedidos = entityManager.createQuery(jpql, Pedido.class).getResultList();
 		} catch (EntityExistsException | TransactionalException e) {

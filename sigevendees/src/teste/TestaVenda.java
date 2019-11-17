@@ -28,6 +28,7 @@ public class TestaVenda {
 		Venda venda = new Venda(pgm, new Date(), valorTotal, descontoTotal, pedidoVenda);
 		daoVenda.salvar(venda);
 		daoPedido.atualizar(pedidoVenda);
+		
 	}
 
 }

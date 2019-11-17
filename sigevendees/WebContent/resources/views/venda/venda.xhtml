@@ -12,29 +12,31 @@
 	
 	<ui:define name="conteudoPagina">
 		<h:form id="formVenda" style="margin-left: 15%; width: 80%">
+		<p:growl id="growlRegistraVenda" showDetail="true" sticky="true" />
 		
 			<p:inputText id="clienteDaVenda" value="#{vendaBean.clienteVenda.nomeCliente}" placeholder="Cliente" style="width: 37%; margin-right: 10px;"/>
 			
 		    <p:selectOneMenu id="selecionaAformaDePagamento" value="#{vendaBean.formaPgm}" style="width: 180px;">
 	        	<f:selectItem itemLabel="Forma de Pagamento" noSelectionOption="true" itemDisabled="true"/>
-	        	<f:selectItems value="#{vendaBean.opcoesPagamento}" var="opcPagamento" itemLabel="#{opcPagamento.descricao}" itemValue="#{opcPagamento}"/>
+	        	<f:selectItems value="#{vendaBean.opcoesPagamento}" var="opcPagamento" itemLabel="#{opcPagamento.descricao}" itemValue="#{opcPagamento.toString()}"/>
 	        </p:selectOneMenu>
 	        
 			<br/><br/>
 			
-			<p:selectOneMenu value="" style="width: 34%; margin-bottom: 10px;">
+			<p:selectOneMenu id="produtoDaVenda" value="#{vendaBean.produto.codigo}" style="width: 34%; margin-bottom: 10px;">
 				<f:selectItem itemLabel="Produto" noSelectionOption="true"/>
-	   			<f:selectItems itemLabel="Bolo" itemValue="" />
+				<f:selectItems value="#{vendaBean['itensVendaGeral']}" var="itemVenda" itemLabel="#{itemVenda.produto.descricao} - #{itemVenda.qtdProduto-itemVenda.qtdVendida} und" itemValue="#{itemVenda.produto.codigo}" />
+				<p:ajax listener="#{vendaBean.buscarProduto()}"/>
 			</p:selectOneMenu>
 			
 			<h:outputLabel for="qtdItemVenda" value="Quantidade: " style="margin-left: 5%;"/>
-			<p:inputText id="qtdItemVenda" placeholder="und" minValue="1" style="width: 80px; margin-right: 10px;" /> 
+			<p:inputText id="qtdItemVenda" value="#{vendaBean.qtdItem}" placeholder="und" minValue="1" style="width: 80px; margin-right: 10px;" /> 
 			<br/>
-			<h:outputLabel for="qtdItemVenda" value="Desconto: "/>
-			<p:inputText id="descontoItemVenda" placeholder="R$" style="width: 35px; margin-bottom: 10px;"/>
+			<h:outputLabel for="descontoItemVenda" value="Desconto: "/>
+			<p:inputText id="descontoItemVenda" value="#{vendaBean.vlrDescItem}" placeholder="R$" style="width: 35px; margin-bottom: 10px;"/>
 			<br/>
 			
-			<p:commandButton id="addItemPreVenda" value="Adicionar" style="width: 123px;"/>
+			<p:commandButton id="addItemPreVenda" value="Adicionar" update="@form" style="width: 123px;"/>
 			
 			<br/><br/>
 			
@@ -57,12 +59,12 @@
 			        	</h:outputText>
 			        </p:column>
 			        <p:column headerText="Desconto" style="width: 13%; text-align: center;">
-			        	<h:outputText value="#{item.vlrDescItem}">
-			        		<f:convertNumber currencyCode ="BRL" type="currency"/>
-			        	</h:outputText>
+					    <h:outputText value="#{item.vlrDescItem}">
+					        <f:convertNumber currencyCode ="BRL" type="currency"/>
+					    </h:outputText>
 			        </p:column>
 			        <p:column headerText="Total" style="width: 15%; text-align: center;">
-			        	<h:outputText value="#{item.vlrTotalItem}">
+			        	<h:outputText value="#{item.vlrTotalItem-item.vlrDescItem}">
 			        		<f:convertNumber currencyCode ="BRL" type="currency"/>
 			        	</h:outputText>
 			        </p:column>		
@@ -80,7 +82,7 @@
 			
 			<br/><br/>
 			
-			<p:commandButton id="salvarVenda" value="Finalizar" style="margin-right:20px; margin-left: 20%;" styleClass="ui-priority-primary"/>
+			<p:commandButton id="salvarVenda" value="Finalizar" action="#{vendaBean.salvar()}" update="@form" style="margin-right:20px; margin-left: 20%;" styleClass="ui-priority-primary"/>
 	        <p:commandButton id="cancelarAcaoVenda" value="Cancelar" style="margin-right:20px;" styleClass="ui-priority-primary" />
 			
 		</h:form>
