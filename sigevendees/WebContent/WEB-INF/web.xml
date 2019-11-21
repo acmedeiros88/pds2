@@ -20,6 +20,12 @@
     <param-value>true</param-value>
   </context-param>
   
+  <!-- Parâmetro para ativar comentários nas view -->
+  <context-param>
+    <param-name>facelets.SKIP_COMMENTS</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>

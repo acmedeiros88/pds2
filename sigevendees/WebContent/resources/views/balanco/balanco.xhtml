@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      
+<ui:composition template="/resources/templates/templatePrincipal.xhtml">
+	<ui:define name="titulo">Balanço</ui:define>
+	<ui:define name="tituloConteudo">BALANÇO</ui:define>
+	
+	<ui:define name="conteudoPagina">
+		<h:form id="formBalanco" style="margin-left: 15%; width: 80%">
+		<p:growl id="growlBalanco" showDetail="true" sticky="true" />
+				
+		<h:outputLabel for="dataInicialConsultarBalanco" value="Périodo:" style="font-size: 30px;"/>
+		<br/>
+
+		<p:calendar id="dataInicialConsultarBalanco" value="" placeholder="dd/mes/ano" pattern="dd/MM/yyyy" mask="true" showOn="button" inputStyle="text-align: center; width: 178px; max-width: 34.8%; margin-bottom: 3%;"/>
+		<h:outputLabel for="dataFinalConsultarBalanco" value="à" style="margin: 1% 1% 1% 1%; font-size: 30px;"/>
+		<p:calendar id="dataFinalConsultarBalanco" value="" placeholder="dd/mes/ano" pattern="dd/MM/yyyy" mask="true" showOn="button" inputStyle="text-align: center; width: 178px; max-width: 34.8%; margin-bottom: 3%;"/>
+		<br/>
+		
+		<p:commandButton id="buscaBalanco" update="" value="Buscar" style="width: 498px; max-width: 100%; margin-bottom: 2%;"/>
+		<br/>
+		
+		<h:outputLabel value="Vendas" style="font-size: 30px;"/>
+		<br/>
+		<p:dataTable id="tabelaDadosBalancoVendas" value="" var="" style="width: 500px; max-width: 100%; text-align: center;">
+				<p:column headerText="Qtd" style="width: 7%;">
+					<h:outputText value="01">
+						<f:convertNumber pattern="###"/>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Valor Total" style="width: 13%;">
+					<h:outputText value="R$200,00">
+						<!-- <f:convertNumber currencyCode ="BRL" type="currency"/> -->
+					</h:outputText>
+				</p:column>	
+		</p:dataTable>
+		<br/>
+		<h:outputLabel value="Custos" style="font-size: 30px;"/>
+		<br/>
+		
+		<p:dataTable id="tabelaDadosBalancoCustos" value="" var="" style="width: 500px; max-width: 100%; text-align: center;">
+				<p:column headerText="Valor Total" style="width: 13%;">
+					<h:outputText value="R$100,00">
+						<!-- <f:convertNumber currencyCode ="BRL" type="currency"/> -->
+					</h:outputText>
+				</p:column>	
+		</p:dataTable>
+		
+		</h:form>
+	</ui:define>
+</ui:composition> 
+</html>

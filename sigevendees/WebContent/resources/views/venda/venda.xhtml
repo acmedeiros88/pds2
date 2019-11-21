@@ -40,30 +40,30 @@
 			
 			<br/><br/>
 			
-			<p:dataTable id="tabelaPreVenda" var="item" value="#{vendaBean.venda.itensVenda.itens}" rowIndexVar="rowIndex" scrollable="true" scrollHeight="200" style="width: 570px; max-width: 100%; font-size: 75%;" emptyMessage="">
-			        <p:column headerText="Item" style="width: 8%; text-align: center;">
+			<p:dataTable id="tabelaPreVenda" var="item" value="#{vendaBean.venda.itensVenda.itens}" rowIndexVar="rowIndex" scrollable="true" scrollHeight="200" style="width: 570px; max-width: 100%; font-size: 75%; text-align: center;" emptyMessage="">
+			        <p:column headerText="Item" style="width: 8%;">
 						<h:outputText value="#{rowIndex+1}"/>
 					</p:column>	
-			        <p:column headerText="Código" style="width: 11%; text-align: center;">
+			        <p:column headerText="Código" style="width: 11%;">
 			 			<h:outputText value="#{item.produto.codigo}" />
 			 		</p:column>
 			        <p:column headerText="Produto" style="width: 18%;">
 			        	<h:outputText value="#{item.produto.descricao}" />
 			        </p:column>
-			        <p:column headerText="Qtd" style="width: 7%; text-align: center;">
+			        <p:column headerText="Qtd" style="width: 7%;">
 			        	<h:outputText value="#{item.qtdProduto}" />
 			        </p:column>
-			        <p:column headerText="Valor Unitario" style="width: 13%; text-align: center;">
+			        <p:column headerText="Valor Unitario" style="width: 13%;">
 			        	<h:outputText value="#{item.produto.valor}">
 			        		<f:convertNumber currencyCode ="BRL" type="currency"/>
 			        	</h:outputText>
 			        </p:column>
-			        <p:column headerText="Desconto" style="width: 13%; text-align: center;">
+			        <p:column headerText="Desconto" style="width: 13%;">
 					    <h:outputText value="#{item.vlrDescItem}">
 					        <f:convertNumber currencyCode ="BRL" type="currency"/>
 					    </h:outputText>
 			        </p:column>
-			        <p:column headerText="Total" style="width: 15%; text-align: center;">
+			        <p:column headerText="Total" style="width: 15%;">
 			        	<h:outputText value="#{item.vlrTotalItem-item.vlrDescItem}">
 			        		<f:convertNumber currencyCode ="BRL" type="currency"/>
 			        	</h:outputText>
