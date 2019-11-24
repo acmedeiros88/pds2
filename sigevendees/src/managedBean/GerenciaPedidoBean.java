@@ -109,6 +109,7 @@ public class GerenciaPedidoBean implements Serializable {
 		for (Pedido p : getPedidosSelecionados()) {
 			for (ItemDoPedido ip : p.getItens()) {
 				ip.setStatusDoItem(Situacao.PRODUZIDO.toString());
+				ip.setDataProduzido(new Date());
 				for (ComponenteDoProduto c : ip.getProduto().getComponentes()) {
 					float novoEstoque = c.getComponente().getEstoqueAtual() - (c.getQtdUtilizada()*ip.getQtdProduto());
 					c.getComponente().setEstoqueAtual(novoEstoque);

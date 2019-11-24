@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityExistsException;
@@ -69,7 +70,22 @@ public class PedidoDao {
 		}
 		return pedidos;
 	}
-
+	
+	public List<Pedido> listarPedidosItemProduzidoPorPeriodo(Date inicio, Date fim){
+		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
+		List<Pedido> pedidos;
+		try {
+			String jpql = "SELECT p FROM Pedido p WHERE p.codPedido IN (SELECT i.cod.codPedido FROM ItemDoPedido i WHERE date(i.dataProduzido) BETWEEN  :inicio AND :fim)";
+			entityManager.getTransaction().begin();
+			pedidos = entityManager.createQuery(jpql, Pedido.class).setParameter("inicio", inicio)
+					.setParameter("fim", fim).getResultList();
+		} catch (EntityExistsException | TransactionalException e) {
+			pedidos = null;
+			FactoryJPA.shutdown();
+		}
+		return pedidos;
+	}
+	
 	public List<Pedido> listarPedidosVendaGeral() {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		List<Pedido> pedidos;

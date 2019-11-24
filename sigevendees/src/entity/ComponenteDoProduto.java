@@ -1,7 +1,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -17,12 +16,11 @@ public class ComponenteDoProduto implements Serializable {
 	@EmbeddedId
 	private ComponenteProdutoPK cod;
 	private float qtdUtilizada;
-	private Date dataProducao;
-	
+
 	@JoinColumn(name = "codComponente", insertable = false, updatable = false)
 	@ManyToOne
 	private Componente componente;
-	
+
 	public ComponenteDoProduto() {
 
 	}
@@ -46,14 +44,6 @@ public class ComponenteDoProduto implements Serializable {
 
 	public void setQtdUtilizada(float qtdUtilizada) {
 		this.qtdUtilizada = qtdUtilizada;
-	}
-
-	public Date getDateProducao() {
-		return dataProducao;
-	}
-
-	public void setDateProducao(Date dateProducao) {
-		this.dataProducao = dateProducao;
 	}
 
 	public Componente getComponente() {

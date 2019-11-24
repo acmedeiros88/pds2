@@ -1,9 +1,13 @@
 package entity;
 
+import java.util.Date;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import enumOpc.Situacao;
 
@@ -15,13 +19,15 @@ public class ItemDoPedido {
 
 	@EmbeddedId
 	private ItemDoPedidoPK cod;
-	//Quantidade de UND do produto solicitado no pedido;
+	// Quantidade de UND do produto solicitado no pedido;
 	private int qtdProduto;
 	private float vlrDescItem;
 	private float vlrTotalItem;
 	private int qtdVendida;
 	private int qtdDescartado;
 	private String statusDoItem;
+	@Temporal(TemporalType.DATE)
+	private Date dataProduzido;
 
 	@JoinColumn(name = "codProduto", insertable = false, updatable = false)
 	@ManyToOne
@@ -97,6 +103,14 @@ public class ItemDoPedido {
 		this.statusDoItem = statusDoItem;
 	}
 
+	public Date getDataProduzido() {
+		return dataProduzido;
+	}
+
+	public void setDataProduzido(Date dataProduzido) {
+		this.dataProduzido = dataProduzido;
+	}
+
 	public Produto getProduto() {
 		return produto;
 	}
@@ -126,6 +140,6 @@ public class ItemDoPedido {
 	public String toString() {
 		return "ItemDoPedido [cod=" + cod + ", qtdPedida=" + qtdProduto + ", vlrDescItem=" + vlrDescItem
 				+ ", vlrTotalItem=" + vlrTotalItem + ", qtdVendida=" + qtdVendida + ", qtdDescartado=" + qtdDescartado
-				+ ", statusDoItem=" + statusDoItem + ", produto=" + produto + "]"+"\n";
+				+ ", statusDoItem=" + statusDoItem + ", produto=" + produto + "]" + "\n";
 	}
 }
