@@ -16,25 +16,25 @@
 		<h:outputLabel for="dataInicialConsultarBalanco" value="Périodo:" style="font-size: 30px;"/>
 		<br/>
 
-		<p:calendar id="dataInicialConsultarBalanco" value="" placeholder="dd/mes/ano" pattern="dd/MM/yyyy" mask="true" showOn="button" inputStyle="text-align: center; width: 178px; max-width: 34.8%; margin-bottom: 3%;"/>
+		<p:calendar id="dataInicialConsultarBalanco" value="#{movimentacaoBean.dataInicial}" placeholder="dd/mes/ano" pattern="dd/MM/yyyy" mask="true" showOn="button" inputStyle="text-align: center; width: 178px; max-width: 34.8%; margin-bottom: 3%;"/>
 		<h:outputLabel for="dataFinalConsultarBalanco" value="à" style="margin: 1% 1% 1% 1%; font-size: 30px;"/>
-		<p:calendar id="dataFinalConsultarBalanco" value="" placeholder="dd/mes/ano" pattern="dd/MM/yyyy" mask="true" showOn="button" inputStyle="text-align: center; width: 178px; max-width: 34.8%; margin-bottom: 3%;"/>
+		<p:calendar id="dataFinalConsultarBalanco" value="#{movimentacaoBean.dataFinal}" placeholder="dd/mes/ano" pattern="dd/MM/yyyy" mask="true" showOn="button" inputStyle="text-align: center; width: 178px; max-width: 34.8%; margin-bottom: 3%;"/>
 		<br/>
 		
-		<p:commandButton id="buscaBalanco" update="" value="Buscar" style="width: 498px; max-width: 100%; margin-bottom: 2%;"/>
+		<p:commandButton id="buscaBalanco" action="#{movimentacaoBean.buscarBalancoDoPeriodo()}" update="@form" value="Buscar" style="width: 498px; max-width: 100%; margin-bottom: 2%;"/>
 		<br/>
 		
 		<h:outputLabel value="Vendas" style="font-size: 30px;"/>
 		<br/>
 		<p:dataTable id="tabelaDadosBalancoVendas" value="" var="" style="width: 500px; max-width: 100%; text-align: center;">
 				<p:column headerText="Qtd" style="width: 7%;">
-					<h:outputText value="01">
+					<h:outputText value="#{movimentacaoBean.qtdTotalUndVendida}">
 						<f:convertNumber pattern="###"/>
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Valor Total" style="width: 13%;">
-					<h:outputText value="R$200,00">
-						<!-- <f:convertNumber currencyCode ="BRL" type="currency"/> -->
+					<h:outputText value="#{movimentacaoBean.valorTotalVenda}">
+						<f:convertNumber currencyCode ="BRL" type="currency"/>
 					</h:outputText>
 				</p:column>	
 		</p:dataTable>
@@ -44,12 +44,21 @@
 		
 		<p:dataTable id="tabelaDadosBalancoCustos" value="" var="" style="width: 500px; max-width: 100%; text-align: center;">
 				<p:column headerText="Valor Total" style="width: 13%;">
-					<h:outputText value="R$100,00">
-						<!-- <f:convertNumber currencyCode ="BRL" type="currency"/> -->
+					<h:outputText value="#{movimentacaoBean.valorTotalCusto}">
+						<f:convertNumber currencyCode ="BRL" type="currency"/>
 					</h:outputText>
 				</p:column>	
 		</p:dataTable>
-		
+		<br/>
+		<h:outputLabel value="Lucro" style="font-size: 30px;"/>
+		<br/>
+		<p:dataTable id="tabelaDadosBalancoLucro" value="" var="" style="width: 500px; max-width: 100%; text-align: center;">
+				<p:column headerText="Valor Total" style="width: 13%;">
+					<h:outputText value="#{movimentacaoBean.valorTotalVenda-movimentacaoBean.valorTotalCusto}">
+						<f:convertNumber currencyCode ="BRL" type="currency"/>
+					</h:outputText>
+				</p:column>	
+		</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition> 

@@ -24,7 +24,7 @@ public class TestaMovimentacao {
 		ArrayList<Pedido> itens = new ArrayList<Pedido>();
 		
 // ABAIXO ESTÁ O TESTE PARA CONSULTAR HISTÓRICO DE VENDA POR PERIODO DO CLIENTE;
-				/*for (Venda v: daoVenda.listarVendasPorCliente(inicial, fim, 123)) {
+				for (Venda v: daoVenda.listarVendasPorCliente(inicial, fim, 123)) {
 					itens.add(v.getItensVenda());
 					System.out.println(v);
 					vlrTotal+=v.getVlrTotal();
@@ -37,10 +37,10 @@ public class TestaMovimentacao {
 					}
 				}
 				System.out.println("TOTAL DE UNIDADE: "+qtdTotalUndVendida);
-				System.out.println("VALOR TOTAL: "+vlrTotal);*/
+				System.out.println("VALOR TOTAL: "+vlrTotal);
 
 // ABAIXO ESTÁ O TESTE PARA CONSULTAR HISTÓRICO DE VENDA POR PERIODO DO PRODUTO;
-				/*for(Venda vp: daoVenda.listarVendasPorProduto(inicial, fim, 14)) {
+				for(Venda vp: daoVenda.listarVendasPorProduto(inicial, fim, 14)) {
 					itens.add(vp.getItensVenda());
 					System.out.println(vp);
 				}
@@ -55,7 +55,7 @@ public class TestaMovimentacao {
 					}
 				}
 				System.out.println("TOTAL DE UNIDADE: "+qtdTotalUndVendida);
-				System.out.println("VALOR TOTAL: "+vlrTotal);*/
+				System.out.println("VALOR TOTAL: "+vlrTotal);
 				
 // ABAIXO ESTÁ O TESTE PARA VALOR DE CUSTO DO PERIODO SOLICITADO;
 		float custo = 0;
@@ -64,8 +64,8 @@ public class TestaMovimentacao {
 				for(ComponenteDoProduto cpc: ipc.getProduto().getComponentes()) {
 					float custoMedioUnitarioDoComponente = cpc.getComponente().getValor();
 					float qtdUtilizadoNoProduto = cpc.getQtdUtilizada();
-					int qtdVendida = ipc.getQtdVendida();
-					custo+= qtdVendida*(custoMedioUnitarioDoComponente*qtdUtilizadoNoProduto);
+					int qtdProduzida = ipc.getQtdProduto();
+					custo+= qtdProduzida*(custoMedioUnitarioDoComponente*qtdUtilizadoNoProduto);
 				}
 			}
 		}

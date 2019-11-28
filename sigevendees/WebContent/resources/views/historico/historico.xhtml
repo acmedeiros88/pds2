@@ -18,21 +18,24 @@
 			<h:outputLabel for="dataInicialConsultarHistorico" value="Périodo:" style="font-size: 30px;"/>
 			<br/>
 
-			<p:calendar id="dataInicialConsultarHistorico" value="" placeholder="dd/mes/ano" pattern="dd/MM/yyyy" mask="true" showOn="button" inputStyle="text-align: center; width: 178px; max-width: 34.8%;"/>
+			<p:calendar id="dataInicialConsultarHistorico" value="#{movimentacaoBean.dataInicial}" placeholder="dd/mes/ano" pattern="dd/MM/yyyy" mask="true" showOn="button" inputStyle="text-align: center; width: 178px; max-width: 34.8%;"/>
 			<h:outputLabel for="dataFinalConsultarHistorico" value="à" style="margin: 1% 1% 1% 1%; font-size: 30px;"/>
-			<p:calendar id="dataFinalConsultarHistorico" value="" placeholder="dd/mes/ano" pattern="dd/MM/yyyy" mask="true" showOn="button" inputStyle="text-align: center; width: 178px; max-width: 34.8%;"/>
+			<p:calendar id="dataFinalConsultarHistorico" value="#{movimentacaoBean.dataFinal}" placeholder="dd/mes/ano" pattern="dd/MM/yyyy" mask="true" showOn="button" inputStyle="text-align: center; width: 178px; max-width: 34.8%;"/>
 			<br/>
 			
-			<p:inputText id="clienteConsultarHistorico" placeholder="Consultar por Cliente" value="" style="width: 487px; margin-bottom: 3%; max-width: 98%; margin-top: 3%"/>
+			<p:inputText id="clienteConsultarHistorico" placeholder="Consultar por Cliente" value="#{movimentacaoBean.idCliente}" style="width: 487px; margin-bottom: 3%; max-width: 98%; margin-top: 3%" >
+				 <p:ajax update="formGerenciarCliente" listener="#{movimentacaoBean.buscarCliente()}"/>
+			</p:inputText>
 			<br/>
 			
-			<p:selectOneMenu id="produtoConsultarHistorico" value="#{gerenciaPedidoBean.produto.codigo}" style="width: 461px; max-width: 92%; margin-bottom: 3%;">
+			<p:selectOneMenu id="produtoConsultarHistorico" value="#{movimentacaoBean.produto.codigo}" style="width: 461px; max-width: 92%; margin-bottom: 3%;">
 				<f:selectItem itemLabel="Consultar por Produto" noSelectionOption="true"/>
 				<f:selectItems value="#{gerenciaEstoqueBean['listaDeProdutos']}" var="itemPedido" itemLabel="#{itemPedido.descricao}" itemValue="#{itemPedido.codigo}"/>
+				<p:ajax listener="#{movimentacaoBean.buscarProduto()}"/>
 			</p:selectOneMenu>
 			<br/>
 			
-			<p:commandButton id="buscaHistorico" update="" value="Buscar" style="width: 498px; max-width: 100%; margin-bottom: 2%;"/>
+			<p:commandButton id="buscaHistorico" update="@form" value="Buscar" style="width: 498px; max-width: 100%; margin-bottom: 2%;"/>
 			<br/>
 			
 			<p:dataTable id="tabelaDadosConsultaHistorico" value="" var="" scrollable="true" scrollHeight="90" style="width: 500px; max-width: 100%; font-size: 75%; text-align: center;" emptyMessage=" ">
