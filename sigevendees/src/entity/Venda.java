@@ -1,10 +1,12 @@
 package entity;
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -26,19 +28,20 @@ public class Venda {
 	@Column(nullable = false)
 	private float vlrTotalDesconto;
 
+	@JoinColumn(name = "codPedido")
 	@ManyToOne
-	private Pedido itensVenda;
+	private Pedido pedidoDaVenda;
 
 	public Venda() {
 
 	}
 
-	public Venda(String formaPagamento, Date dataRealizada, float vlrTotal, float vlrTotalDesconto, Pedido itensVenda) {
+	public Venda(String formaPagamento, Date dataRealizada, float vlrTotal, float vlrTotalDesconto, Pedido pedido) {
 		this.formaPagamento = formaPagamento;
 		this.dataRealizada = dataRealizada;
 		this.vlrTotal = vlrTotal;
 		this.vlrTotalDesconto = vlrTotalDesconto;
-		this.itensVenda = itensVenda;
+		this.pedidoDaVenda = pedido;
 	}
 
 	public int getCodVenda() {
@@ -81,12 +84,12 @@ public class Venda {
 		this.vlrTotalDesconto = vlrTotalDesconto;
 	}
 
-	public Pedido getItensVenda() {
-		return itensVenda;
+	public Pedido getPedidoDaVenda() {
+		return pedidoDaVenda;
 	}
 
-	public void setItensVenda(Pedido itensVenda) {
-		this.itensVenda = itensVenda;
+	public void setPedidoDaVenda(Pedido itensVenda) {
+		this.pedidoDaVenda = itensVenda;
 	}
 
 	@Override
@@ -114,7 +117,7 @@ public class Venda {
 	@Override
 	public String toString() {
 		return "Venda [codVenda=" + codVenda + ", formaPagamento=" + formaPagamento + ", dataRealizada=" + dataRealizada
-				+ ", vlrTotal=" + vlrTotal + ", vlrTotalDesconto=" + vlrTotalDesconto + ", itensVenda=" + itensVenda
-				+ "]";
+				+ ", vlrTotal=" + vlrTotal + ", vlrTotalDesconto=" + vlrTotalDesconto + ", pedidoDaVenda="
+				+ pedidoDaVenda + "]";
 	}
 }

@@ -40,7 +40,7 @@
 			
 			<br/><br/>
 			
-			<p:dataTable id="tabelaPreVenda" var="item" value="#{vendaBean.venda.itensVenda.itens}" rowIndexVar="rowIndex" scrollable="true" scrollHeight="200" style="width: 570px; max-width: 100%; font-size: 75%; text-align: center;" emptyMessage="">
+			<p:dataTable id="tabelaPreVenda" var="item" value="#{vendaBean.venda.pedidoDaVenda.itens}" rowIndexVar="rowIndex" scrollable="true" scrollHeight="200" style="width: 570px; max-width: 100%; font-size: 75%; text-align: center;" emptyMessage="">
 			        <p:column headerText="Item" style="width: 8%;">
 						<h:outputText value="#{rowIndex+1}"/>
 					</p:column>	

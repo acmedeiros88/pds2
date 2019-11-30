@@ -25,23 +25,20 @@ public class TestaMovimentacao {
 		
 // ABAIXO ESTÁ O TESTE PARA CONSULTAR HISTÓRICO DE VENDA POR PERIODO DO CLIENTE;
 				for (Venda v: daoVenda.listarVendasPorCliente(inicial, fim, 123)) {
-					itens.add(v.getItensVenda());
 					System.out.println(v);
 					vlrTotal+=v.getVlrTotal();
-				}
-				System.out.println("-----------------------------------");
-				for(Pedido p: itens) {
-					for(ItemDoPedido ip: p.getItens()) {
+					for(ItemDoPedido ip: v.getPedidoDaVenda().getItens()) {
 						qtdTotalUndVendida+=ip.getQtdVendida();
 						System.out.println("ITEN DA VENDA: "+ip.getProduto());
 					}
 				}
+				System.out.println("-----------------------------------");
 				System.out.println("TOTAL DE UNIDADE: "+qtdTotalUndVendida);
 				System.out.println("VALOR TOTAL: "+vlrTotal);
-
+/*
 // ABAIXO ESTÁ O TESTE PARA CONSULTAR HISTÓRICO DE VENDA POR PERIODO DO PRODUTO;
 				for(Venda vp: daoVenda.listarVendasPorProduto(inicial, fim, 14)) {
-					itens.add(vp.getItensVenda());
+					itens.add(vp.getPedidoDaVenda());
 					System.out.println(vp);
 				}
 				System.out.println("-----------------------------------");
@@ -56,7 +53,7 @@ public class TestaMovimentacao {
 				}
 				System.out.println("TOTAL DE UNIDADE: "+qtdTotalUndVendida);
 				System.out.println("VALOR TOTAL: "+vlrTotal);
-				
+			
 // ABAIXO ESTÁ O TESTE PARA VALOR DE CUSTO DO PERIODO SOLICITADO;
 		float custo = 0;
 		for(Pedido pc: daoPedido.listarPedidosItemProduzidoPorPeriodo(inicial, fim)) {
@@ -71,6 +68,22 @@ public class TestaMovimentacao {
 		}
 		System.out.println("CUSTO TOTAL: "+custo);
 
+		
+		for (Venda v: daoVenda.listarVendasPorCliente(inicial, fim, 123)) {
+			itens.add(v.getPedidoDaVenda());
+			System.out.println(v);
+			vlrTotal+=v.getVlrTotal();
+		}
+		System.out.println("-----------------------------------");
+		for(Pedido p: itens) {
+			for(ItemDoPedido ip: p.getItens()) {
+				qtdTotalUndVendida+=ip.getQtdVendida();
+				System.out.println("ITEN DA VENDA: "+ip.getProduto());
+			}
+		}
+		System.out.println("TOTAL DE UNIDADE: "+qtdTotalUndVendida);
+		System.out.println("VALOR TOTAL: "+vlrTotal);
+		*/
 	}
 
 }

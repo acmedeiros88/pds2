@@ -3,7 +3,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+                   xmlns:c="http://java.sun.com/jsp/jstl/core">
       
 <ui:composition template="/resources/templates/templatePrincipal.xhtml">
 
@@ -24,56 +25,60 @@
 			<br/>
 			
 			<p:inputText id="clienteConsultarHistorico" placeholder="Consultar por Cliente" value="#{movimentacaoBean.idCliente}" style="width: 487px; margin-bottom: 3%; max-width: 98%; margin-top: 3%" >
-				 <p:ajax update="formGerenciarCliente" listener="#{movimentacaoBean.buscarCliente()}"/>
+				 <p:ajax update="clienteConsultarHistorico" listener="#{movimentacaoBean.buscarCliente()}"/>
 			</p:inputText>
 			<br/>
 			
 			<p:selectOneMenu id="produtoConsultarHistorico" value="#{movimentacaoBean.produto.codigo}" style="width: 461px; max-width: 92%; margin-bottom: 3%;">
 				<f:selectItem itemLabel="Consultar por Produto" noSelectionOption="true"/>
 				<f:selectItems value="#{gerenciaEstoqueBean['listaDeProdutos']}" var="itemPedido" itemLabel="#{itemPedido.descricao}" itemValue="#{itemPedido.codigo}"/>
-				<p:ajax listener="#{movimentacaoBean.buscarProduto()}"/>
+				<p:ajax update="produtoConsultarHistorico" listener="#{movimentacaoBean.buscarProduto()}"/>
 			</p:selectOneMenu>
 			<br/>
 			
-			<p:commandButton id="buscaHistorico" update="@form" value="Buscar" style="width: 498px; max-width: 100%; margin-bottom: 2%;"/>
+			<p:commandButton id="buscaHistorico" action="#{movimentacaoBean.buscarHistoricoDoPeriodo()}" value="Buscar" update="@form" style="width: 498px; max-width: 100%; margin-bottom: 2%;"/>
 			<br/>
 			
-			<p:dataTable id="tabelaDadosConsultaHistorico" value="" var="" scrollable="true" scrollHeight="90" style="width: 500px; max-width: 100%; font-size: 75%; text-align: center;" emptyMessage=" ">
-
+			<p:dataTable id="tabelaDadosConsultaHistorico" value="#{movimentacaoBean.itens}" var="item"  scrollable="true" scrollHeight="90" style="width: 500px; max-width: 100%; font-size: 75%; text-align: center;" emptyMessage=" ">
+				 				
 				<p:column headerText="Data" style="width: 10%;">
-					<h:outputText value="31/12/2019">
+					<h:outputText value="#{movimentacaoBean.vendas.get(0).dataRealizada}">
 						<f:convertDateTime pattern="dd/MM/yyyy"/>
 					</h:outputText>
 				</p:column>
-		
-				<p:column headerText="Produto" style="width: 25%;">
-					<h:outputText value="Bolo de chocolate" />
+
+				<p:column headerText="Produto" style="width: 25%;" rendered="#{!movimentacaoBean.exibir}">
+					<h:outputText value="#{item.produto.descricao}" />
 				</p:column>
-		
+				<p:column headerText="Cliente" style="width: 25%;" rendered="#{movimentacaoBean.exibir}">
+					<h:outputText value="#{movimentacaoBean.vendas.get(0).pedidoDaVenda.cliente.nomeCliente}" />
+				</p:column>
+				
 				<p:column headerText="Tipo" style="width: 10%;">
-					<h:outputText value="Bolo" />
+					<h:outputText value="#{item.produto.tipoElemento}" />
 				</p:column>
 		
 				<p:column headerText="Qtd" style="width: 7%;">
-					<h:outputText value="01">
+					<h:outputText value="#{item.qtdVendida}">
 						<f:convertNumber pattern="###"/>
 					</h:outputText>
 				</p:column>
 		
 				<p:column headerText="Valor" style="width: 13%;">
-					<h:outputText value="R$7,00">
-						<!-- <f:convertNumber currencyCode ="BRL" type="currency"/> -->
+					<h:outputText value="#{item.vlrTotalItem}">
+						<f:convertNumber currencyCode ="BRL" type="currency"/>
 					</h:outputText>
 				</p:column>
+			
 			</p:dataTable>
 			<br/>
 			<h:outputLabel value="Total de Unidade " />
-			<p:inputText id="totalUndConsultaHistorico" value="01" readonly="true" style="font-size: 90%; width: 55px;">
+			<p:inputText id="totalUndConsultaHistorico" value="#{movimentacaoBean.qtdTotalUndVendida}" readonly="true" style="font-size: 90%; width: 55px;">
 				<f:convertNumber pattern="###"/>
 			</p:inputText>
 			
 			<h:outputLabel value="Valor Total " style="margin-left: 98px;"/>
-			<p:inputText id="vlrTotalConsultaHistorico" value="" readonly="true" style="font-size: 90%; width: 65px;">
+			<p:inputText id="vlrTotalConsultaHistorico" value="#{movimentacaoBean.valorTotalVenda}" readonly="true" style="font-size: 90%; width: 65px;">
 				<f:convertNumber currencyCode ="BRL" type="currency"/>
 			</p:inputText> 
 			

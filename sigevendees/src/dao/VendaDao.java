@@ -38,7 +38,7 @@ public class VendaDao {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		List<Venda> vendas;
 		try {
-			String jpql = "SELECT v FROM Venda v WHERE (date(v.dataRealizada) BETWEEN :inicio AND :fim) AND v.itensVenda IN"
+			String jpql = "SELECT v FROM Venda v WHERE (date(v.dataRealizada) BETWEEN :inicio AND :fim) AND v.pedidoDaVenda IN"
 					+ "(SELECT p.codPedido FROM Pedido p WHERE codCliente=:cliente)";
 			entityManager.getTransaction().begin();
 			vendas = entityManager.createQuery(jpql, Venda.class).setParameter("inicio", inicio)
@@ -54,7 +54,7 @@ public class VendaDao {
 		EntityManager entityManager = FactoryJPA.getEntityManagerFactory().createEntityManager();
 		List<Venda> vendas;
 		try {
-			String jpql = "SELECT v FROM Venda v WHERE (date(v.dataRealizada) BETWEEN :inicio AND :fim) AND v.itensVenda IN"
+			String jpql = "SELECT v FROM Venda v WHERE (date(v.dataRealizada) BETWEEN :inicio AND :fim) AND v.pedidoDaVenda IN"
 					+ "(SELECT i.cod.codPedido FROM ItemDoPedido i WHERE i.cod.codProduto=:produto)";
 			entityManager.getTransaction().begin();
 			vendas = entityManager.createQuery(jpql, Venda.class).setParameter("inicio", inicio)

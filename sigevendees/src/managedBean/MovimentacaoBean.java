@@ -3,6 +3,7 @@ package managedBean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -25,7 +26,7 @@ import entity.Venda;
 @SessionScoped
 public class MovimentacaoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	FacesContext context;
 	private Cliente cliente;
 	private String idCliente;
 	private Produto produto;
@@ -34,12 +35,18 @@ public class MovimentacaoBean implements Serializable {
 	private int qtdTotalUndVendida;
 	private float valorTotalVenda;
 	private float valorTotalCusto;
-	ArrayList<Pedido> itens;
-
+	private List<Venda> vendas;
+	private List<ItemDoPedido> itens;
+	
+	//Variável utilizada para exibir a coluna cliente na tabela id="tabelaDadosConsultaHistorico" nas consultas de historico de vendas por produto;
+	private boolean exibir;
+	
 	public MovimentacaoBean() {
 		this.cliente = new Cliente();
 		this.produto = new Produto();
-		this.itens = new ArrayList<Pedido>();
+		this.vendas = new ArrayList<Venda>();
+		this.itens = new ArrayList<ItemDoPedido>();
+		this.exibir = false;
 	}
 
 	@Inject
@@ -52,39 +59,41 @@ public class MovimentacaoBean implements Serializable {
 	private ProdutoDao daoProduto = new ProdutoDao();
 
 	public void buscarBalancoDoPeriodo() {
-		// Abaixo está o calculo do valor de custo do periodo solicitado;
-		float somaCusto = 0;
-		int somaQtdVendido = 0;
-		for (Pedido pedidoCusto : daoPedido.listarPedidosItemProduzidoPorPeriodo(getDataInicial(), getDataFinal())) {
-			for (ItemDoPedido itemPedidoCusto : pedidoCusto.getItens()) {
-				for (ComponenteDoProduto componentes : itemPedidoCusto.getProduto().getComponentes()) {
-					float custoMedioUnitarioDoComponente = componentes.getComponente().getValor();
-					float qtdUtilizadoNoProduto = componentes.getQtdUtilizada();
-					int qtdProduzida = itemPedidoCusto.getQtdProduto();
-					somaCusto += qtdProduzida * (custoMedioUnitarioDoComponente * qtdUtilizadoNoProduto);
+		context = FacesContext.getCurrentInstance();
+		vendas = daoVenda.listarVendasPorPeriodo(getDataInicial(), getDataFinal());
+		if (!vendas.isEmpty()) {
+			// Abaixo está o calculo do valor de custo do período solicitado;
+			float somaCusto = 0;
+			int somaQtdVendido = 0;
+			for (Pedido pedidoCusto : daoPedido.listarPedidosItemProduzidoPorPeriodo(getDataInicial(),
+					getDataFinal())) {
+				for (ItemDoPedido itemPedidoCusto : pedidoCusto.getItens()) {
+					for (ComponenteDoProduto componentes : itemPedidoCusto.getProduto().getComponentes()) {
+						float custoMedioUnitarioDoComponente = componentes.getComponente().getValor();
+						float qtdUtilizadoNoProduto = componentes.getQtdUtilizada();
+						int qtdProduzida = itemPedidoCusto.getQtdProduto();
+						somaCusto += qtdProduzida * (custoMedioUnitarioDoComponente * qtdUtilizadoNoProduto);
+					}
 				}
 			}
-		}
-
-		// Abaixo está o calculo de venda do periodo solicitado;
-		float somaVlrTotal = 0;
-		for (Venda vendas : daoVenda.listarVendasPorPeriodo(getDataInicial(), getDataFinal())) {
-			itens.add(vendas.getItensVenda());
-			somaVlrTotal += vendas.getVlrTotal();
-		}
-		for (Pedido pedidos : itens) {
-			for (ItemDoPedido itemPedido : pedidos.getItens()) {
-				somaQtdVendido += itemPedido.getQtdVendida();
+			// Abaixo está o calculo de vendas do período solicitado;
+			float somaVlrTotal = 0;
+			for (Venda v : vendas) {
+				somaVlrTotal += v.getVlrTotal();
+				for (ItemDoPedido itemPedido : v.getPedidoDaVenda().getItens()) {
+					somaQtdVendido += itemPedido.getQtdVendida();
+				}
 			}
+			setValorTotalCusto(somaCusto);
+			setQtdTotalUndVendida(somaQtdVendido);
+			setValorTotalVenda(somaVlrTotal);
+		} else {
+			context.addMessage(null, new FacesMessage("Aviso", "Não possui movimentação no período informado"));
 		}
-		setValorTotalCusto(somaCusto);
-		setQtdTotalUndVendida(somaQtdVendido);
-		setValorTotalVenda(somaVlrTotal);
-		itens.clear();
 	}
 
 	public void buscarCliente() {
-		FacesContext context = FacesContext.getCurrentInstance();
+		context = FacesContext.getCurrentInstance();
 		int telefone = 0;
 		try {
 			telefone = Integer.parseInt(getIdCliente());
@@ -107,37 +116,44 @@ public class MovimentacaoBean implements Serializable {
 	}
 
 	public void buscarHistoricoDoPeriodo() {
+		context = FacesContext.getCurrentInstance();
 		int somaQtdVendido = 0;
 		float somaVlrTotal = 0;
-		if (!produto.equals(null)) {
-			for (Venda vendaProduto : daoVenda.listarVendasPorProduto(getDataInicial(), getDataFinal(),produto.getCodigo())) {
-				itens.add(vendaProduto.getItensVenda());
-			}
-			for (Pedido pedidoDaVenda : itens) {
-				for (ItemDoPedido itemDopedidoDaVenda : pedidoDaVenda.getItens()) {
-					if (itemDopedidoDaVenda.getCod().getCodProduto() == produto.getCodigo()) {
-						somaQtdVendido += itemDopedidoDaVenda.getQtdVendida();
-						somaVlrTotal += (itemDopedidoDaVenda.getProduto().getValor()
-								* itemDopedidoDaVenda.getQtdVendida()) - itemDopedidoDaVenda.getVlrDescItem();
+		if (produto.getCodigo() > 0) {
+			vendas = daoVenda.listarVendasPorProduto(getDataInicial(), getDataFinal(), produto.getCodigo());
+			if (!vendas.isEmpty()) {
+				setExibir(true);
+				for (Venda produtoVenda : vendas) {
+					for (ItemDoPedido itemDoPedidoDaVenda : produtoVenda.getPedidoDaVenda().getItens()) {
+						if (itemDoPedidoDaVenda.getCod().getCodProduto() == produto.getCodigo()) {
+							somaQtdVendido += itemDoPedidoDaVenda.getQtdVendida();
+							somaVlrTotal += (itemDoPedidoDaVenda.getProduto().getValor()
+									* itemDoPedidoDaVenda.getQtdVendida()) - itemDoPedidoDaVenda.getVlrDescItem();
+							itens.add(itemDoPedidoDaVenda);
+						}
 					}
 				}
+				setQtdTotalUndVendida(somaQtdVendido);
+				setValorTotalVenda(somaVlrTotal);
+			} else {
+				context.addMessage(null, new FacesMessage("Aviso", "Não possui histórico no período informado"));
 			}
-			setQtdTotalUndVendida(somaQtdVendido);
-			setValorTotalVenda(somaVlrTotal);
 		} else {
-			for (Venda v : daoVenda.listarVendasPorCliente(getDataInicial(), getDataFinal(), cliente.getNumTelefone())) {
-				itens.add(v.getItensVenda());
-				somaVlrTotal += v.getVlrTotal();
-			}
-			System.out.println("-----------------------------------");
-			for (Pedido p : itens) {
-				for (ItemDoPedido ip : p.getItens()) {
-					somaQtdVendido += ip.getQtdVendida();
-					System.out.println("ITEN DA VENDA: " + ip.getProduto());
+			vendas = daoVenda.listarVendasPorCliente(getDataInicial(), getDataFinal(), cliente.getNumTelefone());
+			if (!vendas.isEmpty()) {
+				setExibir(false);
+				for (Venda clienteVenda : vendas) {
+					somaVlrTotal += clienteVenda.getVlrTotal();
+					for (ItemDoPedido itemDoPedidoDaVenda : clienteVenda.getPedidoDaVenda().getItens()) {
+						somaQtdVendido += itemDoPedidoDaVenda.getQtdVendida();
+						itens.add(itemDoPedidoDaVenda);
+					}
 				}
+				setQtdTotalUndVendida(somaQtdVendido);
+				setValorTotalVenda(somaVlrTotal);
+			} else {
+				context.addMessage(null, new FacesMessage("Aviso", "Não possui histórico no período informado"));
 			}
-			System.out.println("TOTAL DE UNIDADE: " + somaQtdVendido);
-			System.out.println("VALOR TOTAL: " + somaVlrTotal);
 		}
 	}
 
@@ -206,11 +222,19 @@ public class MovimentacaoBean implements Serializable {
 		this.idCliente = idCliente;
 	}
 
-	public ArrayList<Pedido> getItens() {
+	public List<Venda> getVendas() {
+		return vendas;
+	}
+
+	public List<ItemDoPedido> getItens() {
 		return itens;
 	}
 
-	public void setItens(ArrayList<Pedido> itens) {
-		this.itens = itens;
+	public boolean isExibir() {
+		return exibir;
+	}
+
+	public void setExibir(boolean apresentar) {
+		this.exibir = apresentar;
 	}
 }

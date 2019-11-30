@@ -77,7 +77,7 @@ public class VendaBean implements Serializable {
 	public void salvar() {
 		context = FacesContext.getCurrentInstance();
 		this.venda.setFormaPagamento(getFormaPgm());
-		if (daoVenda.salvar(this.venda) && daoPedido.atualizar(this.venda.getItensVenda())) {
+		if (daoVenda.salvar(this.venda) && daoPedido.atualizar(this.venda.getPedidoDaVenda())) {
 			this.venda = new Venda();
 			setFormaPgm(null);
 			setClienteVenda(null);

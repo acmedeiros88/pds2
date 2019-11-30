@@ -73,7 +73,6 @@ public class GerenciaPedidoBean implements Serializable {
 	public void init() {
 		this.pedidosItemProzuzir = daoPedido.listarPedidosItemProduzir();
 		this.pedidosItemProzuzido = daoPedido.listarPedidosItemProduzido();
-		this.cliente.setNumTelefone(1);
 	}
 
 	public void salvar() {
