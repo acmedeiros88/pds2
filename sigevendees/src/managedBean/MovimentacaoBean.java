@@ -226,6 +226,10 @@ public class MovimentacaoBean implements Serializable {
 		return vendas;
 	}
 
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
+	}
+
 	public List<ItemDoPedido> getItens() {
 		return itens;
 	}

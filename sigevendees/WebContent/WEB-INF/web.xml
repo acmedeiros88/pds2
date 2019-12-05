@@ -26,6 +26,12 @@
     <param-value>true</param-value>
   </context-param>
   
+  <!-- Parâmetro para ativar a validação do lado do cliente (CVS) -->
+  <context-param>
+    <param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>

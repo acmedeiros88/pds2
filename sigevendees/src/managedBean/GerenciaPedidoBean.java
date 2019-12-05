@@ -77,6 +77,12 @@ public class GerenciaPedidoBean implements Serializable {
 
 	public void salvar() {
 		context = FacesContext.getCurrentInstance();
+		
+		// Se não identificar o cliente no pedido, fica como padrão vendas em geral;
+		if(getCliente().getNumTelefone() <= 0 ) {
+			getCliente().setNumTelefone(1);
+		}
+		
 		this.pedido.setCliente(cliente);
 		this.pedido.setDataSolicitado(new Date());
 		this.pedido.setDataEntrega(pedido.getDataEntrega());
