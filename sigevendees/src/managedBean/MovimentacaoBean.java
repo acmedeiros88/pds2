@@ -36,7 +36,6 @@ public class MovimentacaoBean implements Serializable {
 	private float valorTotalVenda;
 	private float valorTotalCusto;
 	private List<Venda> vendas;
-	private List<ItemDoPedido> itens;
 	
 	//Variável utilizada para exibir a coluna cliente na tabela id="tabelaDadosConsultaHistorico" nas consultas de historico de vendas por produto;
 	private boolean exibir;
@@ -45,7 +44,6 @@ public class MovimentacaoBean implements Serializable {
 		this.cliente = new Cliente();
 		this.produto = new Produto();
 		this.vendas = new ArrayList<Venda>();
-		this.itens = new ArrayList<ItemDoPedido>();
 		this.exibir = false;
 	}
 
@@ -129,7 +127,6 @@ public class MovimentacaoBean implements Serializable {
 							somaQtdVendido += itemDoPedidoDaVenda.getQtdVendida();
 							somaVlrTotal += (itemDoPedidoDaVenda.getProduto().getValor()
 									* itemDoPedidoDaVenda.getQtdVendida()) - itemDoPedidoDaVenda.getVlrDescItem();
-							itens.add(itemDoPedidoDaVenda);
 						}
 					}
 				}
@@ -146,7 +143,6 @@ public class MovimentacaoBean implements Serializable {
 					somaVlrTotal += clienteVenda.getVlrTotal();
 					for (ItemDoPedido itemDoPedidoDaVenda : clienteVenda.getPedidoDaVenda().getItens()) {
 						somaQtdVendido += itemDoPedidoDaVenda.getQtdVendida();
-						itens.add(itemDoPedidoDaVenda);
 					}
 				}
 				setQtdTotalUndVendida(somaQtdVendido);
@@ -224,14 +220,6 @@ public class MovimentacaoBean implements Serializable {
 
 	public List<Venda> getVendas() {
 		return vendas;
-	}
-
-	public void setVendas(List<Venda> vendas) {
-		this.vendas = vendas;
-	}
-
-	public List<ItemDoPedido> getItens() {
-		return itens;
 	}
 
 	public boolean isExibir() {

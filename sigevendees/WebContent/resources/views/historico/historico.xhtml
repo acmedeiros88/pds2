@@ -38,39 +38,79 @@
 			
 			<p:commandButton id="buscaHistorico" action="#{movimentacaoBean.buscarHistoricoDoPeriodo()}" value="Buscar" update="@form" style="width: 498px; max-width: 100%; margin-bottom: 2%;"/>
 			<br/>
-			
-			<p:dataTable id="tabelaDadosConsultaHistorico" value="#{movimentacaoBean.itens}" var="item"  scrollable="true" scrollHeight="90" style="width: 500px; max-width: 100%; font-size: 75%; text-align: center;" emptyMessage=" ">
-				 				
+			<p:dataTable id="tabelaDadosConsultaHistorico" value="#{movimentacaoBean['vendas']}" var="item"  scrollable="true" scrollHeight="90" style="width: 500px; max-width: 100%; font-size: 75%; text-align: center;" emptyMessage=" ">
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column headerText="Data"/>
+						<p:column headerText="Produto" rendered="#{!movimentacaoBean.exibir}"/>
+						<p:column headerText="Cliente" rendered="#{movimentacaoBean.exibir}"/>
+						<p:column headerText="Tipo"/>
+						<p:column headerText="Qtd"/>
+						<p:column headerText="Valor"/>
+					</p:row>
+				</p:columnGroup>
+				<p:subTable value="#{item.pedidoDaVenda['itens']}" var="produto">
+					<p:column>
+						<h:outputText value="#{item.dataRealizada}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+					<p:column rendered="#{!movimentacaoBean.exibir}">
+						<h:outputText value="#{produto.produto.descricao}"/>
+					</p:column>
+					<p:column rendered="#{movimentacaoBean.exibir}">
+						<h:outputText value="#{item.pedidoDaVenda.cliente.nomeCliente}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{produto.produto.tipoElemento}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{produto.qtdVendida}">
+							<f:convertNumber pattern="###"/>
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{produto.vlrTotalItem}">
+							<f:convertNumber currencyCode ="BRL" type="currency"/>
+						</h:outputText>
+					</p:column>
+				</p:subTable>
+			</p:dataTable>
+			<!--
+			<p:dataTable id="tabelaDadosConsultaHistorico" value="#{movimentacaoBean.vendas}" var="item"  scrollable="true" scrollHeight="90" style="width: 500px; max-width: 100%; font-size: 75%; text-align: center;" emptyMessage=" ">
+				
 				<p:column headerText="Data" style="width: 10%;">
-					<h:outputText value="#{movimentacaoBean.vendas.get(0).dataRealizada}">
+					<h:outputText value="#{item.dataRealizada}">
 						<f:convertDateTime pattern="dd/MM/yyyy"/>
 					</h:outputText>
 				</p:column>
 				
-				<p:column headerText="Produto" style="width: 25%;" rendered="#{!movimentacaoBean.exibir}">
-					<h:outputText value="#{item.produto.descricao}" />
-				</p:column>
 				<p:column headerText="Cliente" style="width: 25%;" rendered="#{movimentacaoBean.exibir}">
-					<h:outputText value="#{movimentacaoBean.vendas.get(0).pedidoDaVenda.cliente.nomeCliente}" />
+					<h:outputText value="#{item.pedidoDaVenda.cliente.nomeCliente}" />
+				</p:column>
+			
+				<p:column headerText="Produto" style="width: 25%;" rendered="#{!movimentacaoBean.exibir}">
+					<h:outputText value="#{item.pedidoDaVenda.itens.get().produto.descricao}" />
 				</p:column>
 				
 				<p:column headerText="Tipo" style="width: 10%;">
-					<h:outputText value="#{item.produto.tipoElemento}" />
+					<h:outputText value="#{produto.produto.tipoElemento}" />
 				</p:column>
 		
 				<p:column headerText="Qtd" style="width: 7%;">
-					<h:outputText value="#{item.qtdVendida}">
+					<h:outputText value="#{produto.qtdVendida}">
 						<f:convertNumber pattern="###"/>
 					</h:outputText>
 				</p:column>
 		
 				<p:column headerText="Valor" style="width: 13%;">
-					<h:outputText value="#{item.vlrTotalItem}">
+					<h:outputText value="#{produto.vlrTotalItem}">
 						<f:convertNumber currencyCode ="BRL" type="currency"/>
 					</h:outputText>
 				</p:column>
-			
+
 			</p:dataTable>
+			-->
 			<br/>
 			<h:outputLabel value="Total de Unidade " />
 			<p:inputText id="totalUndConsultaHistorico" value="#{movimentacaoBean.qtdTotalUndVendida}" readonly="true" style="font-size: 90%; width: 55px;">
